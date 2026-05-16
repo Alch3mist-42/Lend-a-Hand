@@ -1,34 +1,57 @@
 package com.example.lendahand;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import java.util.ArrayList;
-import java.util.List;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private RecipientAdapter adapter;
-    private List<Recipient> recipientList;
+    private static final String SERVER_URL = "http://192.168.1.100/lendahand";
+
+    private TextInputEditText etUsername, etPassword;
+    private MaterialButton btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Logic: Switch to the matching screen layout
-        setContentView(R.layout.activity_allocation);
+        setContentView(R.layout.activity_login);
 
-        recyclerView = findViewById(R.id.rvRecipients);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        etUsername = findViewById(R.id.etUsername);
+        etPassword = findViewById(R.id.etPassword);
+        btnLogin   = findViewById(R.id.btnLogin);
 
-        // Logic: Create some dummy data to test the UI
-        recipientList = new ArrayList<>();
-        recipientList.add(new Recipient(1, "John Doe", "I need school supplies for my kids.", 10));
-        recipientList.add(new Recipient(2, "Jane Smith", "Looking for warm blankets for winter.", 5));
-        recipientList.add(new Recipient(3, "Local Shelter", "We need canned food for 20 people.", 50));
+        btnLogin.setOnClickListener(v -> attemptLogin());
 
-        adapter = new RecipientAdapter(recipientList);
-        recyclerView.setAdapter(adapter);
+        TextView tvGoToRegister = findViewById(R.id.tvGoToRegister);
+        tvGoToRegister.setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, RegisterActivity.class)));
+    }
+
+    private void attemptLogin() {
+        String username = etUsername.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+
+        if (username.isEmpty()) {
+            etUsername.setError("Username is required");
+            etUsername.requestFocus();
+            return;
+        }
+        if (password.isEmpty()) {
+            etPassword.setError("Password is required");
+            etPassword.requestFocus();
+            return;
+        }
+
+        // TEMPORARY DEMO BYPASS
+        Toast.makeText(this, "Welcome back, " + username + "!", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(MainActivity.this, DiscoverActivity.class);
+        intent.putExtra("username", username);
+        intent.putExtra("user_type", "donor");
+        startActivity(intent);
+        finish();
     }
 }
