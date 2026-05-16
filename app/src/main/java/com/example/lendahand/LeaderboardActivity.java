@@ -26,11 +26,12 @@ public class LeaderboardActivity extends AppCompatActivity {
 
         // ── Bottom nav ──
         setupNavItem(R.id.navDiscover, () ->
-                startActivity(new Intent(this, MainActivity.class)));
+                startActivity(new Intent(this, DiscoverActivity.class)));
         setupNavItem(R.id.navDonate, () ->
                 startActivity(new Intent(this, AddItemsActivity.class)));
         setupNavItem(R.id.navActivity, () -> {});
-        setupNavItem(R.id.navProfile, () -> {});
+        setupNavItem(R.id.navProfile, () ->
+                startActivity(new Intent(this, ProfileActivity.class)));
     }
 
     private void addPressAnimation(CardView card) {

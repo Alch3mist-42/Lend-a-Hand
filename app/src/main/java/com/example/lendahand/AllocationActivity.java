@@ -30,7 +30,7 @@ public class AllocationActivity extends AppCompatActivity {
 
         // ── Bottom nav ──
         setupNavItem(R.id.navDiscover, () ->
-                startActivity(new Intent(this, MainActivity.class)));
+                startActivity(new Intent(this, DiscoverActivity.class)));
         setupNavItem(R.id.navDonate, () ->
                 startActivity(new Intent(this, AddItemsActivity.class)));
         setupNavItem(R.id.navActivity, () ->

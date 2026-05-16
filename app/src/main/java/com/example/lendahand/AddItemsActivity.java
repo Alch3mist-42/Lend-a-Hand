@@ -69,11 +69,12 @@ public class AddItemsActivity extends AppCompatActivity {
 
         // ── Bottom nav ──
         setupNavItem(R.id.navDiscover, () ->
-                startActivity(new Intent(this, MainActivity.class)));
+                startActivity(new Intent(this, DiscoverActivity.class)));
         setupNavItem(R.id.navDonate, () -> {});
         setupNavItem(R.id.navActivity, () ->
                 startActivity(new Intent(this, LeaderboardActivity.class)));
-        setupNavItem(R.id.navProfile, () -> {});
+        setupNavItem(R.id.navProfile, () ->
+                startActivity(new Intent(this, ProfileActivity.class)));
 
         // ── Save button: animate + navigate to Allocation ──
         addCardPressAnimation(findViewById(R.id.btnSubmitItems));
