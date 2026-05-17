@@ -1,461 +1,920 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f8f9fb">
+    android:background="@color/surface_low">
 
-    <!-- HEADER -->
-    <LinearLayout
-        android:id="@+id/topBar"
+    <!-- ═══ STICKY HEADER ═══ -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/primary"
-        android:orientation="vertical"
-        android:paddingStart="24dp"
-        android:paddingTop="52dp"
-        android:paddingEnd="24dp"
-        android:paddingBottom="0dp"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="6dp"
-            android:background="@drawable/chip_inactive"
-            android:paddingStart="12dp" android:paddingEnd="12dp"
-            android:paddingTop="4dp" android:paddingBottom="4dp"
-            android:text="ASTERA"
-            android:textColor="#aaffffff"
-            android:textSize="10sp" android:textStyle="bold"
-            android:letterSpacing="0.12"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Select Items"
-            android:textColor="@color/white"
-            android:textSize="30sp" android:textStyle="bold"
-            android:letterSpacing="-0.02"/>
-
-        <TextView
-            android:id="@+id/tvItemScreenSubtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="20dp"
-            android:text="What would you like to donate?"
-            android:textColor="#80ffffff" android:textSize="14sp"/>
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="none">
-            <LinearLayout
-                android:id="@+id/chipRow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingBottom="16dp">
-
-                <TextView android:id="@+id/chipAll"
-                    android:layout_width="wrap_content" android:layout_height="38dp"
-                    android:layout_marginEnd="8dp" android:background="@drawable/chip_active"
-                    android:gravity="center" android:paddingStart="20dp" android:paddingEnd="20dp"
-                    android:text="All" android:textColor="@color/primary"
-                    android:textSize="13sp" android:textStyle="bold"/>
-
-                <TextView android:id="@+id/chipFood"
-                    android:layout_width="wrap_content" android:layout_height="38dp"
-                    android:layout_marginEnd="8dp" android:background="@drawable/chip_inactive"
-                    android:gravity="center" android:paddingStart="20dp" android:paddingEnd="20dp"
-                    android:text="🥫 Food" android:textColor="#ccffffff"
-                    android:textSize="13sp" android:textStyle="bold"/>
-
-                <TextView android:id="@+id/chipHygiene"
-                    android:layout_width="wrap_content" android:layout_height="38dp"
-                    android:layout_marginEnd="8dp" android:background="@drawable/chip_inactive"
-                    android:gravity="center" android:paddingStart="20dp" android:paddingEnd="20dp"
-                    android:text="🧴 Hygiene" android:textColor="#ccffffff"
-                    android:textSize="13sp" android:textStyle="bold"/>
-
-                <TextView android:id="@+id/chipClothing"
-                    android:layout_width="wrap_content" android:layout_height="38dp"
-                    android:layout_marginEnd="8dp" android:background="@drawable/chip_inactive"
-                    android:gravity="center" android:paddingStart="20dp" android:paddingEnd="20dp"
-                    android:text="👕 Clothing" android:textColor="#ccffffff"
-                    android:textSize="13sp" android:textStyle="bold"/>
-
-                <TextView android:id="@+id/chipHousehold"
-                    android:layout_width="wrap_content" android:layout_height="38dp"
-                    android:layout_marginEnd="8dp" android:background="@drawable/chip_inactive"
-                    android:gravity="center" android:paddingStart="20dp" android:paddingEnd="20dp"
-                    android:text="🏠 Home" android:textColor="#ccffffff"
-                    android:textSize="13sp" android:textStyle="bold"/>
-
-                <TextView android:id="@+id/chipSchool"
-                    android:layout_width="wrap_content" android:layout_height="38dp"
-                    android:layout_marginEnd="8dp" android:background="@drawable/chip_inactive"
-                    android:gravity="center" android:paddingStart="20dp" android:paddingEnd="20dp"
-                    android:text="📚 School" android:textColor="#ccffffff"
-                    android:textSize="13sp" android:textStyle="bold"/>
-
-                <TextView android:id="@+id/chipMedical"
-                    android:layout_width="wrap_content" android:layout_height="38dp"
-                    android:background="@drawable/chip_inactive"
-                    android:gravity="center" android:paddingStart="20dp" android:paddingEnd="20dp"
-                    android:text="💊 Medical" android:textColor="#ccffffff"
-                    android:textSize="13sp" android:textStyle="bold"/>
-
-            </LinearLayout>
-        </HorizontalScrollView>
-    </LinearLayout>
-
-    <!-- SCROLLABLE LIST -->
-    <ScrollView
-        android:id="@+id/scrollContent"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:fillViewport="true"
-        android:overScrollMode="never"
-        app:layout_constraintTop_toBottomOf="@id/topBar"
-        app:layout_constraintBottom_toTopOf="@id/bottomNav">
+        app:elevation="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingStart="16dp" android:paddingEnd="16dp"
-            android:paddingTop="20dp" android:paddingBottom="12dp">
+            android:paddingTop="52dp"
+            android:paddingBottom="0dp"
+            android:paddingHorizontal="24dp">
 
-            <!-- FOOD -->
-            <TextView android:id="@+id/sectionFood" style="@style/CategoryLabel" android:text="🥫  Food &amp; Nutrition"/>
+            <!-- App label pill -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ASTERA"
+                android:textColor="#80FFFFFF"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.12"
+                android:background="@drawable/label_pill_alpha"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="5dp"
+                android:layout_marginBottom="12dp"/>
 
-            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="14dp" android:layout_marginStart="1dp" android:layout_marginEnd="1dp">
-                <View android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="5dp" android:layout_marginStart="3dp" android:layout_marginEnd="3dp" android:background="@drawable/card_shadow_layer"/>
-                <androidx.cardview.widget.CardView android:id="@+id/cardFood1" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="4dp" android:foreground="@drawable/ripple_card" app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="#ffffff">
-                    <LinearLayout style="@style/ItemCardInner">
-                        <TextView style="@style/ItemName" android:text="Non-perishables"/>
-                        <LinearLayout android:layout_width="wrap_content" android:layout_height="44dp" android:background="@drawable/stepper_bg" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="4dp" android:paddingEnd="4dp">
-                            <Button android:id="@+id/btnMinusFood1" style="@style/StepBtn" android:text="−"/>
-                            <TextView android:id="@+id/tvQtyFood1" style="@style/QtyText" android:text="0"/>
-                            <Button android:id="@+id/btnPlusFood1" style="@style/StepBtn" android:text="+"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </FrameLayout>
+            <!-- Big title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Items"
+                android:textColor="@color/white"
+                android:textSize="34sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="4dp"/>
 
-            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="14dp" android:layout_marginStart="1dp" android:layout_marginEnd="1dp">
-                <View android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="5dp" android:layout_marginStart="3dp" android:layout_marginEnd="3dp" android:background="@drawable/card_shadow_layer"/>
-                <androidx.cardview.widget.CardView android:id="@+id/cardFood2" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="4dp" android:foreground="@drawable/ripple_card" app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="#ffffff">
-                    <LinearLayout style="@style/ItemCardInner">
-                        <TextView style="@style/ItemName" android:text="Canned food"/>
-                        <LinearLayout android:layout_width="wrap_content" android:layout_height="44dp" android:background="@drawable/stepper_bg" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="4dp" android:paddingEnd="4dp">
-                            <Button android:id="@+id/btnMinusFood2" style="@style/StepBtn" android:text="−"/>
-                            <TextView android:id="@+id/tvQtyFood2" style="@style/QtyText" android:text="0"/>
-                            <Button android:id="@+id/btnPlusFood2" style="@style/StepBtn" android:text="+"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </FrameLayout>
+            <!-- Subtitle -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="What would you like to donate?"
+                android:textColor="#B2FFFFFF"
+                android:textSize="15sp"
+                android:layout_marginBottom="20dp"/>
 
-            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="14dp" android:layout_marginStart="1dp" android:layout_marginEnd="1dp">
-                <View android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="5dp" android:layout_marginStart="3dp" android:layout_marginEnd="3dp" android:background="@drawable/card_shadow_layer"/>
-                <androidx.cardview.widget.CardView android:id="@+id/cardFood3" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="4dp" android:foreground="@drawable/ripple_card" app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="#ffffff">
-                    <LinearLayout style="@style/ItemCardInner">
-                        <TextView style="@style/ItemName" android:text="Baby formula"/>
-                        <LinearLayout android:layout_width="wrap_content" android:layout_height="44dp" android:background="@drawable/stepper_bg" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="4dp" android:paddingEnd="4dp">
-                            <Button android:id="@+id/btnMinusFood3" style="@style/StepBtn" android:text="−"/>
-                            <TextView android:id="@+id/tvQtyFood3" style="@style/QtyText" android:text="0"/>
-                            <Button android:id="@+id/btnPlusFood3" style="@style/StepBtn" android:text="+"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </FrameLayout>
-
-            <!-- HYGIENE -->
-            <TextView android:id="@+id/sectionHygiene" style="@style/CategoryLabel" android:text="🧴  Hygiene &amp; Personal Care"/>
-
-            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="14dp" android:layout_marginStart="1dp" android:layout_marginEnd="1dp">
-                <View android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="5dp" android:layout_marginStart="3dp" android:layout_marginEnd="3dp" android:background="@drawable/card_shadow_layer"/>
-                <androidx.cardview.widget.CardView android:id="@+id/cardHyg1" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="4dp" android:foreground="@drawable/ripple_card" app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="#ffffff">
-                    <LinearLayout style="@style/ItemCardInner">
-                        <TextView style="@style/ItemName" android:text="Soap / Toothpaste"/>
-                        <LinearLayout android:layout_width="wrap_content" android:layout_height="44dp" android:background="@drawable/stepper_bg" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="4dp" android:paddingEnd="4dp">
-                            <Button android:id="@+id/btnMinusHyg1" style="@style/StepBtn" android:text="−"/>
-                            <TextView android:id="@+id/tvQtyHyg1" style="@style/QtyText" android:text="0"/>
-                            <Button android:id="@+id/btnPlusHyg1" style="@style/StepBtn" android:text="+"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </FrameLayout>
-
-            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="14dp" android:layout_marginStart="1dp" android:layout_marginEnd="1dp">
-                <View android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="5dp" android:layout_marginStart="3dp" android:layout_marginEnd="3dp" android:background="@drawable/card_shadow_layer"/>
-                <androidx.cardview.widget.CardView android:id="@+id/cardHyg2" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="4dp" android:foreground="@drawable/ripple_card" app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="#ffffff">
-                    <LinearLayout style="@style/ItemCardInner">
-                        <TextView style="@style/ItemName" android:text="Sanitary products"/>
-                        <LinearLayout android:layout_width="wrap_content" android:layout_height="44dp" android:background="@drawable/stepper_bg" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="4dp" android:paddingEnd="4dp">
-                            <Button android:id="@+id/btnMinusHyg2" style="@style/StepBtn" android:text="−"/>
-                            <TextView android:id="@+id/tvQtyHyg2" style="@style/QtyText" android:text="0"/>
-                            <Button android:id="@+id/btnPlusHyg2" style="@style/StepBtn" android:text="+"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </FrameLayout>
-
-            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="14dp" android:layout_marginStart="1dp" android:layout_marginEnd="1dp">
-                <View android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="5dp" android:layout_marginStart="3dp" android:layout_marginEnd="3dp" android:background="@drawable/card_shadow_layer"/>
-                <androidx.cardview.widget.CardView android:id="@+id/cardHyg3" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="4dp" android:foreground="@drawable/ripple_card" app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="#ffffff">
-                    <LinearLayout style="@style/ItemCardInner">
-                        <TextView style="@style/ItemName" android:text="Diapers"/>
-                        <LinearLayout android:layout_width="wrap_content" android:layout_height="44dp" android:background="@drawable/stepper_bg" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="4dp" android:paddingEnd="4dp">
-                            <Button android:id="@+id/btnMinusHyg3" style="@style/StepBtn" android:text="−"/>
-                            <TextView android:id="@+id/tvQtyHyg3" style="@style/QtyText" android:text="0"/>
-                            <Button android:id="@+id/btnPlusHyg3" style="@style/StepBtn" android:text="+"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </FrameLayout>
-
-            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="14dp" android:layout_marginStart="1dp" android:layout_marginEnd="1dp">
-                <View android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="5dp" android:layout_marginStart="3dp" android:layout_marginEnd="3dp" android:background="@drawable/card_shadow_layer"/>
-                <androidx.cardview.widget.CardView android:id="@+id/cardHyg4" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="4dp" android:foreground="@drawable/ripple_card" app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="#ffffff">
-                    <LinearLayout style="@style/ItemCardInner">
-                        <TextView style="@style/ItemName" android:text="Shampoo / Deodorant"/>
-                        <LinearLayout android:layout_width="wrap_content" android:layout_height="44dp" android:background="@drawable/stepper_bg" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="4dp" android:paddingEnd="4dp">
-                            <Button android:id="@+id/btnMinusHyg4" style="@style/StepBtn" android:text="−"/>
-                            <TextView android:id="@+id/tvQtyHyg4" style="@style/QtyText" android:text="0"/>
-                            <Button android:id="@+id/btnPlusHyg4" style="@style/StepBtn" android:text="+"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </FrameLayout>
-
-            <!-- CLOTHING -->
-            <TextView android:id="@+id/sectionClothing" style="@style/CategoryLabel" android:text="👕  Clothing &amp; Footwear"/>
-
-            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="14dp" android:layout_marginStart="1dp" android:layout_marginEnd="1dp">
-                <View android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="5dp" android:layout_marginStart="3dp" android:layout_marginEnd="3dp" android:background="@drawable/card_shadow_layer"/>
-                <androidx.cardview.widget.CardView android:id="@+id/cardCloth1" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="4dp" android:foreground="@drawable/ripple_card" app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="#ffffff">
-                    <LinearLayout style="@style/ItemCardInner">
-                        <TextView style="@style/ItemName" android:text="Underwear / Socks"/>
-                        <LinearLayout android:layout_width="wrap_content" android:layout_height="44dp" android:background="@drawable/stepper_bg" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="4dp" android:paddingEnd="4dp">
-                            <Button android:id="@+id/btnMinusCloth1" style="@style/StepBtn" android:text="−"/>
-                            <TextView android:id="@+id/tvQtyCloth1" style="@style/QtyText" android:text="0"/>
-                            <Button android:id="@+id/btnPlusCloth1" style="@style/StepBtn" android:text="+"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </FrameLayout>
-
-            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="14dp" android:layout_marginStart="1dp" android:layout_marginEnd="1dp">
-                <View android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="5dp" android:layout_marginStart="3dp" android:layout_marginEnd="3dp" android:background="@drawable/card_shadow_layer"/>
-                <androidx.cardview.widget.CardView android:id="@+id/cardCloth2" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="4dp" android:foreground="@drawable/ripple_card" app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="#ffffff">
-                    <LinearLayout style="@style/ItemCardInner">
-                        <TextView style="@style/ItemName" android:text="Winter gear (coats, hats)"/>
-                        <LinearLayout android:layout_width="wrap_content" android:layout_height="44dp" android:background="@drawable/stepper_bg" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="4dp" android:paddingEnd="4dp">
-                            <Button android:id="@+id/btnMinusCloth2" style="@style/StepBtn" android:text="−"/>
-                            <TextView android:id="@+id/tvQtyCloth2" style="@style/QtyText" android:text="0"/>
-                            <Button android:id="@+id/btnPlusCloth2" style="@style/StepBtn" android:text="+"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </FrameLayout>
-
-            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="14dp" android:layout_marginStart="1dp" android:layout_marginEnd="1dp">
-                <View android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="5dp" android:layout_marginStart="3dp" android:layout_marginEnd="3dp" android:background="@drawable/card_shadow_layer"/>
-                <androidx.cardview.widget.CardView android:id="@+id/cardCloth3" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="4dp" android:foreground="@drawable/ripple_card" app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="#ffffff">
-                    <LinearLayout style="@style/ItemCardInner">
-                        <TextView style="@style/ItemName" android:text="Shoes / Boots"/>
-                        <LinearLayout android:layout_width="wrap_content" android:layout_height="44dp" android:background="@drawable/stepper_bg" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="4dp" android:paddingEnd="4dp">
-                            <Button android:id="@+id/btnMinusCloth3" style="@style/StepBtn" android:text="−"/>
-                            <TextView android:id="@+id/tvQtyCloth3" style="@style/QtyText" android:text="0"/>
-                            <Button android:id="@+id/btnPlusCloth3" style="@style/StepBtn" android:text="+"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </FrameLayout>
-
-            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="14dp" android:layout_marginStart="1dp" android:layout_marginEnd="1dp">
-                <View android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="5dp" android:layout_marginStart="3dp" android:layout_marginEnd="3dp" android:background="@drawable/card_shadow_layer"/>
-                <androidx.cardview.widget.CardView android:id="@+id/cardCloth4" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="4dp" android:foreground="@drawable/ripple_card" app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="#ffffff">
-                    <LinearLayout style="@style/ItemCardInner">
-                        <TextView style="@style/ItemName" android:text="Professional attire"/>
-                        <LinearLayout android:layout_width="wrap_content" android:layout_height="44dp" android:background="@drawable/stepper_bg" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="4dp" android:paddingEnd="4dp">
-                            <Button android:id="@+id/btnMinusCloth4" style="@style/StepBtn" android:text="−"/>
-                            <TextView android:id="@+id/tvQtyCloth4" style="@style/QtyText" android:text="0"/>
-                            <Button android:id="@+id/btnPlusCloth4" style="@style/StepBtn" android:text="+"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </FrameLayout>
-
-            <!-- HOUSEHOLD -->
-            <TextView android:id="@+id/sectionHousehold" style="@style/CategoryLabel" android:text="🏠  Household Goods &amp; Linen"/>
-
-            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="14dp" android:layout_marginStart="1dp" android:layout_marginEnd="1dp">
-                <View android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="5dp" android:layout_marginStart="3dp" android:layout_marginEnd="3dp" android:background="@drawable/card_shadow_layer"/>
-                <androidx.cardview.widget.CardView android:id="@+id/cardHouse1" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="4dp" android:foreground="@drawable/ripple_card" app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="#ffffff">
-                    <LinearLayout style="@style/ItemCardInner">
-                        <TextView style="@style/ItemName" android:text="Blankets / Bedding"/>
-                        <LinearLayout android:layout_width="wrap_content" android:layout_height="44dp" android:background="@drawable/stepper_bg" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="4dp" android:paddingEnd="4dp">
-                            <Button android:id="@+id/btnMinusHouse1" style="@style/StepBtn" android:text="−"/>
-                            <TextView android:id="@+id/tvQtyHouse1" style="@style/QtyText" android:text="0"/>
-                            <Button android:id="@+id/btnPlusHouse1" style="@style/StepBtn" android:text="+"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </FrameLayout>
-
-            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="14dp" android:layout_marginStart="1dp" android:layout_marginEnd="1dp">
-                <View android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="5dp" android:layout_marginStart="3dp" android:layout_marginEnd="3dp" android:background="@drawable/card_shadow_layer"/>
-                <androidx.cardview.widget.CardView android:id="@+id/cardHouse2" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="4dp" android:foreground="@drawable/ripple_card" app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="#ffffff">
-                    <LinearLayout style="@style/ItemCardInner">
-                        <TextView style="@style/ItemName" android:text="Kitchenware"/>
-                        <LinearLayout android:layout_width="wrap_content" android:layout_height="44dp" android:background="@drawable/stepper_bg" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="4dp" android:paddingEnd="4dp">
-                            <Button android:id="@+id/btnMinusHouse2" style="@style/StepBtn" android:text="−"/>
-                            <TextView android:id="@+id/tvQtyHouse2" style="@style/QtyText" android:text="0"/>
-                            <Button android:id="@+id/btnPlusHouse2" style="@style/StepBtn" android:text="+"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </FrameLayout>
-
-            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="14dp" android:layout_marginStart="1dp" android:layout_marginEnd="1dp">
-                <View android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="5dp" android:layout_marginStart="3dp" android:layout_marginEnd="3dp" android:background="@drawable/card_shadow_layer"/>
-                <androidx.cardview.widget.CardView android:id="@+id/cardHouse3" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="4dp" android:foreground="@drawable/ripple_card" app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="#ffffff">
-                    <LinearLayout style="@style/ItemCardInner">
-                        <TextView style="@style/ItemName" android:text="Small appliances"/>
-                        <LinearLayout android:layout_width="wrap_content" android:layout_height="44dp" android:background="@drawable/stepper_bg" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="4dp" android:paddingEnd="4dp">
-                            <Button android:id="@+id/btnMinusHouse3" style="@style/StepBtn" android:text="−"/>
-                            <TextView android:id="@+id/tvQtyHouse3" style="@style/QtyText" android:text="0"/>
-                            <Button android:id="@+id/btnPlusHouse3" style="@style/StepBtn" android:text="+"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </FrameLayout>
-
-            <!-- SCHOOL -->
-            <TextView android:id="@+id/sectionSchool" style="@style/CategoryLabel" android:text="📚  School Supplies"/>
-
-            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="14dp" android:layout_marginStart="1dp" android:layout_marginEnd="1dp">
-                <View android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="5dp" android:layout_marginStart="3dp" android:layout_marginEnd="3dp" android:background="@drawable/card_shadow_layer"/>
-                <androidx.cardview.widget.CardView android:id="@+id/cardSchool1" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="4dp" android:foreground="@drawable/ripple_card" app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="#ffffff">
-                    <LinearLayout style="@style/ItemCardInner">
-                        <TextView style="@style/ItemName" android:text="Textbooks"/>
-                        <LinearLayout android:layout_width="wrap_content" android:layout_height="44dp" android:background="@drawable/stepper_bg" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="4dp" android:paddingEnd="4dp">
-                            <Button android:id="@+id/btnMinusSchool1" style="@style/StepBtn" android:text="−"/>
-                            <TextView android:id="@+id/tvQtySchool1" style="@style/QtyText" android:text="0"/>
-                            <Button android:id="@+id/btnPlusSchool1" style="@style/StepBtn" android:text="+"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </FrameLayout>
-
-            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="14dp" android:layout_marginStart="1dp" android:layout_marginEnd="1dp">
-                <View android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="5dp" android:layout_marginStart="3dp" android:layout_marginEnd="3dp" android:background="@drawable/card_shadow_layer"/>
-                <androidx.cardview.widget.CardView android:id="@+id/cardSchool2" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="4dp" android:foreground="@drawable/ripple_card" app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="#ffffff">
-                    <LinearLayout style="@style/ItemCardInner">
-                        <TextView style="@style/ItemName" android:text="Stationery"/>
-                        <LinearLayout android:layout_width="wrap_content" android:layout_height="44dp" android:background="@drawable/stepper_bg" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="4dp" android:paddingEnd="4dp">
-                            <Button android:id="@+id/btnMinusSchool2" style="@style/StepBtn" android:text="−"/>
-                            <TextView android:id="@+id/tvQtySchool2" style="@style/QtyText" android:text="0"/>
-                            <Button android:id="@+id/btnPlusSchool2" style="@style/StepBtn" android:text="+"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </FrameLayout>
-
-            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="14dp" android:layout_marginStart="1dp" android:layout_marginEnd="1dp">
-                <View android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="5dp" android:layout_marginStart="3dp" android:layout_marginEnd="3dp" android:background="@drawable/card_shadow_layer"/>
-                <androidx.cardview.widget.CardView android:id="@+id/cardSchool3" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="4dp" android:foreground="@drawable/ripple_card" app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="#ffffff">
-                    <LinearLayout style="@style/ItemCardInner">
-                        <TextView style="@style/ItemName" android:text="Backpacks"/>
-                        <LinearLayout android:layout_width="wrap_content" android:layout_height="44dp" android:background="@drawable/stepper_bg" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="4dp" android:paddingEnd="4dp">
-                            <Button android:id="@+id/btnMinusSchool3" style="@style/StepBtn" android:text="−"/>
-                            <TextView android:id="@+id/tvQtySchool3" style="@style/QtyText" android:text="0"/>
-                            <Button android:id="@+id/btnPlusSchool3" style="@style/StepBtn" android:text="+"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </FrameLayout>
-
-            <!-- MEDICAL -->
-            <TextView android:id="@+id/sectionMedical" style="@style/CategoryLabel" android:text="💊  Medical"/>
-
-            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="14dp" android:layout_marginStart="1dp" android:layout_marginEnd="1dp">
-                <View android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="5dp" android:layout_marginStart="3dp" android:layout_marginEnd="3dp" android:background="@drawable/card_shadow_layer"/>
-                <androidx.cardview.widget.CardView android:id="@+id/cardMed1" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="4dp" android:foreground="@drawable/ripple_card" app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="#ffffff">
-                    <LinearLayout style="@style/ItemCardInner">
-                        <TextView style="@style/ItemName" android:text="Chronic medication"/>
-                        <LinearLayout android:layout_width="wrap_content" android:layout_height="44dp" android:background="@drawable/stepper_bg" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="4dp" android:paddingEnd="4dp">
-                            <Button android:id="@+id/btnMinusMed1" style="@style/StepBtn" android:text="−"/>
-                            <TextView android:id="@+id/tvQtyMed1" style="@style/QtyText" android:text="0"/>
-                            <Button android:id="@+id/btnPlusMed1" style="@style/StepBtn" android:text="+"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </FrameLayout>
-
-            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="14dp" android:layout_marginStart="1dp" android:layout_marginEnd="1dp">
-                <View android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="5dp" android:layout_marginStart="3dp" android:layout_marginEnd="3dp" android:background="@drawable/card_shadow_layer"/>
-                <androidx.cardview.widget.CardView android:id="@+id/cardMed2" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="4dp" android:foreground="@drawable/ripple_card" app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="#ffffff">
-                    <LinearLayout style="@style/ItemCardInner">
-                        <TextView style="@style/ItemName" android:text="Insulin coolers"/>
-                        <LinearLayout android:layout_width="wrap_content" android:layout_height="44dp" android:background="@drawable/stepper_bg" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="4dp" android:paddingEnd="4dp">
-                            <Button android:id="@+id/btnMinusMed2" style="@style/StepBtn" android:text="−"/>
-                            <TextView android:id="@+id/tvQtyMed2" style="@style/QtyText" android:text="0"/>
-                            <Button android:id="@+id/btnPlusMed2" style="@style/StepBtn" android:text="+"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </FrameLayout>
-
-            <!-- Save button -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSubmitItems"
-                style="@style/LendAHand.Button.Primary"
+            <!-- Category filter chips -->
+            <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:paddingBottom="20dp"
+                android:clipToPadding="false">
+
+                <LinearLayout
+                    android:id="@+id/chipGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/chipAll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="All"
+                        android:textColor="@color/primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:paddingHorizontal="22dp"
+                        android:background="@drawable/chip_white_active"
+                        android:layout_marginEnd="10dp"/>
+
+                    <TextView
+                        android:id="@+id/chipFood"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="🥫  Food"
+                        android:textColor="#CCFFFFFF"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:paddingHorizontal="22dp"
+                        android:background="@drawable/chip_ghost"
+                        android:layout_marginEnd="10dp"/>
+
+                    <TextView
+                        android:id="@+id/chipHygiene"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="🧴  Hygiene"
+                        android:textColor="#CCFFFFFF"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:paddingHorizontal="22dp"
+                        android:background="@drawable/chip_ghost"
+                        android:layout_marginEnd="10dp"/>
+
+                    <TextView
+                        android:id="@+id/chipClothing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="👕  Clothing"
+                        android:textColor="#CCFFFFFF"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:paddingHorizontal="22dp"
+                        android:background="@drawable/chip_ghost"
+                        android:layout_marginEnd="10dp"/>
+
+                    <TextView
+                        android:id="@+id/chipSchool"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="📚  School"
+                        android:textColor="#CCFFFFFF"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:paddingHorizontal="22dp"
+                        android:background="@drawable/chip_ghost"
+                        android:layout_marginEnd="10dp"/>
+
+                    <TextView
+                        android:id="@+id/chipMedical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="💊  Medical"
+                        android:textColor="#CCFFFFFF"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:paddingHorizontal="22dp"
+                        android:background="@drawable/chip_ghost"/>
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- ═══ SCROLLABLE CONTENT ═══ -->
+    <ScrollView
+        android:id="@+id/scrollContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:scrollbars="none"
+        android:paddingBottom="88dp"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:id="@+id/itemsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="16dp"
+            android:paddingHorizontal="16dp">
+
+            <!-- ══ SECTION: Food & Essentials ══ -->
+            <LinearLayout
+                android:id="@+id/sectionFood"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/section_header_bg"
+                android:paddingHorizontal="16dp"
+                android:layout_marginBottom="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🥫"
+                    android:textSize="18sp"
+                    android:layout_marginEnd="10dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Food &amp; Essentials"
+                    android:textColor="@color/primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <!-- Item: Non-perishables -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardNonPerishables"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/surface_lowest">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="20dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Non-perishables"
+                        android:textColor="@color/on_surface"
+                        android:textSize="16sp"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:background="@drawable/stepper_pill"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <Button
+                            android:id="@+id/btnMinus_nonPerish"
+                            style="@style/StepBtn"
+                            android:text="−"/>
+                        <TextView
+                            android:id="@+id/tvQty_nonPerish"
+                            style="@style/QtyText"
+                            android:text="0"/>
+                        <Button
+                            android:id="@+id/btnPlus_nonPerish"
+                            style="@style/StepBtn"
+                            android:text="+"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Item: Canned food -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardCannedFood"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/surface_lowest">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="20dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Canned food"
+                        android:textColor="@color/on_surface"
+                        android:textSize="16sp"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:background="@drawable/stepper_pill"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <Button
+                            android:id="@+id/btnMinus_canned"
+                            style="@style/StepBtn"
+                            android:text="−"/>
+                        <TextView
+                            android:id="@+id/tvQty_canned"
+                            style="@style/QtyText"
+                            android:text="0"/>
+                        <Button
+                            android:id="@+id/btnPlus_canned"
+                            style="@style/StepBtn"
+                            android:text="+"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Item: Baby formula -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardBabyFormula"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/surface_lowest">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="20dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Baby formula"
+                        android:textColor="@color/on_surface"
+                        android:textSize="16sp"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:background="@drawable/stepper_pill"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <Button
+                            android:id="@+id/btnMinus_babyFormula"
+                            style="@style/StepBtn"
+                            android:text="−"/>
+                        <TextView
+                            android:id="@+id/tvQty_babyFormula"
+                            style="@style/QtyText"
+                            android:text="0"/>
+                        <Button
+                            android:id="@+id/btnPlus_babyFormula"
+                            style="@style/StepBtn"
+                            android:text="+"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- ══ SECTION: Hygiene & Personal Care ══ -->
+            <LinearLayout
+                android:id="@+id/sectionHygiene"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/section_header_bg"
+                android:paddingHorizontal="16dp"
+                android:layout_marginBottom="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🧴"
+                    android:textSize="18sp"
+                    android:layout_marginEnd="10dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hygiene &amp; Personal Care"
+                    android:textColor="@color/primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <!-- Item: Soap / Toothpaste -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardSoap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/surface_lowest">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="20dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Soap / Toothpaste"
+                        android:textColor="@color/on_surface"
+                        android:textSize="16sp"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:background="@drawable/stepper_pill"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <Button
+                            android:id="@+id/btnMinus_soap"
+                            style="@style/StepBtn"
+                            android:text="−"/>
+                        <TextView
+                            android:id="@+id/tvQty_soap"
+                            style="@style/QtyText"
+                            android:text="0"/>
+                        <Button
+                            android:id="@+id/btnPlus_soap"
+                            style="@style/StepBtn"
+                            android:text="+"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Item: Sanitary pads -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardSanitary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/surface_lowest">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="20dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Sanitary pads"
+                        android:textColor="@color/on_surface"
+                        android:textSize="16sp"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:background="@drawable/stepper_pill"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <Button
+                            android:id="@+id/btnMinus_sanitary"
+                            style="@style/StepBtn"
+                            android:text="−"/>
+                        <TextView
+                            android:id="@+id/tvQty_sanitary"
+                            style="@style/QtyText"
+                            android:text="0"/>
+                        <Button
+                            android:id="@+id/btnPlus_sanitary"
+                            style="@style/StepBtn"
+                            android:text="+"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- ══ SECTION: Clothing ══ -->
+            <LinearLayout
+                android:id="@+id/sectionClothing"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/section_header_bg"
+                android:paddingHorizontal="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="👕"
+                    android:textSize="18sp"
+                    android:layout_marginEnd="10dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Clothing"
+                    android:textColor="@color/primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <!-- Item: Blankets -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardBlankets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/surface_lowest">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="20dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Blankets"
+                        android:textColor="@color/on_surface"
+                        android:textSize="16sp"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:background="@drawable/stepper_pill"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <Button
+                            android:id="@+id/btnMinus_blankets"
+                            style="@style/StepBtn"
+                            android:text="−"/>
+                        <TextView
+                            android:id="@+id/tvQty_blankets"
+                            style="@style/QtyText"
+                            android:text="0"/>
+                        <Button
+                            android:id="@+id/btnPlus_blankets"
+                            style="@style/StepBtn"
+                            android:text="+"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Item: Winter clothes -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardWinterClothes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/surface_lowest">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="20dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Winter clothes"
+                        android:textColor="@color/on_surface"
+                        android:textSize="16sp"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:background="@drawable/stepper_pill"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <Button
+                            android:id="@+id/btnMinus_winter"
+                            style="@style/StepBtn"
+                            android:text="−"/>
+                        <TextView
+                            android:id="@+id/tvQty_winter"
+                            style="@style/QtyText"
+                            android:text="0"/>
+                        <Button
+                            android:id="@+id/btnPlus_winter"
+                            style="@style/StepBtn"
+                            android:text="+"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- ══ SECTION: School Supplies ══ -->
+            <LinearLayout
+                android:id="@+id/sectionSchool"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/section_header_bg"
+                android:paddingHorizontal="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📚"
+                    android:textSize="18sp"
+                    android:layout_marginEnd="10dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="School Supplies"
+                    android:textColor="@color/primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <!-- Item: Stationery -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardStationery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/surface_lowest">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="20dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Stationery"
+                        android:textColor="@color/on_surface"
+                        android:textSize="16sp"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:background="@drawable/stepper_pill"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <Button
+                            android:id="@+id/btnMinus_stationery"
+                            style="@style/StepBtn"
+                            android:text="−"/>
+                        <TextView
+                            android:id="@+id/tvQty_stationery"
+                            style="@style/QtyText"
+                            android:text="0"/>
+                        <Button
+                            android:id="@+id/btnPlus_stationery"
+                            style="@style/StepBtn"
+                            android:text="+"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Item: Backpacks -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardBackpacks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/surface_lowest">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="20dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Backpacks"
+                        android:textColor="@color/on_surface"
+                        android:textSize="16sp"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:background="@drawable/stepper_pill"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <Button
+                            android:id="@+id/btnMinus_backpacks"
+                            style="@style/StepBtn"
+                            android:text="−"/>
+                        <TextView
+                            android:id="@+id/tvQty_backpacks"
+                            style="@style/QtyText"
+                            android:text="0"/>
+                        <Button
+                            android:id="@+id/btnPlus_backpacks"
+                            style="@style/StepBtn"
+                            android:text="+"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- ══ SECTION: Medical ══ -->
+            <LinearLayout
+                android:id="@+id/sectionMedical"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/section_header_bg"
+                android:paddingHorizontal="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="💊"
+                    android:textSize="18sp"
+                    android:layout_marginEnd="10dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Medical"
+                    android:textColor="@color/primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <!-- Item: Chronic medication -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardMedication"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/surface_lowest">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="20dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Chronic medication"
+                        android:textColor="@color/on_surface"
+                        android:textSize="16sp"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:background="@drawable/stepper_pill"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <Button
+                            android:id="@+id/btnMinus_medication"
+                            style="@style/StepBtn"
+                            android:text="−"/>
+                        <TextView
+                            android:id="@+id/tvQty_medication"
+                            style="@style/QtyText"
+                            android:text="0"/>
+                        <Button
+                            android:id="@+id/btnPlus_medication"
+                            style="@style/StepBtn"
+                            android:text="+"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Item: Insulin coolers -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardInsulin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
-                android:text="Save"/>
+                app:cardCornerRadius="18dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/surface_lowest">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="20dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Insulin coolers"
+                        android:textColor="@color/on_surface"
+                        android:textSize="16sp"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:background="@drawable/stepper_pill"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <Button
+                            android:id="@+id/btnMinus_insulin"
+                            style="@style/StepBtn"
+                            android:text="−"/>
+                        <TextView
+                            android:id="@+id/tvQty_insulin"
+                            style="@style/QtyText"
+                            android:text="0"/>
+                        <Button
+                            android:id="@+id/btnPlus_insulin"
+                            style="@style/StepBtn"
+                            android:text="+"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Save CTA -->
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:text="Save"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:background="@drawable/btn_green_pill"
+                android:layout_marginBottom="8dp"/>
 
         </LinearLayout>
     </ScrollView>
 
-    <!-- BOTTOM NAV — Donate active -->
+    <!-- ═══ BOTTOM NAV - Donate Active ═══ -->
     <LinearLayout
         android:id="@+id/bottomNav"
-        android:layout_width="match_parent" android:layout_height="80dp"
-        android:background="@drawable/bottom_nav_bg" android:elevation="12dp"
-        android:orientation="horizontal" android:weightSum="4"
-        android:paddingStart="8dp" android:paddingEnd="8dp"
-        android:paddingTop="8dp" android:paddingBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/bottom_nav_bg"
+        android:elevation="12dp"
+        android:orientation="horizontal"
+        android:weightSum="4"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_gravity="bottom">
 
-        <LinearLayout android:id="@+id/navDiscover" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="center" android:padding="6dp">
-            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_nav_discover" android:layout_gravity="center" android:tint="#aab0b8"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DISCOVER" android:textSize="8sp" android:textColor="#aab0b8" android:textStyle="bold" android:letterSpacing="0.06" android:layout_marginTop="3dp" android:layout_gravity="center"/>
+        <!-- Discover (Inactive) -->
+        <LinearLayout
+            android:id="@+id/navDiscover"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="6dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_nav_discover"
+                android:layout_gravity="center"
+                android:tint="#aab0b8"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DISCOVER"
+                android:textSize="8sp"
+                android:textColor="#aab0b8"
+                android:textStyle="bold"
+                android:letterSpacing="0.06"
+                android:layout_marginTop="3dp"
+                android:layout_gravity="center"/>
         </LinearLayout>
 
-        <LinearLayout android:id="@+id/navDonate" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="center" android:padding="6dp" android:background="@drawable/nav_active_bg">
-            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_nav_donate" android:layout_gravity="center"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DONATE" android:textSize="8sp" android:textColor="@color/primary" android:textStyle="bold" android:letterSpacing="0.06" android:layout_marginTop="3dp" android:layout_gravity="center"/>
+        <!-- Donate (Active - with pill) -->
+        <LinearLayout
+            android:id="@+id/navDonate"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="6dp"
+            android:background="@drawable/nav_active_bg">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_nav_donate"
+                android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DONATE"
+                android:textSize="8sp"
+                android:textColor="@color/primary"
+                android:textStyle="bold"
+                android:letterSpacing="0.06"
+                android:layout_marginTop="3dp"
+                android:layout_gravity="center"/>
         </LinearLayout>
 
-        <LinearLayout android:id="@+id/navActivity" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="center" android:padding="6dp">
-            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_nav_activity" android:layout_gravity="center" android:tint="#aab0b8"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ACTIVITY" android:textSize="8sp" android:textColor="#aab0b8" android:textStyle="bold" android:letterSpacing="0.06" android:layout_marginTop="3dp" android:layout_gravity="center"/>
+        <!-- Activity (Inactive) -->
+        <LinearLayout
+            android:id="@+id/navActivity"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="6dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_nav_activity"
+                android:layout_gravity="center"
+                android:tint="#aab0b8"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ACTIVITY"
+                android:textSize="8sp"
+                android:textColor="#aab0b8"
+                android:textStyle="bold"
+                android:letterSpacing="0.06"
+                android:layout_marginTop="3dp"
+                android:layout_gravity="center"/>
         </LinearLayout>
 
-        <LinearLayout android:id="@+id/navProfile" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="center" android:padding="6dp">
-            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_nav_profile" android:layout_gravity="center" android:tint="#aab0b8"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="PROFILE" android:textSize="8sp" android:textColor="#aab0b8" android:textStyle="bold" android:letterSpacing="0.06" android:layout_marginTop="3dp" android:layout_gravity="center"/>
+        <!-- Profile (Inactive) -->
+        <LinearLayout
+            android:id="@+id/navProfile"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="6dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_nav_profile"
+                android:layout_gravity="center"
+                android:tint="#aab0b8"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PROFILE"
+                android:textSize="8sp"
+                android:textColor="#aab0b8"
+                android:textStyle="bold"
+                android:letterSpacing="0.06"
+                android:layout_marginTop="3dp"
+                android:layout_gravity="center"/>
         </LinearLayout>
 
     </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

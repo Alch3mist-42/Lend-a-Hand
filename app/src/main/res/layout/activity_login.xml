@@ -1,94 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/primary">
 
-    <!-- Green hero band top -->
+    <!-- Top green hero -->
     <LinearLayout
-        android:id="@+id/heroBand"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/primary"
+        android:layout_weight="38"
         android:orientation="vertical"
         android:gravity="bottom"
         android:paddingStart="28dp"
         android:paddingEnd="28dp"
-        android:paddingBottom="32dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/cardForm"
-        app:layout_constraintHeight_percent="0.38">
+        android:paddingBottom="28dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ASTERA"
-            android:textColor="#80ffffff"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.16"
-            android:layout_marginBottom="10dp"/>
+            android:textColor="#66ffffff"
+            android:textSize="11sp" android:textStyle="bold"
+            android:letterSpacing="0.22"
+            android:layout_marginBottom="12dp"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Welcome back."
             android:textColor="@color/white"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            android:letterSpacing="-0.02"/>
+            android:textSize="34sp" android:textStyle="bold"
+            android:letterSpacing="-0.02"
+            android:layout_marginBottom="8dp"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sign in to continue your impact."
             android:textColor="#80ffffff"
-            android:textSize="15sp"
-            android:layout_marginTop="6dp"/>
+            android:textSize="15sp"/>
 
     </LinearLayout>
 
-    <!-- Centered login card -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardForm"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        app:cardCornerRadius="28dp"
-        app:cardElevation="16dp"
-        app:cardBackgroundColor="@color/surface_lowest"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.5">
+    <!-- White bottom card -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="62"
+        android:background="@drawable/bottom_sheet_rounded"
+        android:overScrollMode="never"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="28dp">
+            android:paddingStart="28dp"
+            android:paddingEnd="28dp"
+            android:paddingTop="36dp"
+            android:paddingBottom="40dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sign In"
                 android:textColor="@color/on_surface"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="24dp"/>
+                android:textSize="24sp" android:textStyle="bold"
+                android:layout_marginBottom="28dp"/>
 
-            <!-- Username -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/LendAHand.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Username"
                 android:layout_marginBottom="16dp"
-                app:startIconDrawable="@android:drawable/ic_menu_myplaces"
-                app:startIconTint="@color/outline">
+                app:startIconDrawable="@drawable/ic_nav_profile"
+                app:startIconTint="@color/outline"
+                xmlns:app="http://schemas.android.com/apk/res-auto">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etUsername"
                     android:layout_width="match_parent"
@@ -97,16 +87,16 @@
                     android:textColor="@color/on_surface"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Password -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/LendAHand.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="8dp"
                 app:startIconDrawable="@android:drawable/ic_lock_idle_lock"
                 app:startIconTint="@color/outline"
-                app:endIconMode="password_toggle">
+                app:endIconMode="password_toggle"
+                xmlns:app="http://schemas.android.com/apk/res-auto">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPassword"
                     android:layout_width="match_parent"
@@ -115,50 +105,45 @@
                     android:textColor="@color/on_surface"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Sign In button -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="Forgot Password?"
+                android:textColor="@color/primary"
+                android:textSize="13sp" android:textStyle="bold"
+                android:layout_marginBottom="28dp"/>
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLogin"
                 style="@style/LendAHand.Button.Primary"
                 android:layout_width="match_parent"
-                android:layout_height="54dp"
+                android:layout_height="56dp"
                 android:text="Sign In"
-                android:layout_marginBottom="20dp"/>
+                android:textSize="16sp"
+                android:layout_marginBottom="24dp"/>
 
-            <!-- OR divider -->
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="20dp">
-                <View android:layout_width="0dp" android:layout_height="1dp"
-                    android:layout_weight="1" android:background="@color/outline_variant"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="  OR  " android:textColor="@color/outline"
-                    android:textSize="12sp"/>
-                <View android:layout_width="0dp" android:layout_height="1dp"
-                    android:layout_weight="1" android:background="@color/outline_variant"/>
-            </LinearLayout>
-
-            <!-- Register link -->
-            <TextView
-                android:id="@+id/tvGoToRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Don't have an account? Register"
-                android:textColor="@color/outline"
-                android:textSize="14sp"/>
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Don't have an account?  "
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="14sp"/>
+                <TextView
+                    android:id="@+id/tvGoToRegister"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Register"
+                    android:textColor="@color/primary"
+                    android:textSize="14sp" android:textStyle="bold"/>
+            </LinearLayout>
 
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </ScrollView>
 
-    <!-- Bottom green area fills remaining space -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/primary"
-        app:layout_constraintTop_toBottomOf="@id/cardForm"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

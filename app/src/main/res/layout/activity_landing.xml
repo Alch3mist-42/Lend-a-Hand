@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/primary">
+
+    <!-- Top 60% — green hero -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="60"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp">
+
+        <!-- Aura + globe -->
+        <FrameLayout
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="36dp">
+            <View android:layout_width="140dp" android:layout_height="140dp"
+                android:background="@drawable/circle_ring_light" android:alpha="0.12"/>
+            <View android:layout_width="112dp" android:layout_height="112dp"
+                android:layout_gravity="center"
+                android:background="@drawable/circle_ring_light" android:alpha="0.20"/>
+            <View android:layout_width="84dp" android:layout_height="84dp"
+                android:layout_gravity="center"
+                android:background="@drawable/avatar_bg_green"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="🌍" android:textSize="36sp"/>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ASTERA"
+            android:textColor="#66ffffff"
+            android:textSize="11sp" android:textStyle="bold"
+            android:letterSpacing="0.22"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Give today.&#10;Change a life."
+            android:textColor="@color/white"
+            android:textSize="38sp" android:textStyle="bold"
+            android:lineSpacingExtra="2dp"
+            android:gravity="center"
+            android:letterSpacing="-0.02"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Connect with people who need what you have."
+            android:textColor="#80ffffff"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:lineSpacingExtra="3dp"/>
+
+    </LinearLayout>
+
+    <!-- Bottom 40% — white rounded card -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="40"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/bottom_sheet_rounded"
+        android:paddingStart="28dp"
+        android:paddingEnd="28dp"
+        android:paddingTop="32dp"
+        android:paddingBottom="40dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGetStarted"
+            style="@style/LendAHand.Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Get Started"
+            android:textSize="16sp"
+            android:layout_marginBottom="14dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGoToLoginOutlined"
+            style="@style/LendAHand.Button.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Sign In"
+            android:textSize="16sp"
+            android:layout_marginBottom="28dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Making a difference, one gift at a time. 🌿"
+            android:textColor="@color/outline"
+            android:textSize="12sp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

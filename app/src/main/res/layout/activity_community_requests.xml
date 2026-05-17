@@ -22,12 +22,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/chip_inactive"
-            android:paddingStart="12dp" android:paddingEnd="12dp"
-            android:paddingTop="4dp" android:paddingBottom="4dp"
+            android:background="@drawable/label_pill_alpha"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
             android:text="ASTERA"
             android:textColor="#aaffffff"
-            android:textSize="10sp" android:textStyle="bold"
+            android:textSize="10sp"
+            android:textStyle="bold"
             android:letterSpacing="0.12"
             android:layout_marginBottom="8dp"/>
 
@@ -36,7 +39,8 @@
             android:layout_height="wrap_content"
             android:text="Community Requests"
             android:textColor="@color/white"
-            android:textSize="26sp" android:textStyle="bold"
+            android:textSize="26sp"
+            android:textStyle="bold"
             android:letterSpacing="-0.02"/>
 
         <TextView
@@ -46,8 +50,6 @@
             android:textColor="#80ffffff"
             android:textSize="13sp"
             android:layout_marginTop="4dp"/>
-
-
 
     </LinearLayout>
 
@@ -59,11 +61,14 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/verified_badge_bg"
-        android:paddingStart="14dp" android:paddingEnd="14dp"
-        android:paddingTop="6dp" android:paddingBottom="6dp"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
         android:text="✓ 3 verified recipients matched"
         android:textColor="@color/primary"
-        android:textSize="12sp" android:textStyle="bold"
+        android:textSize="12sp"
+        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/topBar"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -101,229 +106,435 @@
             android:orientation="vertical">
 
             <!-- Request Card 1 -->
-            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp" android:layout_marginStart="1dp" android:layout_marginEnd="1dp">
-                <View android:layout_width="match_parent" android:layout_height="match_parent"
-                    android:layout_marginTop="5dp" android:layout_marginStart="3dp" android:layout_marginEnd="3dp"
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginEnd="1dp">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp"
                     android:background="@drawable/card_shadow_layer"/>
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardRequest1"
-                    android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp" android:foreground="@drawable/ripple_card"
-                    app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="#ffffff">
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:orientation="vertical" android:padding="20dp">
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:orientation="horizontal" android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:foreground="@drawable/ripple_card"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#ffffff">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
                             android:layout_marginBottom="12dp">
-                            <!-- Avatar with aura -->
                             <FrameLayout android:layout_width="52dp" android:layout_height="52dp">
-                                <View android:layout_width="52dp" android:layout_height="52dp"
-                                    android:background="@drawable/circle_ring_light" android:alpha="0.4"/>
-                                <TextView android:layout_width="44dp" android:layout_height="44dp"
+                                <View
+                                    android:layout_width="52dp"
+                                    android:layout_height="52dp"
+                                    android:background="@drawable/circle_ring_light"
+                                    android:alpha="0.4"/>
+                                <TextView
+                                    android:layout_width="44dp"
+                                    android:layout_height="44dp"
                                     android:layout_gravity="center"
                                     android:background="@drawable/avatar_bg_green"
-                                    android:gravity="center" android:text="JD"
-                                    android:textColor="@color/white" android:textSize="14sp" android:textStyle="bold"/>
+                                    android:gravity="center"
+                                    android:text="JD"
+                                    android:textColor="@color/white"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"/>
                             </FrameLayout>
-                            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                                android:layout_weight="1" android:orientation="vertical"
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
                                 android:layout_marginStart="12dp">
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                    android:text="John Doe" android:textColor="@color/on_surface"
-                                    android:textSize="16sp" android:textStyle="bold"/>
-                                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                    android:orientation="horizontal" android:gravity="center_vertical"
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="John Doe"
+                                    android:textColor="@color/on_surface"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"/>
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="center_vertical"
                                     android:layout_marginTop="3dp">
-                                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
                                         android:background="@drawable/verified_badge_bg"
-                                        android:paddingStart="8dp" android:paddingEnd="8dp"
-                                        android:paddingTop="3dp" android:paddingBottom="3dp"
-                                        android:text="✓ Verified" android:textColor="@color/primary"
-                                        android:textSize="10sp" android:textStyle="bold"
+                                        android:paddingStart="8dp"
+                                        android:paddingEnd="8dp"
+                                        android:paddingTop="3dp"
+                                        android:paddingBottom="3dp"
+                                        android:text="✓ Verified"
+                                        android:textColor="@color/primary"
+                                        android:textSize="10sp"
+                                        android:textStyle="bold"
                                         android:layout_marginEnd="6dp"/>
-                                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
                                         android:background="@drawable/tier3_icon_bg"
-                                        android:paddingStart="8dp" android:paddingEnd="8dp"
-                                        android:paddingTop="3dp" android:paddingBottom="3dp"
-                                        android:text="🥫 Food" android:textColor="@color/primary"
-                                        android:textSize="10sp" android:textStyle="bold"/>
+                                        android:paddingStart="8dp"
+                                        android:paddingEnd="8dp"
+                                        android:paddingTop="3dp"
+                                        android:paddingBottom="3dp"
+                                        android:text="🥫 Food"
+                                        android:textColor="@color/primary"
+                                        android:textSize="10sp"
+                                        android:textStyle="bold"/>
                                 </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
-                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:text="Family of four in need of basic food supplies. We have been struggling since the breadwinner lost their job. Any support is deeply appreciated."
-                            android:textColor="@color/on_surface_variant" android:textSize="13sp"
-                            android:lineSpacingExtra="3dp" android:textStyle="italic"
+                            android:textColor="@color/on_surface_variant"
+                            android:textSize="13sp"
+                            android:lineSpacingExtra="3dp"
+                            android:textStyle="italic"
                             android:layout_marginBottom="16dp"/>
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:orientation="horizontal" android:gravity="center_vertical">
-                            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                                android:layout_weight="1" android:orientation="vertical">
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                    android:text="NEEDS" android:textColor="@color/outline"
-                                    android:textSize="10sp" android:textStyle="bold" android:letterSpacing="0.06"/>
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                    android:text="15 items" android:textColor="@color/on_surface"
-                                    android:textSize="18sp" android:textStyle="bold"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="NEEDS"
+                                    android:textColor="@color/outline"
+                                    android:textSize="10sp"
+                                    android:textStyle="bold"
+                                    android:letterSpacing="0.06"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="15 items"
+                                    android:textColor="@color/on_surface"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold"/>
                             </LinearLayout>
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnDonateRequest1"
                                 style="@style/LendAHand.Button.Primary"
-                                android:layout_width="wrap_content" android:layout_height="44dp"
-                                android:text="Donate ›" android:textSize="13sp"/>
+                                android:layout_width="wrap_content"
+                                android:layout_height="44dp"
+                                android:text="Donate ›"
+                                android:textSize="13sp"/>
                         </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </FrameLayout>
 
             <!-- Request Card 2 -->
-            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp" android:layout_marginStart="1dp" android:layout_marginEnd="1dp">
-                <View android:layout_width="match_parent" android:layout_height="match_parent"
-                    android:layout_marginTop="5dp" android:layout_marginStart="3dp" android:layout_marginEnd="3dp"
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginEnd="1dp">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp"
                     android:background="@drawable/card_shadow_layer"/>
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardRequest2"
-                    android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp" android:foreground="@drawable/ripple_card"
-                    app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="#ffffff">
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:orientation="vertical" android:padding="20dp">
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:orientation="horizontal" android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:foreground="@drawable/ripple_card"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#ffffff">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
                             android:layout_marginBottom="12dp">
                             <FrameLayout android:layout_width="52dp" android:layout_height="52dp">
-                                <View android:layout_width="52dp" android:layout_height="52dp"
-                                    android:background="@drawable/circle_ring_light" android:alpha="0.4"/>
-                                <TextView android:layout_width="44dp" android:layout_height="44dp"
+                                <View
+                                    android:layout_width="52dp"
+                                    android:layout_height="52dp"
+                                    android:background="@drawable/circle_ring_light"
+                                    android:alpha="0.4"/>
+                                <TextView
+                                    android:layout_width="44dp"
+                                    android:layout_height="44dp"
                                     android:layout_gravity="center"
                                     android:background="@drawable/avatar_bg_indigo"
-                                    android:gravity="center" android:text="MJ"
-                                    android:textColor="@color/white" android:textSize="14sp" android:textStyle="bold"/>
+                                    android:gravity="center"
+                                    android:text="MJ"
+                                    android:textColor="@color/white"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"/>
                             </FrameLayout>
-                            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                                android:layout_weight="1" android:orientation="vertical"
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
                                 android:layout_marginStart="12dp">
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                    android:text="Mary Jenkins" android:textColor="@color/on_surface"
-                                    android:textSize="16sp" android:textStyle="bold"/>
-                                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                    android:orientation="horizontal" android:gravity="center_vertical"
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Mary Jenkins"
+                                    android:textColor="@color/on_surface"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"/>
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="center_vertical"
                                     android:layout_marginTop="3dp">
-                                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
                                         android:background="@drawable/verified_badge_bg"
-                                        android:paddingStart="8dp" android:paddingEnd="8dp"
-                                        android:paddingTop="3dp" android:paddingBottom="3dp"
-                                        android:text="✓ Verified" android:textColor="@color/primary"
-                                        android:textSize="10sp" android:textStyle="bold"
+                                        android:paddingStart="8dp"
+                                        android:paddingEnd="8dp"
+                                        android:paddingTop="3dp"
+                                        android:paddingBottom="3dp"
+                                        android:text="✓ Verified"
+                                        android:textColor="@color/primary"
+                                        android:textSize="10sp"
+                                        android:textStyle="bold"
                                         android:layout_marginEnd="6dp"/>
-                                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
                                         android:background="@drawable/tier2_icon_bg"
-                                        android:paddingStart="8dp" android:paddingEnd="8dp"
-                                        android:paddingTop="3dp" android:paddingBottom="3dp"
-                                        android:text="📚 School" android:textColor="@color/secondary"
-                                        android:textSize="10sp" android:textStyle="bold"/>
+                                        android:paddingStart="8dp"
+                                        android:paddingEnd="8dp"
+                                        android:paddingTop="3dp"
+                                        android:paddingBottom="3dp"
+                                        android:text="📚 School"
+                                        android:textColor="@color/secondary"
+                                        android:textSize="10sp"
+                                        android:textStyle="bold"/>
                                 </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
-                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:text="Single mother of three. My children need school supplies urgently as the new term begins next week. Every stationery item counts."
-                            android:textColor="@color/on_surface_variant" android:textSize="13sp"
-                            android:lineSpacingExtra="3dp" android:textStyle="italic"
+                            android:textColor="@color/on_surface_variant"
+                            android:textSize="13sp"
+                            android:lineSpacingExtra="3dp"
+                            android:textStyle="italic"
                             android:layout_marginBottom="16dp"/>
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:orientation="horizontal" android:gravity="center_vertical">
-                            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                                android:layout_weight="1" android:orientation="vertical">
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                    android:text="NEEDS" android:textColor="@color/outline"
-                                    android:textSize="10sp" android:textStyle="bold" android:letterSpacing="0.06"/>
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                    android:text="20 items" android:textColor="@color/on_surface"
-                                    android:textSize="18sp" android:textStyle="bold"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="NEEDS"
+                                    android:textColor="@color/outline"
+                                    android:textSize="10sp"
+                                    android:textStyle="bold"
+                                    android:letterSpacing="0.06"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="20 items"
+                                    android:textColor="@color/on_surface"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold"/>
                             </LinearLayout>
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnDonateRequest2"
                                 style="@style/LendAHand.Button.Primary"
-                                android:layout_width="wrap_content" android:layout_height="44dp"
-                                android:text="Donate ›" android:textSize="13sp"/>
+                                android:layout_width="wrap_content"
+                                android:layout_height="44dp"
+                                android:text="Donate ›"
+                                android:textSize="13sp"/>
                         </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </FrameLayout>
 
             <!-- Request Card 3 -->
-            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp" android:layout_marginStart="1dp" android:layout_marginEnd="1dp">
-                <View android:layout_width="match_parent" android:layout_height="match_parent"
-                    android:layout_marginTop="5dp" android:layout_marginStart="3dp" android:layout_marginEnd="3dp"
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginEnd="1dp">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp"
                     android:background="@drawable/card_shadow_layer"/>
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardRequest3"
-                    android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp" android:foreground="@drawable/ripple_card"
-                    app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="#ffffff">
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:orientation="vertical" android:padding="20dp">
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:orientation="horizontal" android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:foreground="@drawable/ripple_card"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#ffffff">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
                             android:layout_marginBottom="12dp">
                             <FrameLayout android:layout_width="52dp" android:layout_height="52dp">
-                                <View android:layout_width="52dp" android:layout_height="52dp"
-                                    android:background="@drawable/circle_ring_light" android:alpha="0.4"/>
-                                <TextView android:layout_width="44dp" android:layout_height="44dp"
+                                <View
+                                    android:layout_width="52dp"
+                                    android:layout_height="52dp"
+                                    android:background="@drawable/circle_ring_light"
+                                    android:alpha="0.4"/>
+                                <TextView
+                                    android:layout_width="44dp"
+                                    android:layout_height="44dp"
                                     android:layout_gravity="center"
                                     android:background="@drawable/avatar_bg_gold"
-                                    android:gravity="center" android:text="LS"
-                                    android:textColor="@color/white" android:textSize="14sp" android:textStyle="bold"/>
+                                    android:gravity="center"
+                                    android:text="LS"
+                                    android:textColor="@color/white"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"/>
                             </FrameLayout>
-                            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                                android:layout_weight="1" android:orientation="vertical"
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
                                 android:layout_marginStart="12dp">
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                    android:text="Local Shelter" android:textColor="@color/on_surface"
-                                    android:textSize="16sp" android:textStyle="bold"/>
-                                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                    android:orientation="horizontal" android:gravity="center_vertical"
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Local Shelter"
+                                    android:textColor="@color/on_surface"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"/>
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="center_vertical"
                                     android:layout_marginTop="3dp">
-                                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
                                         android:background="@drawable/verified_badge_bg"
-                                        android:paddingStart="8dp" android:paddingEnd="8dp"
-                                        android:paddingTop="3dp" android:paddingBottom="3dp"
-                                        android:text="✓ Verified" android:textColor="@color/primary"
-                                        android:textSize="10sp" android:textStyle="bold"
+                                        android:paddingStart="8dp"
+                                        android:paddingEnd="8dp"
+                                        android:paddingTop="3dp"
+                                        android:paddingBottom="3dp"
+                                        android:text="✓ Verified"
+                                        android:textColor="@color/primary"
+                                        android:textSize="10sp"
+                                        android:textStyle="bold"
                                         android:layout_marginEnd="6dp"/>
-                                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
                                         android:background="@drawable/tier1_icon_bg"
-                                        android:paddingStart="8dp" android:paddingEnd="8dp"
-                                        android:paddingTop="3dp" android:paddingBottom="3dp"
-                                        android:text="🏠 Household" android:textColor="@color/error"
-                                        android:textSize="10sp" android:textStyle="bold"/>
+                                        android:paddingStart="8dp"
+                                        android:paddingEnd="8dp"
+                                        android:paddingTop="3dp"
+                                        android:paddingBottom="3dp"
+                                        android:text="🏠 Household"
+                                        android:textColor="@color/error"
+                                        android:textSize="10sp"
+                                        android:textStyle="bold"/>
                                 </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
-                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:text="We need warm blankets and bedding for 20 people this winter. Your contribution will directly keep someone warm tonight."
-                            android:textColor="@color/on_surface_variant" android:textSize="13sp"
-                            android:lineSpacingExtra="3dp" android:textStyle="italic"
+                            android:textColor="@color/on_surface_variant"
+                            android:textSize="13sp"
+                            android:lineSpacingExtra="3dp"
+                            android:textStyle="italic"
                             android:layout_marginBottom="16dp"/>
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:orientation="horizontal" android:gravity="center_vertical">
-                            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                                android:layout_weight="1" android:orientation="vertical">
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                    android:text="NEEDS" android:textColor="@color/outline"
-                                    android:textSize="10sp" android:textStyle="bold" android:letterSpacing="0.06"/>
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                    android:text="50 items" android:textColor="@color/on_surface"
-                                    android:textSize="18sp" android:textStyle="bold"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="NEEDS"
+                                    android:textColor="@color/outline"
+                                    android:textSize="10sp"
+                                    android:textStyle="bold"
+                                    android:letterSpacing="0.06"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="50 items"
+                                    android:textColor="@color/on_surface"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold"/>
                             </LinearLayout>
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnDonateRequest3"
                                 style="@style/LendAHand.Button.Primary"
-                                android:layout_width="wrap_content" android:layout_height="44dp"
-                                android:text="Donate ›" android:textSize="13sp"/>
+                                android:layout_width="wrap_content"
+                                android:layout_height="44dp"
+                                android:text="Donate ›"
+                                android:textSize="13sp"/>
                         </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -335,28 +546,120 @@
     <!-- BOTTOM NAV -->
     <LinearLayout
         android:id="@+id/bottomNav"
-        android:layout_width="match_parent" android:layout_height="80dp"
-        android:background="@drawable/bottom_nav_bg" android:elevation="12dp"
-        android:orientation="horizontal" android:weightSum="4"
-        android:paddingStart="8dp" android:paddingEnd="8dp"
-        android:paddingTop="8dp" android:paddingBottom="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/bottom_nav_bg"
+        android:elevation="12dp"
+        android:orientation="horizontal"
+        android:weightSum="4"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <LinearLayout android:id="@+id/navDiscover" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="center" android:padding="6dp">
-            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_nav_discover" android:layout_gravity="center" android:tint="#aab0b8"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DISCOVER" android:textSize="8sp" android:textColor="#aab0b8" android:textStyle="bold" android:letterSpacing="0.06" android:layout_marginTop="3dp" android:layout_gravity="center"/>
+        <LinearLayout
+            android:id="@+id/navDiscover"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="6dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_nav_discover"
+                android:layout_gravity="center"
+                android:tint="#aab0b8"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DISCOVER"
+                android:textSize="8sp"
+                android:textColor="#aab0b8"
+                android:textStyle="bold"
+                android:letterSpacing="0.06"
+                android:layout_marginTop="3dp"
+                android:layout_gravity="center"/>
         </LinearLayout>
-        <LinearLayout android:id="@+id/navDonate" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="center" android:padding="6dp" android:background="@drawable/nav_active_bg">
-            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_nav_donate" android:layout_gravity="center"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DONATE" android:textSize="8sp" android:textColor="@color/primary" android:textStyle="bold" android:letterSpacing="0.06" android:layout_marginTop="3dp" android:layout_gravity="center"/>
+
+        <LinearLayout
+            android:id="@+id/navDonate"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="6dp"
+            android:background="@drawable/nav_active_bg">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_nav_donate"
+                android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DONATE"
+                android:textSize="8sp"
+                android:textColor="@color/primary"
+                android:textStyle="bold"
+                android:letterSpacing="0.06"
+                android:layout_marginTop="3dp"
+                android:layout_gravity="center"/>
         </LinearLayout>
-        <LinearLayout android:id="@+id/navActivity" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="center" android:padding="6dp">
-            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_nav_activity" android:layout_gravity="center" android:tint="#aab0b8"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ACTIVITY" android:textSize="8sp" android:textColor="#aab0b8" android:textStyle="bold" android:letterSpacing="0.06" android:layout_marginTop="3dp" android:layout_gravity="center"/>
+
+        <LinearLayout
+            android:id="@+id/navActivity"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="6dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_nav_activity"
+                android:layout_gravity="center"
+                android:tint="#aab0b8"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ACTIVITY"
+                android:textSize="8sp"
+                android:textColor="#aab0b8"
+                android:textStyle="bold"
+                android:letterSpacing="0.06"
+                android:layout_marginTop="3dp"
+                android:layout_gravity="center"/>
         </LinearLayout>
-        <LinearLayout android:id="@+id/navProfile" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="center" android:padding="6dp">
-            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_nav_profile" android:layout_gravity="center" android:tint="#aab0b8"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="PROFILE" android:textSize="8sp" android:textColor="#aab0b8" android:textStyle="bold" android:letterSpacing="0.06" android:layout_marginTop="3dp" android:layout_gravity="center"/>
+
+        <LinearLayout
+            android:id="@+id/navProfile"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="6dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_nav_profile"
+                android:layout_gravity="center"
+                android:tint="#aab0b8"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PROFILE"
+                android:textSize="8sp"
+                android:textColor="#aab0b8"
+                android:textStyle="bold"
+                android:letterSpacing="0.06"
+                android:layout_marginTop="3dp"
+                android:layout_gravity="center"/>
         </LinearLayout>
 
     </LinearLayout>
