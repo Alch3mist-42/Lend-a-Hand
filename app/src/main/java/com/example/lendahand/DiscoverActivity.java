@@ -7,21 +7,31 @@ import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import android.widget.TextView;
 
 public class DiscoverActivity extends BaseActivity {
 
     private DrawerLayout drawerLayout;
     private ImageView btnBurger;
     private boolean drawerOpen = false;
+    private long backPressedTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discover);
+
+        // ── Welcome back toast ──
+        String username = getIntent().getStringExtra("username");
+        if (username != null && !username.isEmpty()) {
+            Toast.makeText(this,
+                    "Welcome back, " + username + "! 🌿",
+                    Toast.LENGTH_LONG).show();
+        }
 
         drawerLayout = findViewById(R.id.drawerLayout);
         btnBurger = findViewById(R.id.btnBurger);
@@ -114,8 +124,23 @@ public class DiscoverActivity extends BaseActivity {
         bounceArrows();
     }
 
+    // ── Double back to exit ──
+    @Override
+    public void onBackPressed() {
+        if (drawerOpen) {
+            drawerLayout.closeDrawers();
+            return;
+        }
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - backPressedTime < 2000) {
+            finishAffinity();
+        } else {
+            backPressedTime = currentTime;
+            Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void bounceArrows() {
-        // Find all arrow TextViews and animate them
         View root = getWindow().getDecorView().getRootView();
         animateArrowInView(root);
     }
@@ -286,5 +311,3 @@ public class DiscoverActivity extends BaseActivity {
         });
     }
 }
-// Note: addReboundAnimation for hero card already handled in existing DiscoverActivity
-// The cardHero id needs wiring in onCreate — patch below is added to existing file

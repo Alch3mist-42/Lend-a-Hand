@@ -7,6 +7,7 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         MaterialButton btnLogin = findViewById(R.id.btnLogin);
+        TextInputEditText etUsername = findViewById(R.id.etUsername);
+
         if (btnLogin != null) {
             btnLogin.setOnTouchListener((v, event) -> {
                 switch (event.getAction()) {
@@ -25,9 +28,16 @@ public class MainActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_UP:
                         v.animate().scaleX(1f).scaleY(1f).setDuration(200)
                                 .setInterpolator(new OvershootInterpolator(2.5f))
-                                .withEndAction(() ->
-                                        startActivity(new Intent(this, DiscoverActivity.class)))
-                                .start();
+                                .withEndAction(() -> {
+                                    String username = etUsername != null
+                                            && etUsername.getText() != null
+                                            ? etUsername.getText().toString().trim()
+                                            : "";
+                                    Intent intent = new Intent(this, DiscoverActivity.class);
+                                    if (!username.isEmpty())
+                                        intent.putExtra("username", username);
+                                    startActivity(intent);
+                                }).start();
                         break;
                     case MotionEvent.ACTION_CANCEL:
                         v.animate().scaleX(1f).scaleY(1f).setDuration(150).start();
