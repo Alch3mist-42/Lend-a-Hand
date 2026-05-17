@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/surface">
+
+    <!-- TOP BAR -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="20dp" android:paddingEnd="20dp"
+        android:paddingTop="52dp" android:paddingBottom="20dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView android:id="@+id/btnBack"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="‹" android:textColor="@color/white"
+            android:textSize="22sp" android:layout_marginEnd="16dp"/>
+
+        <TextView android:id="@+id/tvMemberTitle"
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Guardian Profile"
+            android:textColor="@color/white"
+            android:textSize="20sp" android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        android:background="@color/surface"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="40dp">
+
+            <!-- Hero card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="24dp"
+                android:gravity="center_vertical">
+
+                <!-- Avatar with aura -->
+                <FrameLayout android:layout_width="90dp" android:layout_height="90dp">
+                    <View android:layout_width="90dp" android:layout_height="90dp"
+                        android:background="@drawable/circle_ring_light" android:alpha="0.35"/>
+                    <View android:layout_width="74dp" android:layout_height="74dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circle_ring_light" android:alpha="0.55"/>
+                    <TextView android:id="@+id/tvMemberInitials"
+                        android:layout_width="58dp" android:layout_height="58dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/avatar_bg_gold"
+                        android:gravity="center"
+                        android:text="MT"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" android:textStyle="bold"/>
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:orientation="vertical"
+                    android:layout_marginStart="18dp">
+
+                    <TextView android:id="@+id/tvMemberName"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Marcus Thorne"
+                        android:textColor="@color/on_surface"
+                        android:textSize="24sp" android:textStyle="bold"
+                        android:layout_marginBottom="6dp"/>
+
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:background="@drawable/verified_badge_bg"
+                        android:paddingStart="10dp" android:paddingEnd="10dp"
+                        android:paddingTop="4dp" android:paddingBottom="4dp"
+                        android:orientation="horizontal" android:gravity="center_vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="🏆 " android:textSize="12sp"/>
+                        <TextView android:id="@+id/tvMemberRank"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Legendary Donor"
+                            android:textColor="@color/tertiary_container"
+                            android:textSize="12sp" android:textStyle="bold"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Stats row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="20dp" android:paddingEnd="20dp"
+                android:paddingBottom="20dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:layout_marginEnd="8dp"
+                    app:cardCornerRadius="16dp" app:cardElevation="0dp"
+                    app:cardBackgroundColor="@color/surface_low">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="vertical" android:padding="14dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="TOTAL POINTS"
+                            android:textColor="@color/outline" android:textSize="9sp"
+                            android:textStyle="bold" android:letterSpacing="0.06"
+                            android:layout_marginBottom="4dp"/>
+                        <TextView android:id="@+id/tvMemberPoints"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="12.5k"
+                            android:textColor="@color/primary"
+                            android:textSize="22sp" android:textStyle="bold"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:layout_marginEnd="8dp"
+                    app:cardCornerRadius="16dp" app:cardElevation="0dp"
+                    app:cardBackgroundColor="#eef6f4">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="vertical" android:padding="14dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="RANK"
+                            android:textColor="@color/primary" android:textSize="9sp"
+                            android:textStyle="bold" android:letterSpacing="0.06"
+                            android:layout_marginBottom="4dp"/>
+                        <TextView android:id="@+id/tvMemberRankNum"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="#1"
+                            android:textColor="@color/on_surface"
+                            android:textSize="22sp" android:textStyle="bold"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="16dp" app:cardElevation="0dp"
+                    app:cardBackgroundColor="@color/surface_low">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="vertical" android:padding="14dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="DONATIONS"
+                            android:textColor="@color/outline" android:textSize="9sp"
+                            android:textStyle="bold" android:letterSpacing="0.06"
+                            android:layout_marginBottom="4dp"/>
+                        <TextView android:id="@+id/tvMemberDonations"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="248"
+                            android:textColor="@color/on_surface"
+                            android:textSize="22sp" android:textStyle="bold"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+            <!-- About card -->
+            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginStart="16dp" android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp">
+                <View android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:layout_marginTop="5dp" android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp" android:background="@drawable/card_shadow_layer"/>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    app:cardCornerRadius="20dp" app:cardElevation="0dp"
+                    app:cardBackgroundColor="#ffffff">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="vertical" android:padding="20dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="ABOUT"
+                            android:textColor="@color/outline" android:textSize="10sp"
+                            android:textStyle="bold" android:letterSpacing="0.08"
+                            android:layout_marginBottom="10dp"/>
+                        <TextView android:id="@+id/tvMemberBio"
+                            android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:text="A passionate advocate for community health and education. Marcus has been donating consistently for over two years, focusing on medical supplies and school resources for underserved communities."
+                            android:textColor="@color/on_surface_variant"
+                            android:textSize="14sp" android:lineSpacingExtra="4dp"
+                            android:textStyle="italic"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </FrameLayout>
+
+            <!-- Impact breakdown -->
+            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginStart="16dp" android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp">
+                <View android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:layout_marginTop="5dp" android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp" android:background="@drawable/card_shadow_layer"/>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    app:cardCornerRadius="20dp" app:cardElevation="0dp"
+                    app:cardBackgroundColor="#ffffff">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="vertical" android:padding="20dp">
+
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="IMPACT BREAKDOWN"
+                            android:textColor="@color/outline" android:textSize="10sp"
+                            android:textStyle="bold" android:letterSpacing="0.08"
+                            android:layout_marginBottom="16dp"/>
+
+                        <!-- Medical -->
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:orientation="horizontal" android:gravity="center_vertical"
+                            android:layout_marginBottom="14dp">
+                            <TextView android:layout_width="32dp" android:layout_height="32dp"
+                                android:background="@drawable/tier1_icon_bg"
+                                android:gravity="center" android:text="💊" android:textSize="14sp"/>
+                            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                                android:layout_weight="1" android:layout_marginStart="12dp"
+                                android:text="Medical" android:textColor="@color/on_surface"
+                                android:textSize="13sp"/>
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="94 items" android:textColor="@color/primary"
+                                android:textSize="13sp" android:textStyle="bold"/>
+                        </LinearLayout>
+
+                        <!-- Food -->
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:orientation="horizontal" android:gravity="center_vertical"
+                            android:layout_marginBottom="14dp">
+                            <TextView android:layout_width="32dp" android:layout_height="32dp"
+                                android:background="@drawable/tier3_icon_bg"
+                                android:gravity="center" android:text="🥫" android:textSize="14sp"/>
+                            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                                android:layout_weight="1" android:layout_marginStart="12dp"
+                                android:text="Food" android:textColor="@color/on_surface"
+                                android:textSize="13sp"/>
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="82 items" android:textColor="@color/primary"
+                                android:textSize="13sp" android:textStyle="bold"/>
+                        </LinearLayout>
+
+                        <!-- School -->
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:orientation="horizontal" android:gravity="center_vertical">
+                            <TextView android:layout_width="32dp" android:layout_height="32dp"
+                                android:background="@drawable/tier2_icon_bg"
+                                android:gravity="center" android:text="📚" android:textSize="14sp"/>
+                            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                                android:layout_weight="1" android:layout_marginStart="12dp"
+                                android:text="School Supplies" android:textColor="@color/on_surface"
+                                android:textSize="13sp"/>
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="72 items" android:textColor="@color/primary"
+                                android:textSize="13sp" android:textStyle="bold"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </FrameLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Diagonal bright streak top-left -->
+    <item>
+        <rotate android:fromDegrees="35" android:pivotX="0%" android:pivotY="0%">
+            <shape android:shape="rectangle">
+                <gradient
+                    android:type="linear"
+                    android:angle="0"
+                    android:startColor="#00ffffff"
+                    android:centerColor="#40ffffff"
+                    android:endColor="#00ffffff" />
+            </shape>
+        </rotate>
+    </item>
+
+    <!-- Diagonal bright streak bottom-right -->
+    <item android:left="150dp" android:top="100dp">
+        <rotate android:fromDegrees="35" android:pivotX="0%" android:pivotY="0%">
+            <shape android:shape="rectangle">
+                <gradient
+                    android:type="linear"
+                    android:angle="0"
+                    android:startColor="#00ffffff"
+                    android:centerColor="#25ffffff"
+                    android:endColor="#00ffffff" />
+            </shape>
+        </rotate>
+    </item>
+
+    <!-- Top edge highlight -->
+    <item android:bottom="200dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="270"
+                android:startColor="#30ffffff"
+                android:endColor="#00ffffff" />
+        </shape>
+    </item>
+
+</layer-list>

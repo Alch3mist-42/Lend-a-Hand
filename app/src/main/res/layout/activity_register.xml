@@ -21,7 +21,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- Heading -->
         <TextView
             android:id="@+id/tvHeading"
             android:layout_width="wrap_content"
@@ -77,6 +76,23 @@
                     android:textStyle="bold"
                     android:layout_marginBottom="24dp" />
 
+                <!-- Full Name -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/LendAHand.TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Full Name"
+                    android:layout_marginBottom="16dp"
+                    app:startIconDrawable="@android:drawable/ic_menu_myplaces"
+                    app:startIconTint="@color/outline">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etFullName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/on_surface" />
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <!-- Username -->
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/LendAHand.TextInputLayout"
@@ -86,34 +102,77 @@
                     android:layout_marginBottom="16dp"
                     app:startIconDrawable="@android:drawable/ic_menu_myplaces"
                     app:startIconTint="@color/outline">
-
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etUsername"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
                         android:textColor="@color/on_surface" />
-
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Password -->
+                <!-- Email -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/LendAHand.TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email Address"
+                    android:layout_marginBottom="16dp"
+                    app:startIconDrawable="@android:drawable/ic_dialog_email"
+                    app:startIconTint="@color/outline">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/on_surface" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Password with show/hide toggle -->
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/LendAHand.TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Password"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="6dp"
                     app:startIconDrawable="@android:drawable/ic_lock_idle_lock"
                     app:startIconTint="@color/outline"
                     app:endIconMode="password_toggle">
-
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
                         android:textColor="@color/on_surface" />
+                </com.google.android.material.textfield.TextInputLayout>
 
+                <!-- Password strength indicator -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp">
+                    <View android:id="@+id/strengthBar1" android:layout_width="0dp" android:layout_height="4dp" android:layout_weight="1" android:background="#e0e3e5" android:layout_marginEnd="3dp"/>
+                    <View android:id="@+id/strengthBar2" android:layout_width="0dp" android:layout_height="4dp" android:layout_weight="1" android:background="#e0e3e5" android:layout_marginEnd="3dp"/>
+                    <View android:id="@+id/strengthBar3" android:layout_width="0dp" android:layout_height="4dp" android:layout_weight="1" android:background="#e0e3e5" android:layout_marginEnd="3dp"/>
+                    <View android:id="@+id/strengthBar4" android:layout_width="0dp" android:layout_height="4dp" android:layout_weight="1" android:background="#e0e3e5"/>
+                </LinearLayout>
+
+                <!-- Confirm Password -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/LendAHand.TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Confirm Password"
+                    android:layout_marginBottom="20dp"
+                    app:startIconDrawable="@android:drawable/ic_lock_idle_lock"
+                    app:startIconTint="@color/outline"
+                    app:endIconMode="password_toggle">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etConfirmPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:textColor="@color/on_surface" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- User type label -->
@@ -127,7 +186,7 @@
                     android:letterSpacing="0.08"
                     android:layout_marginBottom="10dp" />
 
-                <!-- Donor / Recipient toggle row -->
+                <!-- Donor / Recipient toggle -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -169,7 +228,7 @@
 
                 </LinearLayout>
 
-                <!-- Bio field — shown for recipients -->
+                <!-- Bio field — recipients only -->
                 <TextView
                     android:id="@+id/labelBio"
                     android:layout_width="wrap_content"
@@ -190,7 +249,6 @@
                     android:hint="Tell people why you need support…"
                     android:layout_marginBottom="16dp"
                     android:visibility="gone">
-
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etBio"
                         android:layout_width="match_parent"
@@ -199,29 +257,52 @@
                         android:minLines="3"
                         android:gravity="top"
                         android:textColor="@color/on_surface" />
-
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Contact info — shown for recipients -->
+                <!-- Contact info — recipients only -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layoutContact"
                     style="@style/LendAHand.TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Contact details"
-                    android:layout_marginBottom="28dp"
+                    android:layout_marginBottom="20dp"
                     android:visibility="gone"
                     app:startIconDrawable="@android:drawable/ic_dialog_info"
                     app:startIconTint="@color/outline">
-
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etContact"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
                         android:textColor="@color/on_surface" />
-
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- T&C checkbox -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="24dp">
+
+                    <CheckBox
+                        android:id="@+id/checkTerms"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/primary" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"
+                        android:text="I agree to the Terms of Service and Privacy Policy (POPIA compliant)"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="12sp"
+                        android:lineSpacingExtra="3dp" />
+
+                </LinearLayout>
 
                 <!-- Create account button -->
                 <com.google.android.material.button.MaterialButton

@@ -6,56 +6,55 @@
     android:layout_height="match_parent"
     android:background="@color/primary">
 
-    <!-- Green hero band top -->
+    <!-- TOP BAR -->
     <LinearLayout
-        android:id="@+id/heroBand"
+        android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/primary"
         android:orientation="vertical"
         android:gravity="bottom"
-        android:paddingStart="28dp"
-        android:paddingEnd="28dp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
         android:paddingBottom="32dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/cardForm"
-        app:layout_constraintHeight_percent="0.38">
+        app:layout_constraintHeight_percent="0.32">
 
+        <!-- Back button -->
         <TextView
+            android:id="@+id/btnBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ASTERA"
-            android:textColor="#80ffffff"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.16"
-            android:layout_marginBottom="10dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Welcome back."
+            android:text="‹"
             android:textColor="@color/white"
             android:textSize="32sp"
-            android:textStyle="bold"
-            android:letterSpacing="-0.02"/>
+            android:layout_marginBottom="16dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign in to continue your impact."
+            android:text="Post a Request"
+            android:textColor="@color/white"
+            android:textSize="26sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tell donors what you need"
             android:textColor="#80ffffff"
-            android:textSize="15sp"
-            android:layout_marginTop="6dp"/>
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"/>
 
     </LinearLayout>
 
-    <!-- Centered login card -->
+    <!-- CENTERED FORM CARD -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardForm"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
+        android:layout_marginHorizontal="16dp"
         app:cardCornerRadius="28dp"
         app:cardElevation="16dp"
         app:cardBackgroundColor="@color/surface_lowest"
@@ -69,91 +68,95 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="28dp">
+            android:padding="24dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sign In"
-                android:textColor="@color/on_surface"
-                android:textSize="24sp"
+                android:text="WHAT DO YOU NEED?"
+                android:textColor="@color/outline"
+                android:textSize="11sp"
                 android:textStyle="bold"
-                android:layout_marginBottom="24dp"/>
+                android:letterSpacing="0.08"
+                android:layout_marginBottom="16dp"/>
 
-            <!-- Username -->
+            <!-- Item needed -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/LendAHand.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Username"
-                android:layout_marginBottom="16dp"
-                app:startIconDrawable="@android:drawable/ic_menu_myplaces"
-                app:startIconTint="@color/outline">
+                android:hint="Item (e.g. Blankets, Food tins, School b...)"
+                android:layout_marginBottom="14dp">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etUsername"
+                    android:id="@+id/etItemNeeded"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:textColor="@color/on_surface"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Password -->
+            <!-- Quantity -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/LendAHand.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
-                android:layout_marginBottom="24dp"
-                app:startIconDrawable="@android:drawable/ic_lock_idle_lock"
-                app:startIconTint="@color/outline"
-                app:endIconMode="password_toggle">
+                android:hint="Quantity needed"
+                android:layout_marginBottom="14dp">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etPassword"
+                    android:id="@+id/etQuantity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
+                    android:inputType="number"
                     android:textColor="@color/on_surface"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Sign In button -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnLogin"
-                style="@style/LendAHand.Button.Primary"
+            <!-- Story -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/LendAHand.TextInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:text="Sign In"
-                android:layout_marginBottom="20dp"/>
+                android:layout_height="wrap_content"
+                android:hint="Why do you need this? (your story)"
+                android:layout_marginBottom="20dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:minLines="3"
+                    android:gravity="top"
+                    android:textColor="@color/on_surface"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- OR divider -->
+            <!-- Anti-abuse note -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:background="@drawable/tier2_icon_bg"
+                android:padding="12dp"
                 android:layout_marginBottom="20dp">
-                <View android:layout_width="0dp" android:layout_height="1dp"
-                    android:layout_weight="1" android:background="@color/outline_variant"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="  OR  " android:textColor="@color/outline"
-                    android:textSize="12sp"/>
-                <View android:layout_width="0dp" android:layout_height="1dp"
-                    android:layout_weight="1" android:background="@color/outline_variant"/>
+                    android:text="ℹ️  " android:textSize="14sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Requests are reviewed before going live. One request per item per day."
+                    android:textColor="@color/secondary"
+                    android:textSize="12sp" android:lineSpacingExtra="3dp"/>
             </LinearLayout>
 
-            <!-- Register link -->
-            <TextView
-                android:id="@+id/tvGoToRegister"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Don't have an account? Register"
-                android:textColor="@color/outline"
-                android:textSize="14sp"/>
+            <!-- Submit button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSubmitRequest"
+                style="@style/LendAHand.Button.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:text="Post My Request"/>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- Bottom green area fills remaining space -->
+    <!-- Bottom fill -->
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="280dp"
+    android:layout_height="match_parent"
+    android:background="@drawable/drawer_bg"
+    android:orientation="vertical"
+    android:paddingTop="60dp">
+
+    <!-- App branding header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingBottom="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ASTERA"
+            android:textColor="@color/primary"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.12" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Make an impact today."
+            android:textColor="@color/on_surface_variant"
+            android:textSize="13sp"
+            android:layout_marginTop="2dp" />
+
+    </LinearLayout>
+
+    <!-- Divider -->
+    <View android:layout_width="match_parent" android:layout_height="1dp"
+        android:background="@color/outline_variant" android:layout_marginBottom="8dp"/>
+
+    <!-- Discover -->
+    <LinearLayout android:id="@+id/menuDiscover"
+        android:layout_width="match_parent" android:layout_height="56dp"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:paddingStart="24dp" android:paddingEnd="24dp"
+        android:background="@drawable/ripple_label"
+        android:clickable="true" android:focusable="true">
+        <ImageView android:layout_width="20dp" android:layout_height="20dp"
+            android:src="@drawable/ic_nav_discover" android:layout_marginEnd="16dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Discover" android:textColor="@color/on_surface"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <!-- Community Requests -->
+    <LinearLayout android:id="@+id/menuRequests"
+        android:layout_width="match_parent" android:layout_height="56dp"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:paddingStart="24dp" android:paddingEnd="24dp"
+        android:background="@drawable/ripple_label"
+        android:clickable="true" android:focusable="true">
+        <ImageView android:layout_width="20dp" android:layout_height="20dp"
+            android:src="@drawable/ic_nav_donate" android:layout_marginEnd="16dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Community Requests" android:textColor="@color/on_surface"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <!-- Leaderboard -->
+    <LinearLayout android:id="@+id/menuLeaderboard"
+        android:layout_width="match_parent" android:layout_height="56dp"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:paddingStart="24dp" android:paddingEnd="24dp"
+        android:background="@drawable/ripple_label"
+        android:clickable="true" android:focusable="true">
+        <ImageView android:layout_width="20dp" android:layout_height="20dp"
+            android:src="@drawable/ic_nav_activity" android:layout_marginEnd="16dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Leaderboard" android:textColor="@color/on_surface"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <!-- My Profile -->
+    <LinearLayout android:id="@+id/menuProfile"
+        android:layout_width="match_parent" android:layout_height="56dp"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:paddingStart="24dp" android:paddingEnd="24dp"
+        android:background="@drawable/ripple_label"
+        android:clickable="true" android:focusable="true">
+        <ImageView android:layout_width="20dp" android:layout_height="20dp"
+            android:src="@drawable/ic_nav_profile" android:layout_marginEnd="16dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="My Profile" android:textColor="@color/on_surface"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <!-- Impact Log -->
+    <LinearLayout android:id="@+id/menuImpactLog"
+        android:layout_width="match_parent" android:layout_height="56dp"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:paddingStart="24dp" android:paddingEnd="24dp"
+        android:background="@drawable/ripple_label"
+        android:clickable="true" android:focusable="true">
+        <ImageView android:layout_width="20dp" android:layout_height="20dp"
+            android:src="@drawable/ic_nav_activity" android:layout_marginEnd="16dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Impact Log" android:textColor="@color/on_surface"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <!-- Divider -->
+    <View android:layout_width="match_parent" android:layout_height="1dp"
+        android:background="@color/outline_variant"
+        android:layout_marginTop="8dp" android:layout_marginBottom="8dp"/>
+
+    <!-- Settings -->
+    <LinearLayout android:id="@+id/menuSettings"
+        android:layout_width="match_parent" android:layout_height="56dp"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:paddingStart="24dp" android:paddingEnd="24dp"
+        android:background="@drawable/ripple_label"
+        android:clickable="true" android:focusable="true">
+        <ImageView android:layout_width="20dp" android:layout_height="20dp"
+            android:src="@drawable/ic_settings" android:layout_marginEnd="16dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Settings" android:textColor="@color/on_surface"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <!-- Spacer -->
+    <View android:layout_width="match_parent" android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <!-- Divider -->
+    <View android:layout_width="match_parent" android:layout_height="1dp"
+        android:background="@color/outline_variant" android:layout_marginBottom="8dp"/>
+
+    <!-- Log Out -->
+    <LinearLayout android:id="@+id/menuLogout"
+        android:layout_width="match_parent" android:layout_height="56dp"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:paddingStart="24dp" android:paddingEnd="24dp"
+        android:background="@drawable/ripple_label"
+        android:clickable="true" android:focusable="true"
+        android:layout_marginBottom="24dp">
+        <ImageView android:layout_width="20dp" android:layout_height="20dp"
+            android:src="@drawable/ic_logout" android:layout_marginEnd="16dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Log Out" android:textColor="@color/error"
+            android:textSize="15sp" android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>

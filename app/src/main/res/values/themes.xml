@@ -76,6 +76,7 @@
         <item name="android:textColor">@color/primary</item>
     </style>
     <style name="Theme.LendAHand" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowActivityTransitions">true</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/primary_container</item>
         <item name="colorOnPrimary">@color/on_primary</item>
@@ -128,4 +129,16 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="android:textColor">@color/on_surface</item>
     </style>
+    <style name="DrawerMenuItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:background">@drawable/ripple_label</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
 </resources>

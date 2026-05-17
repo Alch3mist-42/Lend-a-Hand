@@ -22,14 +22,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="6dp"
             android:background="@drawable/chip_inactive"
             android:paddingStart="12dp" android:paddingEnd="12dp"
             android:paddingTop="4dp" android:paddingBottom="4dp"
             android:text="ASTERA"
             android:textColor="#aaffffff"
             android:textSize="10sp" android:textStyle="bold"
-            android:letterSpacing="0.12"/>
+            android:letterSpacing="0.12"
+            android:layout_marginBottom="8dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -42,15 +42,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
             android:text="People who need what you have"
-            android:textColor="#80ffffff" android:textSize="13sp"/>
+            android:textColor="#80ffffff"
+            android:textSize="13sp"
+            android:layout_marginTop="4dp"/>
+
+
 
     </LinearLayout>
 
-    <!-- Matched count -->
+    <!-- Matched count pill -->
     <TextView
-        android:id="@+id/tvMatchedCount"
+        android:id="@+id/tvMatchCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -64,17 +67,32 @@
         app:layout_constraintTop_toBottomOf="@id/topBar"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <!-- Scrollable recipient cards -->
+    <!-- Post a request button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnPostRequest"
+        style="@style/LendAHand.Button.Primary"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:text="+ Post Request"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Request cards list -->
     <ScrollView
-        android:id="@+id/scrollContent"
+        android:id="@+id/scrollRequests"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:overScrollMode="never"
-        android:fillViewport="false"
-        android:paddingStart="16dp" android:paddingEnd="16dp"
-        android:paddingTop="12dp" android:paddingBottom="8dp"
+        android:fillViewport="true"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="8dp"
         android:clipToPadding="false"
-        app:layout_constraintTop_toBottomOf="@id/tvMatchedCount"
+        app:layout_constraintTop_toBottomOf="@id/tvMatchCount"
         app:layout_constraintBottom_toTopOf="@id/bottomNav">
 
         <LinearLayout
@@ -82,14 +100,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Recipient Card 1: John Doe -->
+            <!-- Request Card 1 -->
             <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp" android:layout_marginStart="1dp" android:layout_marginEnd="1dp">
                 <View android:layout_width="match_parent" android:layout_height="match_parent"
                     android:layout_marginTop="5dp" android:layout_marginStart="3dp" android:layout_marginEnd="3dp"
                     android:background="@drawable/card_shadow_layer"/>
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardRecipient1"
+                    android:id="@+id/cardRequest1"
                     android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp" android:foreground="@drawable/ripple_card"
                     app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="#ffffff">
@@ -98,6 +116,7 @@
                         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                             android:orientation="horizontal" android:gravity="center_vertical"
                             android:layout_marginBottom="12dp">
+                            <!-- Avatar with aura -->
                             <FrameLayout android:layout_width="52dp" android:layout_height="52dp">
                                 <View android:layout_width="52dp" android:layout_height="52dp"
                                     android:background="@drawable/circle_ring_light" android:alpha="0.4"/>
@@ -124,16 +143,16 @@
                                         android:textSize="10sp" android:textStyle="bold"
                                         android:layout_marginEnd="6dp"/>
                                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                        android:background="@drawable/tier2_icon_bg"
+                                        android:background="@drawable/tier3_icon_bg"
                                         android:paddingStart="8dp" android:paddingEnd="8dp"
                                         android:paddingTop="3dp" android:paddingBottom="3dp"
-                                        android:text="📚 Textbooks" android:textColor="@color/secondary"
+                                        android:text="🥫 Food" android:textColor="@color/primary"
                                         android:textSize="10sp" android:textStyle="bold"/>
                                 </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
                         <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:text="I am a second-year engineering student. Access to physical textbooks would help me study better during power outages."
+                            android:text="Family of four in need of basic food supplies. We have been struggling since the breadwinner lost their job. Any support is deeply appreciated."
                             android:textColor="@color/on_surface_variant" android:textSize="13sp"
                             android:lineSpacingExtra="3dp" android:textStyle="italic"
                             android:layout_marginBottom="16dp"/>
@@ -145,40 +164,27 @@
                                     android:text="NEEDS" android:textColor="@color/outline"
                                     android:textSize="10sp" android:textStyle="bold" android:letterSpacing="0.06"/>
                                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                    android:text="5 items" android:textColor="@color/on_surface"
+                                    android:text="15 items" android:textColor="@color/on_surface"
                                     android:textSize="18sp" android:textStyle="bold"/>
                             </LinearLayout>
-                            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                android:orientation="vertical" android:gravity="end"
-                                android:layout_marginEnd="12dp">
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                    android:text="ALLOCATE" android:textColor="@color/outline"
-                                    android:textSize="9sp" android:textStyle="bold" android:letterSpacing="0.06"/>
-                                <EditText android:id="@+id/etAllocate1"
-                                    android:layout_width="80dp" android:layout_height="40dp"
-                                    android:background="@drawable/stepper_bg"
-                                    android:gravity="center" android:hint="Amount"
-                                    android:inputType="number"
-                                    android:textSize="14sp" android:textColor="@color/on_surface"/>
-                            </LinearLayout>
                             <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btnAllocate1"
+                                android:id="@+id/btnDonateRequest1"
                                 style="@style/LendAHand.Button.Primary"
                                 android:layout_width="wrap_content" android:layout_height="44dp"
-                                android:text="Allocate to John →" android:textSize="12sp"/>
+                                android:text="Donate ›" android:textSize="13sp"/>
                         </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </FrameLayout>
 
-            <!-- Recipient Card 2: Mary Jenkins -->
+            <!-- Request Card 2 -->
             <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp" android:layout_marginStart="1dp" android:layout_marginEnd="1dp">
                 <View android:layout_width="match_parent" android:layout_height="match_parent"
                     android:layout_marginTop="5dp" android:layout_marginStart="3dp" android:layout_marginEnd="3dp"
                     android:background="@drawable/card_shadow_layer"/>
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardRecipient2"
+                    android:id="@+id/cardRequest2"
                     android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp" android:foreground="@drawable/ripple_card"
                     app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="#ffffff">
@@ -213,16 +219,16 @@
                                         android:textSize="10sp" android:textStyle="bold"
                                         android:layout_marginEnd="6dp"/>
                                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                        android:background="@drawable/tier3_icon_bg"
+                                        android:background="@drawable/tier2_icon_bg"
                                         android:paddingStart="8dp" android:paddingEnd="8dp"
                                         android:paddingTop="3dp" android:paddingBottom="3dp"
-                                        android:text="🥫 Food" android:textColor="@color/primary"
+                                        android:text="📚 School" android:textColor="@color/secondary"
                                         android:textSize="10sp" android:textStyle="bold"/>
                                 </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
                         <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:text="A family of five transitioning into permanent housing. We need basic kitchen essentials and non-perishables to start our pantry."
+                            android:text="Single mother of three. My children need school supplies urgently as the new term begins next week. Every stationery item counts."
                             android:textColor="@color/on_surface_variant" android:textSize="13sp"
                             android:lineSpacingExtra="3dp" android:textStyle="italic"
                             android:layout_marginBottom="16dp"/>
@@ -237,37 +243,24 @@
                                     android:text="20 items" android:textColor="@color/on_surface"
                                     android:textSize="18sp" android:textStyle="bold"/>
                             </LinearLayout>
-                            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                android:orientation="vertical" android:gravity="end"
-                                android:layout_marginEnd="12dp">
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                    android:text="ALLOCATE" android:textColor="@color/outline"
-                                    android:textSize="9sp" android:textStyle="bold" android:letterSpacing="0.06"/>
-                                <EditText android:id="@+id/etAllocate2"
-                                    android:layout_width="80dp" android:layout_height="40dp"
-                                    android:background="@drawable/stepper_bg"
-                                    android:gravity="center" android:hint="Amount"
-                                    android:inputType="number"
-                                    android:textSize="14sp" android:textColor="@color/on_surface"/>
-                            </LinearLayout>
                             <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btnAllocate2"
+                                android:id="@+id/btnDonateRequest2"
                                 style="@style/LendAHand.Button.Primary"
                                 android:layout_width="wrap_content" android:layout_height="44dp"
-                                android:text="Allocate to Mary →" android:textSize="12sp"/>
+                                android:text="Donate ›" android:textSize="13sp"/>
                         </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </FrameLayout>
 
-            <!-- Recipient Card 3: Local Shelter -->
+            <!-- Request Card 3 -->
             <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp" android:layout_marginStart="1dp" android:layout_marginEnd="1dp">
                 <View android:layout_width="match_parent" android:layout_height="match_parent"
                     android:layout_marginTop="5dp" android:layout_marginStart="3dp" android:layout_marginEnd="3dp"
                     android:background="@drawable/card_shadow_layer"/>
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardRecipient3"
+                    android:id="@+id/cardRequest3"
                     android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp" android:foreground="@drawable/ripple_card"
                     app:cardCornerRadius="20dp" app:cardElevation="0dp" app:cardBackgroundColor="#ffffff">
@@ -326,24 +319,11 @@
                                     android:text="50 items" android:textColor="@color/on_surface"
                                     android:textSize="18sp" android:textStyle="bold"/>
                             </LinearLayout>
-                            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                android:orientation="vertical" android:gravity="end"
-                                android:layout_marginEnd="12dp">
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                    android:text="ALLOCATE" android:textColor="@color/outline"
-                                    android:textSize="9sp" android:textStyle="bold" android:letterSpacing="0.06"/>
-                                <EditText android:id="@+id/etAllocate3"
-                                    android:layout_width="80dp" android:layout_height="40dp"
-                                    android:background="@drawable/stepper_bg"
-                                    android:gravity="center" android:hint="Amount"
-                                    android:inputType="number"
-                                    android:textSize="14sp" android:textColor="@color/on_surface"/>
-                            </LinearLayout>
                             <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btnAllocate3"
+                                android:id="@+id/btnDonateRequest3"
                                 style="@style/LendAHand.Button.Primary"
                                 android:layout_width="wrap_content" android:layout_height="44dp"
-                                android:text="Allocate to Shelter →" android:textSize="12sp"/>
+                                android:text="Donate ›" android:textSize="13sp"/>
                         </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -352,7 +332,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- BOTTOM NAV — no tab active -->
+    <!-- BOTTOM NAV -->
     <LinearLayout
         android:id="@+id/bottomNav"
         android:layout_width="match_parent" android:layout_height="80dp"
@@ -366,17 +346,14 @@
             <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_nav_discover" android:layout_gravity="center" android:tint="#aab0b8"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DISCOVER" android:textSize="8sp" android:textColor="#aab0b8" android:textStyle="bold" android:letterSpacing="0.06" android:layout_marginTop="3dp" android:layout_gravity="center"/>
         </LinearLayout>
-
-        <LinearLayout android:id="@+id/navDonate" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="center" android:padding="6dp">
-            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_nav_donate" android:layout_gravity="center" android:tint="#aab0b8"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DONATE" android:textSize="8sp" android:textColor="#aab0b8" android:textStyle="bold" android:letterSpacing="0.06" android:layout_marginTop="3dp" android:layout_gravity="center"/>
+        <LinearLayout android:id="@+id/navDonate" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="center" android:padding="6dp" android:background="@drawable/nav_active_bg">
+            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_nav_donate" android:layout_gravity="center"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DONATE" android:textSize="8sp" android:textColor="@color/primary" android:textStyle="bold" android:letterSpacing="0.06" android:layout_marginTop="3dp" android:layout_gravity="center"/>
         </LinearLayout>
-
         <LinearLayout android:id="@+id/navActivity" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="center" android:padding="6dp">
             <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_nav_activity" android:layout_gravity="center" android:tint="#aab0b8"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ACTIVITY" android:textSize="8sp" android:textColor="#aab0b8" android:textStyle="bold" android:letterSpacing="0.06" android:layout_marginTop="3dp" android:layout_gravity="center"/>
         </LinearLayout>
-
         <LinearLayout android:id="@+id/navProfile" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="center" android:padding="6dp">
             <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_nav_profile" android:layout_gravity="center" android:tint="#aab0b8"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="PROFILE" android:textSize="8sp" android:textColor="#aab0b8" android:textStyle="bold" android:letterSpacing="0.06" android:layout_marginTop="3dp" android:layout_gravity="center"/>

@@ -12,30 +12,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LendAHand">
 
-        <!-- Login screen — opens first -->
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
+        <activity android:name=".MainActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!-- Register screen — navigated to from Login -->
-        <activity
-            android:name=".RegisterActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AddItemsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AllocationActivity"
-            android:exported="false" />
+        <activity android:name=".RegisterActivity" android:exported="false" />
+        <activity android:name=".AddItemsActivity" android:exported="false" />
+        <activity android:name=".AllocationActivity" android:exported="false" />
         <activity android:name=".ProfileActivity" android:exported="false" />
         <activity android:name=".LeaderboardActivity" android:exported="false" />
         <activity android:name=".DiscoverActivity" android:exported="false" />
-
+        <activity android:name=".CommunityRequestsActivity" android:exported="false" />
+        <activity android:name=".RecipientRequestActivity" android:exported="false" />
+        <activity android:name=".StatusTrackerActivity" android:exported="false" />
+        <activity android:name=".JourneyMapActivity" android:exported="false" />
+        <activity android:name=".PriorityExplainedActivity" android:exported="false" />
+        <activity android:name=".MemberProfileActivity" android:exported="false" />
     </application>
 
 </manifest>
