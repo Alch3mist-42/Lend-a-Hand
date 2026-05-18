@@ -6,14 +6,26 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import org.json.JSONObject;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private TextInputEditText etFullName, etUsername, etEmail, etPassword, etConfirmPassword;
+    private static final String BASE_URL = "https://wmc.ms.wits.ac.za/students/sgroup2713/";
+    private static final String SIGNUP_URL = BASE_URL + "signup.php";
+
+    private TextInputEditText etFullName, etUsername, etEmail,
+            etPhone, etPassword, etConfirmPassword;
     private MaterialButton btnRegister;
     private CheckBox cbTerms;
+    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,15 +35,18 @@ public class RegisterActivity extends AppCompatActivity {
         etFullName        = findViewById(R.id.etFullName);
         etUsername        = findViewById(R.id.etUsername);
         etEmail           = findViewById(R.id.etEmail);
+        etPhone           = findViewById(R.id.etPhone);
         etPassword        = findViewById(R.id.etPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         btnRegister       = findViewById(R.id.btnRegister);
         cbTerms           = findViewById(R.id.cbTerms);
+        requestQueue      = Volley.newRequestQueue(this);
 
         TextView btnBack = findViewById(R.id.btnBack);
         if (btnBack != null) btnBack.setOnClickListener(v -> finish());
 
-        if (btnRegister != null) btnRegister.setOnClickListener(v -> attemptRegister());
+        if (btnRegister != null)
+            btnRegister.setOnClickListener(v -> attemptRegister());
 
         TextView tvGoToLogin = findViewById(R.id.tvGoToLogin);
         if (tvGoToLogin != null)
@@ -40,32 +55,88 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void attemptRegister() {
-        String fullName = etFullName != null && etFullName.getText() != null
-                ? etFullName.getText().toString().trim() : "";
-        String username = etUsername != null && etUsername.getText() != null
-                ? etUsername.getText().toString().trim() : "";
-        String email    = etEmail != null && etEmail.getText() != null
-                ? etEmail.getText().toString().trim() : "";
-        String password = etPassword != null && etPassword.getText() != null
-                ? etPassword.getText().toString().trim() : "";
-        String confirm  = etConfirmPassword != null && etConfirmPassword.getText() != null
-                ? etConfirmPassword.getText().toString().trim() : "";
+        String fullName = getValue(etFullName);
+        String username = getValue(etUsername);
+        String email    = getValue(etEmail);
+        String phone    = getValue(etPhone);
+        String password = getValue(etPassword);
+        String confirm  = getValue(etConfirmPassword);
 
-        if (fullName.isEmpty()) { if (etFullName != null) etFullName.setError("Required"); return; }
-        if (username.isEmpty()) { if (etUsername != null) etUsername.setError("Required"); return; }
+        // Validation
+        if (fullName.isEmpty()) { etFullName.setError("Required"); return; }
+        if (username.isEmpty()) { etUsername.setError("Required"); return; }
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            if (etEmail != null) etEmail.setError("Valid email required"); return;
+            etEmail.setError("Valid email required"); return;
         }
-        if (password.length() < 6) { if (etPassword != null) etPassword.setError("Min 6 characters"); return; }
-        if (!password.equals(confirm)) { if (etConfirmPassword != null) etConfirmPassword.setError("Passwords don't match"); return; }
+        if (phone.isEmpty()) { etPhone.setError("Required"); return; }
+        if (password.length() < 6) { etPassword.setError("Min 6 characters"); return; }
+        if (!password.equals(confirm)) {
+            etConfirmPassword.setError("Passwords don't match"); return;
+        }
         if (cbTerms != null && !cbTerms.isChecked()) {
-            Toast.makeText(this, "Please agree to the Terms & Conditions", Toast.LENGTH_SHORT).show(); return;
+            Toast.makeText(this, "Please agree to Terms & Conditions",
+                    Toast.LENGTH_SHORT).show();
+            return;
         }
 
-        Toast.makeText(this, "Welcome, " + fullName + "! 🌿", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, DiscoverActivity.class);
-        intent.putExtra("username", username);
-        startActivity(intent);
-        finish();
+        // Split fullName into name + surname
+        String[] parts  = fullName.split(" ", 2);
+        String name     = parts[0];
+        String surname  = parts.length > 1 ? parts[1] : "";
+
+        btnRegister.setEnabled(false);
+        btnRegister.setText("Creating account...");
+
+        StringRequest request = new StringRequest(Request.Method.POST, SIGNUP_URL,
+                response -> {
+                    btnRegister.setEnabled(true);
+                    btnRegister.setText("Create Account");
+                    try {
+                        JSONObject json = new JSONObject(response);
+                        if (json.has("success")) {
+                            Toast.makeText(this,
+                                    "Welcome, " + name + "! 🌿",
+                                    Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(this, DiscoverActivity.class);
+                            intent.putExtra("username", username);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(this,
+                                    json.optString("error", "Registration failed"),
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    } catch (Exception e) {
+                        Toast.makeText(this, "Unexpected response",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> {
+                    btnRegister.setEnabled(true);
+                    btnRegister.setText("Create Account");
+                    Toast.makeText(this,
+                            "Cannot connect to server. Check your connection.",
+                            Toast.LENGTH_LONG).show();
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("user_id",  username);
+                params.put("name",     name);
+                params.put("surname",  surname);
+                params.put("email",    email);
+                params.put("phone",    phone);
+                params.put("password", password);
+                return params;
+            }
+        };
+
+        VolleySingleton.getInstance(this).getRequestQueue().add(request);
+    }
+
+    private String getValue(TextInputEditText field) {
+        return field != null && field.getText() != null
+                ? field.getText().toString().trim() : "";
     }
 }

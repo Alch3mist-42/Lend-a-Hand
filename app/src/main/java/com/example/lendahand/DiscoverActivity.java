@@ -11,39 +11,43 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class DiscoverActivity extends BaseActivity {
+
+    private static final String BASE_URL = "https://wmc.ms.wits.ac.za/students/sgroup2713/";
+    private static final String LOGOUT_URL  = BASE_URL + "logout.php";
 
     private DrawerLayout drawerLayout;
     private ImageView btnBurger;
     private boolean drawerOpen = false;
     private long backPressedTime = 0;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discover);
 
-        // ── Welcome back toast ──
+        sessionManager = new SessionManager(this);
+
+        // Welcome toast
         String username = getIntent().getStringExtra("username");
-        if (username != null && !username.isEmpty()) {
-            Toast.makeText(this,
-                    "Welcome back, " + username + "! 🌿",
+        if (username != null && !username.isEmpty())
+            Toast.makeText(this, "Welcome back, " + username + "! 🌿",
                     Toast.LENGTH_LONG).show();
-        }
 
         drawerLayout = findViewById(R.id.drawerLayout);
-        btnBurger = findViewById(R.id.btnBurger);
+        btnBurger    = findViewById(R.id.btnBurger);
 
-        // Burger plus/X toggle
+        // Burger toggle
         drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
             @Override
             public void onDrawerOpened(View drawerView) {
                 drawerOpen = true;
                 if (btnBurger != null) {
-                    btnBurger.animate().rotation(45f).setDuration(250)
-                            .setInterpolator(new OvershootInterpolator(2f)).start();
                     btnBurger.setImageResource(R.drawable.ic_menu_close_green);
                     btnBurger.animate().rotation(0f).setDuration(250)
                             .setInterpolator(new OvershootInterpolator(2f)).start();
@@ -62,13 +66,11 @@ public class DiscoverActivity extends BaseActivity {
 
         if (btnBurger != null)
             btnBurger.setOnClickListener(v -> {
-                if (drawerOpen)
-                    drawerLayout.closeDrawers();
-                else
-                    drawerLayout.openDrawer(androidx.core.view.GravityCompat.START);
+                if (drawerOpen) drawerLayout.closeDrawers();
+                else drawerLayout.openDrawer(androidx.core.view.GravityCompat.START);
             });
 
-        // Wire drawer items
+        // Drawer items
         wireDrawerItem(R.id.menuDiscover, null);
         wireDrawerItem(R.id.menuRequests, CommunityRequestsActivity.class);
         wireDrawerItem(R.id.menuLeaderboard, LeaderboardActivity.class);
@@ -76,12 +78,12 @@ public class DiscoverActivity extends BaseActivity {
         wireDrawerItem(R.id.menuImpactLog, ProfileActivity.class);
         wireDrawerItem(R.id.menuSettings, null);
 
+        // Logout — calls logout.php then clears session
         View menuLogout = findViewById(R.id.menuLogout);
         if (menuLogout != null)
             menuLogout.setOnClickListener(v -> {
                 drawerLayout.closeDrawers();
-                startActivity(new Intent(this, MainActivity.class));
-                finishAffinity();
+                logout();
             });
 
         // Bell
@@ -100,12 +102,15 @@ public class DiscoverActivity extends BaseActivity {
             btnNeed.setOnClickListener(v ->
                     startActivity(new Intent(this, CommunityRequestsActivity.class)));
 
-        // Tier cards → Priority Explained screen
+        // Tier cards
         addPressAndNavigate(R.id.cardTier1, PriorityExplainedActivity.class);
         addPressAndNavigate(R.id.cardTier2, PriorityExplainedActivity.class);
         addPressAndNavigate(R.id.cardTier3, PriorityExplainedActivity.class);
 
-        // Guardians Circle → Leaderboard
+        // Hero card rebound
+        addReboundAnimation(findViewById(R.id.cardHero));
+
+        // Guardians → Leaderboard
         View btnLeaderboard = findViewById(R.id.btnViewLeaderboard);
         if (btnLeaderboard != null)
             btnLeaderboard.setOnClickListener(v ->
@@ -120,17 +125,13 @@ public class DiscoverActivity extends BaseActivity {
         setupNavItem(R.id.navProfile, () ->
                 startActivity(new Intent(this, ProfileActivity.class)));
 
-        // Bounce arrows on page load
         bounceArrows();
     }
 
     // ── Double back to exit ──
     @Override
     public void onBackPressed() {
-        if (drawerOpen) {
-            drawerLayout.closeDrawers();
-            return;
-        }
+        if (drawerOpen) { drawerLayout.closeDrawers(); return; }
         long currentTime = System.currentTimeMillis();
         if (currentTime - backPressedTime < 2000) {
             finishAffinity();
@@ -138,6 +139,25 @@ public class DiscoverActivity extends BaseActivity {
             backPressedTime = currentTime;
             Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void logout() {
+        StringRequest request = new StringRequest(Request.Method.POST, LOGOUT_URL,
+                response -> {
+                    sessionManager.clearSession();
+                    Intent intent = new Intent(this, LandingActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                },
+                error -> {
+                    // Clear session anyway and redirect
+                    sessionManager.clearSession();
+                    Intent intent = new Intent(this, LandingActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
+        );
+        VolleySingleton.getInstance(this).getRequestQueue().add(request);
     }
 
     private void bounceArrows() {
@@ -149,14 +169,10 @@ public class DiscoverActivity extends BaseActivity {
         if (v instanceof TextView) {
             String text = ((TextView) v).getText().toString();
             if (text.contains("→") || text.contains("↓")) {
-                v.post(() -> {
-                    v.animate().translationX(8f).setDuration(400)
-                            .setInterpolator(new OvershootInterpolator(2f))
-                            .withEndAction(() ->
-                                    v.animate().translationX(0f).setDuration(300)
-                                            .setInterpolator(new OvershootInterpolator(3f)).start()
-                            ).start();
-                });
+                v.post(() -> v.animate().translationX(8f).setDuration(400)
+                        .setInterpolator(new OvershootInterpolator(2f))
+                        .withEndAction(() -> v.animate().translationX(0f).setDuration(300)
+                                .setInterpolator(new OvershootInterpolator(3f)).start()).start());
             }
         }
         if (v instanceof android.view.ViewGroup) {
@@ -171,8 +187,7 @@ public class DiscoverActivity extends BaseActivity {
         if (item == null) return;
         item.setOnClickListener(v -> {
             drawerLayout.closeDrawers();
-            if (target != null)
-                startActivity(new Intent(this, target));
+            if (target != null) startActivity(new Intent(this, target));
         });
         addReboundAnimation(item);
     }
@@ -180,7 +195,6 @@ public class DiscoverActivity extends BaseActivity {
     private void showNotificationBottomSheet() {
         BottomSheetDialog sheet = new BottomSheetDialog(this,
                 com.google.android.material.R.style.Theme_Material3_Light_BottomSheetDialog);
-
         LinearLayout container = new LinearLayout(this);
         container.setOrientation(LinearLayout.VERTICAL);
         container.setPadding(56, 48, 56, 80);
@@ -242,13 +256,11 @@ public class DiscoverActivity extends BaseActivity {
         col.addView(b);
 
         row.addView(col);
-
         LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         p.bottomMargin = 14;
         row.setLayoutParams(p);
-
         parent.addView(row);
     }
 
@@ -257,13 +269,11 @@ public class DiscoverActivity extends BaseActivity {
         view.setOnTouchListener((v, event) -> {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    v.animate().scaleX(0.94f).scaleY(0.94f).setDuration(80).start();
-                    break;
+                    v.animate().scaleX(0.94f).scaleY(0.94f).setDuration(80).start(); break;
                 case MotionEvent.ACTION_UP:
                 case MotionEvent.ACTION_CANCEL:
                     v.animate().scaleX(1f).scaleY(1f).setDuration(300)
-                            .setInterpolator(new OvershootInterpolator(3f)).start();
-                    break;
+                            .setInterpolator(new OvershootInterpolator(3f)).start(); break;
             }
             return false;
         });
@@ -275,16 +285,13 @@ public class DiscoverActivity extends BaseActivity {
         card.setOnTouchListener((v, event) -> {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    v.animate().scaleX(0.97f).scaleY(0.97f).setDuration(100).start();
-                    break;
+                    v.animate().scaleX(0.97f).scaleY(0.97f).setDuration(100).start(); break;
                 case MotionEvent.ACTION_UP:
                     v.animate().scaleX(1f).scaleY(1f).setDuration(200)
                             .setInterpolator(new OvershootInterpolator(2.5f)).start();
-                    startActivity(new Intent(this, target));
-                    break;
+                    startActivity(new Intent(this, target)); break;
                 case MotionEvent.ACTION_CANCEL:
-                    v.animate().scaleX(1f).scaleY(1f).setDuration(150).start();
-                    break;
+                    v.animate().scaleX(1f).scaleY(1f).setDuration(150).start(); break;
             }
             return true;
         });
@@ -296,16 +303,13 @@ public class DiscoverActivity extends BaseActivity {
         nav.setOnTouchListener((v, event) -> {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    v.animate().scaleX(0.88f).scaleY(0.88f).setDuration(80).start();
-                    break;
+                    v.animate().scaleX(0.88f).scaleY(0.88f).setDuration(80).start(); break;
                 case MotionEvent.ACTION_UP:
                     v.animate().scaleX(1f).scaleY(1f).setDuration(250)
                             .setInterpolator(new OvershootInterpolator(3.5f))
-                            .withEndAction(action).start();
-                    break;
+                            .withEndAction(action).start(); break;
                 case MotionEvent.ACTION_CANCEL:
-                    v.animate().scaleX(1f).scaleY(1f).setDuration(150).start();
-                    break;
+                    v.animate().scaleX(1f).scaleY(1f).setDuration(150).start(); break;
             }
             return true;
         });
