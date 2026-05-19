@@ -2,6 +2,7 @@ package com.example.lendahand;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    private static final String TAG = "REGISTER_DEBUG";
     private static final String SIGNUP_URL =
             "https://wmc.ms.wits.ac.za/students/sgroup2713/signup.php";
 
@@ -60,8 +62,12 @@ public class RegisterActivity extends AppCompatActivity {
         String password = getValue(etPassword);
         String confirm  = getValue(etConfirmPassword);
 
+        // ── Client-side validation ───────────────────────────────────────
         if (fullName.isEmpty()) { etFullName.setError("Required"); return; }
         if (username.isEmpty()) { etUsername.setError("Required"); return; }
+        if (username.length() < 3) {
+            etUsername.setError("Username must be at least 3 characters"); return;
+        }
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             etEmail.setError("Valid email required"); return;
         }
@@ -83,40 +89,89 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister.setEnabled(false);
         btnRegister.setText("Creating account...");
 
+        Log.d(TAG, "Sending registration for username: " + username);
+
         StringRequest request = new StringRequest(Request.Method.POST, SIGNUP_URL,
                 response -> {
                     btnRegister.setEnabled(true);
                     btnRegister.setText("Create Account");
-                    try {
-                        JSONObject json = new JSONObject(response);
-                        if (json.has("success")) {
 
-                            // Save full session with token from server
+                    // Log raw server response so we can debug
+                    Log.d(TAG, "Raw server response: " + response);
+
+                    // Strip any unexpected characters before the JSON
+                    String cleaned = response.trim();
+                    int jsonStart = cleaned.indexOf("{");
+                    if (jsonStart > 0) {
+                        Log.w(TAG, "Non-JSON prefix stripped: " + cleaned.substring(0, jsonStart));
+                        cleaned = cleaned.substring(jsonStart);
+                    }
+
+                    if (cleaned.isEmpty()) {
+                        Log.e(TAG, "Empty response from server");
+                        Toast.makeText(this,
+                                "Server returned empty response. Check signup.php",
+                                Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    try {
+                        JSONObject json = new JSONObject(cleaned);
+                        Log.d(TAG, "Parsed JSON: " + json.toString());
+
+                        // ── Success ──────────────────────────────────────
+                        if (json.has("success") ||
+                                "success".equalsIgnoreCase(json.optString("status"))) {
+
+                            Log.d(TAG, "Registration successful for: " + username);
                             sessionManager.saveSession(
                                     json.optString("user_id", username),
                                     fullName,
                                     json.optString("role", "user"),
                                     json.optString("token", "")
                             );
-
-                            // Navigate without username extra to avoid
-                            // the "Welcome back" toast in DiscoverActivity
                             startActivity(new Intent(this, DiscoverActivity.class));
                             finish();
 
                         } else {
-                            Toast.makeText(this,
-                                    json.optString("error", "Registration failed"),
-                                    Toast.LENGTH_LONG).show();
+                            // ── Server-side error ────────────────────────
+                            String error = json.optString("error",
+                                    json.optString("message",
+                                            json.optString("msg", "Registration failed")));
+
+                            Log.e(TAG, "Server error: " + error);
+
+                            String el = error.toLowerCase();
+                            if (el.contains("username") || el.contains("user_id")
+                                    || el.contains("taken")   || el.contains("exists")
+                                    || el.contains("duplicate")) {
+                                etUsername.setError("Username already taken. Choose another.");
+                                etUsername.requestFocus();
+
+                            } else if (el.contains("email")) {
+                                etEmail.setError("Email already registered.");
+                                etEmail.requestFocus();
+
+                            } else {
+                                // Show the raw error so we can see exactly what the
+                                // server is saying while debugging
+                                Toast.makeText(this,
+                                        "Error: " + error, Toast.LENGTH_LONG).show();
+                            }
                         }
+
                     } catch (Exception e) {
-                        Toast.makeText(this, "Unexpected response",
-                                Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "JSON parse failed. Raw: " + response, e);
+                        Toast.makeText(this,
+                                "Unexpected server response:\n" + response,
+                                Toast.LENGTH_LONG).show();
                     }
                 },
                 error -> {
                     btnRegister.setEnabled(true);
                     btnRegister.setText("Create Account");
+                    String msg = error.getMessage() != null ? error.getMessage() : "Unknown error";
+                    Log.e(TAG, "Volley error: " + msg);
                     Toast.makeText(this,
                             "Cannot connect to server. Check your connection.",
                             Toast.LENGTH_LONG).show();
@@ -131,6 +186,7 @@ public class RegisterActivity extends AppCompatActivity {
                 params.put("email",    email);
                 params.put("phone",    phone);
                 params.put("password", password);
+                Log.d(TAG, "POST params: " + params.toString());
                 return params;
             }
         };
