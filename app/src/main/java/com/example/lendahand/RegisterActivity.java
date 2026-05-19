@@ -62,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
         String password = getValue(etPassword);
         String confirm  = getValue(etConfirmPassword);
 
-        // ── Client-side validation ───────────────────────────────────────
+
         if (fullName.isEmpty()) { etFullName.setError("Required"); return; }
         if (username.isEmpty()) { etUsername.setError("Required"); return; }
         if (username.length() < 3) {
@@ -119,7 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
                         JSONObject json = new JSONObject(cleaned);
                         Log.d(TAG, "Parsed JSON: " + json.toString());
 
-                        // ── Success ──────────────────────────────────────
+
                         if (json.has("success") ||
                                 "success".equalsIgnoreCase(json.optString("status"))) {
 
@@ -134,7 +134,7 @@ public class RegisterActivity extends AppCompatActivity {
                             finish();
 
                         } else {
-                            // ── Server-side error ────────────────────────
+
                             String error = json.optString("error",
                                     json.optString("message",
                                             json.optString("msg", "Registration failed")));
@@ -153,8 +153,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 etEmail.requestFocus();
 
                             } else {
-                                // Show the raw error so we can see exactly what the
-                                // server is saying while debugging
+
                                 Toast.makeText(this,
                                         "Error: " + error, Toast.LENGTH_LONG).show();
                             }

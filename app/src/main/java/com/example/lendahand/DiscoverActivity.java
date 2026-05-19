@@ -33,7 +33,7 @@ public class DiscoverActivity extends BaseActivity {
     private long backPressedTime = 0;
     private SessionManager sessionManager;
 
-    // Guardian circle view IDs
+
     private static final int[] GUARDIAN_NAME_IDS     = {R.id.tvGuardianName1,     R.id.tvGuardianName2,     R.id.tvGuardianName3};
     private static final int[] GUARDIAN_INITIALS_IDS = {R.id.tvGuardianInitials1, R.id.tvGuardianInitials2, R.id.tvGuardianInitials3};
     private static final int[] GUARDIAN_RANK_IDS     = {R.id.tvGuardianRank1,     R.id.tvGuardianRank2,     R.id.tvGuardianRank3};
@@ -46,7 +46,7 @@ public class DiscoverActivity extends BaseActivity {
 
         sessionManager = new SessionManager(this);
 
-        // Welcome toast
+
         String username = getIntent().getStringExtra("username");
         if (username != null && !username.isEmpty())
             Toast.makeText(this, "Welcome back, " + username + "! 🌿",
@@ -82,7 +82,7 @@ public class DiscoverActivity extends BaseActivity {
                 else drawerLayout.openDrawer(androidx.core.view.GravityCompat.START);
             });
 
-        // Drawer items — settings now wired
+
         wireDrawerItem(R.id.menuDiscover,    null);
         wireDrawerItem(R.id.menuRequests,    CommunityRequestsActivity.class);
         wireDrawerItem(R.id.menuLeaderboard, LeaderboardActivity.class);
@@ -114,12 +114,12 @@ public class DiscoverActivity extends BaseActivity {
             btnNeed.setOnClickListener(v ->
                     startActivity(new Intent(this, CommunityRequestsActivity.class)));
 
-        // Tier cards
+
         addPressAndNavigate(R.id.cardTier1, PriorityExplainedActivity.class);
         addPressAndNavigate(R.id.cardTier2, PriorityExplainedActivity.class);
         addPressAndNavigate(R.id.cardTier3, PriorityExplainedActivity.class);
 
-        // Hero card
+
         addReboundAnimation(findViewById(R.id.cardHero));
 
         // Guardians → Leaderboard
@@ -128,7 +128,7 @@ public class DiscoverActivity extends BaseActivity {
             btnLeaderboard.setOnClickListener(v ->
                     startActivity(new Intent(this, LeaderboardActivity.class)));
 
-        // Bottom nav
+
         setupNavItem(R.id.navDiscover, () -> {});
         setupNavItem(R.id.navDonate, () ->
                 startActivity(new Intent(this, CommunityRequestsActivity.class)));
@@ -156,13 +156,13 @@ public class DiscoverActivity extends BaseActivity {
                             String name   = d.optString("name", "Donor");
                             String points = d.optString("points", "0");
 
-                            // Build initials
+
                             String[] parts  = name.trim().split(" ");
                             String initials = parts[0].substring(0, 1).toUpperCase();
                             if (parts.length > 1 && parts[parts.length-1].length() > 0)
                                 initials += parts[parts.length-1].substring(0, 1).toUpperCase();
 
-                            // Rank label
+
                             int pts = 0;
                             try { pts = Integer.parseInt(points); } catch (Exception ignored) {}
                             String rankLabel;
@@ -172,7 +172,7 @@ public class DiscoverActivity extends BaseActivity {
                             else if (pts >= 20)  rankLabel = "HELPER";
                             else                 rankLabel = "SEEDLING";
 
-                            // Update views
+
                             TextView tvName = findViewById(GUARDIAN_NAME_IDS[i]);
                             if (tvName != null) tvName.setText(name);
 

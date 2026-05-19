@@ -23,15 +23,15 @@ public class CommunityRequestsActivity extends BaseActivity {
 
     private SessionManager sessionManager;
 
-    // Card 1 data
+
     private String requestId1 = "", requesterId1 = "", resourceId1 = "", requesterName1 = "";
     private int qty1 = 0;
 
-    // Card 2 data
+
     private String requestId2 = "", requesterId2 = "", resourceId2 = "", requesterName2 = "";
     private int qty2 = 0;
 
-    // Card 3 data
+
     private String requestId3 = "", requesterId3 = "", resourceId3 = "", requesterName3 = "";
     private int qty3 = 0;
 
@@ -42,23 +42,23 @@ public class CommunityRequestsActivity extends BaseActivity {
 
         sessionManager = new SessionManager(this);
 
-        // Post a request → Recipient form
+
         View btnPost = findViewById(R.id.btnPostRequest);
         if (btnPost != null)
             btnPost.setOnClickListener(v ->
                     startActivity(new Intent(this, RecipientRequestActivity.class)));
 
-        // Donate buttons → Add Items with full data
+
         setDonateClick(R.id.btnDonateRequest1, 1);
         setDonateClick(R.id.btnDonateRequest2, 2);
         setDonateClick(R.id.btnDonateRequest3, 3);
 
-        // Card animations
+
         addReboundCard(R.id.cardRequest1);
         addReboundCard(R.id.cardRequest2);
         addReboundCard(R.id.cardRequest3);
 
-        // Bottom nav
+
         setupNavItem(R.id.navDiscover, () ->
                 startActivity(new Intent(this, DiscoverActivity.class)));
         setupNavItem(R.id.navDonate, () -> {});
@@ -146,7 +146,7 @@ public class CommunityRequestsActivity extends BaseActivity {
                     break;
             }
 
-            // Update TextViews
+
             int nameViewId = cardNum == 1 ? R.id.tvRequestName1
                     : cardNum == 2 ? R.id.tvRequestName2
                     : R.id.tvRequestName3;
