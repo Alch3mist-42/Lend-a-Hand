@@ -6,14 +6,12 @@
     android:layout_height="match_parent"
     android:background="#f8f9fb">
 
-    <!-- ── HEADER with metallic shimmer overlay ── -->
     <FrameLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Base green background -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -56,7 +54,6 @@
                 android:textColor="#80ffffff"
                 android:textSize="14sp"/>
 
-            <!-- ── PODIUM — all three bases aligned at bottom ── -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -84,6 +81,7 @@
                             android:background="@drawable/circle_ring_light"
                             android:alpha="0.3"/>
                         <TextView
+                            android:id="@+id/tvInitials2"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:layout_gravity="center"
@@ -96,6 +94,7 @@
                     </FrameLayout>
 
                     <TextView
+                        android:id="@+id/tvPodiumName2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Elena V."
@@ -105,6 +104,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="6dp"/>
                     <TextView
+                        android:id="@+id/tvPodiumPoints2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="8.2k pts"
@@ -112,7 +112,6 @@
                         android:textSize="11sp"
                         android:layout_gravity="center_horizontal"/>
 
-                    <!-- Podium block 2nd -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -135,7 +134,7 @@
 
                 </LinearLayout>
 
-                <!-- 1st place — tallest -->
+                <!-- 1st place -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -144,7 +143,6 @@
                     android:gravity="center_horizontal"
                     android:elevation="12dp">
 
-                    <!-- Lotus icon -->
                     <ImageView
                         android:layout_width="28dp"
                         android:layout_height="28dp"
@@ -162,6 +160,7 @@
                             android:background="@drawable/circle_ring_light"
                             android:alpha="0.3"/>
                         <TextView
+                            android:id="@+id/tvInitials1"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_gravity="center"
@@ -174,6 +173,7 @@
                     </FrameLayout>
 
                     <TextView
+                        android:id="@+id/tvPodiumName1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Marcus T."
@@ -183,6 +183,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="6dp"/>
                     <TextView
+                        android:id="@+id/tvPodiumPoints1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="12.5k pts"
@@ -190,7 +191,6 @@
                         android:textSize="11sp"
                         android:layout_gravity="center_horizontal"/>
 
-                    <!-- Podium block 1st — tallest -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -213,7 +213,7 @@
 
                 </LinearLayout>
 
-                <!-- 3rd place — contrasting indigo so it's visible -->
+                <!-- 3rd place -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -232,6 +232,7 @@
                             android:background="@drawable/circle_ring_light"
                             android:alpha="0.3"/>
                         <TextView
+                            android:id="@+id/tvInitials3"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:layout_gravity="center"
@@ -244,6 +245,7 @@
                     </FrameLayout>
 
                     <TextView
+                        android:id="@+id/tvPodiumName3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Dr. Julian"
@@ -253,6 +255,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="6dp"/>
                     <TextView
+                        android:id="@+id/tvPodiumPoints3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="7.9k pts"
@@ -260,7 +263,6 @@
                         android:textSize="11sp"
                         android:layout_gravity="center_horizontal"/>
 
-                    <!-- Podium block 3rd -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -288,7 +290,6 @@
 
     </FrameLayout>
 
-    <!-- ── SCROLLABLE LIST ── -->
     <ScrollView
         android:id="@+id/scrollContent"
         android:layout_width="match_parent"
@@ -364,6 +365,7 @@
                                 android:background="@drawable/circle_ring_light"
                                 android:alpha="0.3"/>
                             <TextView
+                                android:id="@+id/tvInitials1List"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:layout_gravity="center"
@@ -381,6 +383,7 @@
                             android:orientation="vertical"
                             android:layout_marginStart="12dp">
                             <TextView
+                                android:id="@+id/tvName1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Marcus Thorne"
@@ -388,6 +391,7 @@
                                 android:textSize="15sp"
                                 android:textStyle="bold"/>
                             <TextView
+                                android:id="@+id/tvRank1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Legendary Donor"
@@ -402,6 +406,7 @@
                             android:orientation="vertical"
                             android:gravity="end">
                             <TextView
+                                android:id="@+id/tvPoints1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="12.5k"
@@ -469,6 +474,7 @@
                                 android:background="@drawable/circle_ring_light"
                                 android:alpha="0.3"/>
                             <TextView
+                                android:id="@+id/tvInitials2List"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:layout_gravity="center"
@@ -486,6 +492,7 @@
                             android:orientation="vertical"
                             android:layout_marginStart="12dp">
                             <TextView
+                                android:id="@+id/tvName2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Elena Vance"
@@ -493,6 +500,7 @@
                                 android:textSize="15sp"
                                 android:textStyle="bold"/>
                             <TextView
+                                android:id="@+id/tvRank2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Pillar of Support"
@@ -507,6 +515,7 @@
                             android:orientation="vertical"
                             android:gravity="end">
                             <TextView
+                                android:id="@+id/tvPoints2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="8.2k"
@@ -574,6 +583,7 @@
                                 android:background="@drawable/circle_ring_light"
                                 android:alpha="0.3"/>
                             <TextView
+                                android:id="@+id/tvInitials3List"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:layout_gravity="center"
@@ -591,6 +601,7 @@
                             android:orientation="vertical"
                             android:layout_marginStart="12dp">
                             <TextView
+                                android:id="@+id/tvName3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Dr. Julian Gray"
@@ -598,6 +609,7 @@
                                 android:textSize="15sp"
                                 android:textStyle="bold"/>
                             <TextView
+                                android:id="@+id/tvRank3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Pillar of Support"
@@ -612,6 +624,7 @@
                             android:orientation="vertical"
                             android:gravity="end">
                             <TextView
+                                android:id="@+id/tvPoints3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="7.9k"
@@ -679,6 +692,7 @@
                                 android:background="@drawable/circle_ring_light"
                                 android:alpha="0.3"/>
                             <TextView
+                                android:id="@+id/tvInitials4List"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:layout_gravity="center"
@@ -696,6 +710,7 @@
                             android:orientation="vertical"
                             android:layout_marginStart="12dp">
                             <TextView
+                                android:id="@+id/tvName4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Sarah Adeyemi"
@@ -703,6 +718,7 @@
                                 android:textSize="15sp"
                                 android:textStyle="bold"/>
                             <TextView
+                                android:id="@+id/tvRank4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Rising Guardian"
@@ -717,6 +733,7 @@
                             android:orientation="vertical"
                             android:gravity="end">
                             <TextView
+                                android:id="@+id/tvPoints4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="5.1k"
@@ -784,6 +801,7 @@
                                 android:background="@drawable/circle_ring_light"
                                 android:alpha="0.3"/>
                             <TextView
+                                android:id="@+id/tvInitials5List"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:layout_gravity="center"
@@ -801,6 +819,7 @@
                             android:orientation="vertical"
                             android:layout_marginStart="12dp">
                             <TextView
+                                android:id="@+id/tvName5"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Kagiso Molefe"
@@ -808,6 +827,7 @@
                                 android:textSize="15sp"
                                 android:textStyle="bold"/>
                             <TextView
+                                android:id="@+id/tvRank5"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Community Helper"
@@ -822,6 +842,7 @@
                             android:orientation="vertical"
                             android:gravity="end">
                             <TextView
+                                android:id="@+id/tvPoints5"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="3.4k"
@@ -846,7 +867,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- ── BOTTOM NAV with consistent hollow icons ── -->
     <LinearLayout
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"

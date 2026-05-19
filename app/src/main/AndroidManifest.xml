@@ -34,7 +34,11 @@
         <activity android:name=".JourneyMapActivity" android:exported="false" />
         <activity android:name=".PriorityExplainedActivity" android:exported="false" />
         <activity android:name=".MemberProfileActivity" android:exported="false" />
-
+        <activity android:name=".StaffDonationsActivity" android:exported="false"/>
+        <activity android:name=".DonationStatusActivity" android:exported="false"/>
+        <activity android:name=".SettingsActivity" android:exported="false"/>
+        <activity android:name=".DonationConfirmedActivity" android:exported="false"/>
+        <activity android:name=".PendingDonationsActivity"/>
     </application>
 
 </manifest>

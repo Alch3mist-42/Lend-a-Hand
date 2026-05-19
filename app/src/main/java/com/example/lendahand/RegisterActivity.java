@@ -7,9 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import org.json.JSONObject;
@@ -18,20 +16,21 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private static final String BASE_URL = "https://wmc.ms.wits.ac.za/students/sgroup2713/";
-    private static final String SIGNUP_URL = BASE_URL + "signup.php";
+    private static final String SIGNUP_URL =
+            "https://wmc.ms.wits.ac.za/students/sgroup2713/signup.php";
 
     private TextInputEditText etFullName, etUsername, etEmail,
             etPhone, etPassword, etConfirmPassword;
     private MaterialButton btnRegister;
     private CheckBox cbTerms;
-    private RequestQueue requestQueue;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        sessionManager    = new SessionManager(this);
         etFullName        = findViewById(R.id.etFullName);
         etUsername        = findViewById(R.id.etUsername);
         etEmail           = findViewById(R.id.etEmail);
@@ -40,7 +39,6 @@ public class RegisterActivity extends AppCompatActivity {
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         btnRegister       = findViewById(R.id.btnRegister);
         cbTerms           = findViewById(R.id.cbTerms);
-        requestQueue      = Volley.newRequestQueue(this);
 
         TextView btnBack = findViewById(R.id.btnBack);
         if (btnBack != null) btnBack.setOnClickListener(v -> finish());
@@ -62,7 +60,6 @@ public class RegisterActivity extends AppCompatActivity {
         String password = getValue(etPassword);
         String confirm  = getValue(etConfirmPassword);
 
-        // Validation
         if (fullName.isEmpty()) { etFullName.setError("Required"); return; }
         if (username.isEmpty()) { etUsername.setError("Required"); return; }
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
@@ -79,10 +76,9 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        // Split fullName into name + surname
-        String[] parts  = fullName.split(" ", 2);
-        String name     = parts[0];
-        String surname  = parts.length > 1 ? parts[1] : "";
+        String[] parts = fullName.trim().split(" ", 2);
+        String name    = parts[0];
+        String surname = parts.length > 1 ? parts[1] : "";
 
         btnRegister.setEnabled(false);
         btnRegister.setText("Creating account...");
@@ -94,13 +90,20 @@ public class RegisterActivity extends AppCompatActivity {
                     try {
                         JSONObject json = new JSONObject(response);
                         if (json.has("success")) {
-                            Toast.makeText(this,
-                                    "Welcome, " + name + "! 🌿",
-                                    Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(this, DiscoverActivity.class);
-                            intent.putExtra("username", username);
-                            startActivity(intent);
+
+                            // Save full session with token from server
+                            sessionManager.saveSession(
+                                    json.optString("user_id", username),
+                                    fullName,
+                                    json.optString("role", "user"),
+                                    json.optString("token", "")
+                            );
+
+                            // Navigate without username extra to avoid
+                            // the "Welcome back" toast in DiscoverActivity
+                            startActivity(new Intent(this, DiscoverActivity.class));
                             finish();
+
                         } else {
                             Toast.makeText(this,
                                     json.optString("error", "Registration failed"),

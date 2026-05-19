@@ -139,6 +139,12 @@
         <item name="android:background">@drawable/ripple_label</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
+
+    </style>
+    <style name="SwitchTheme" parent="Theme.MaterialComponents.Light">
+        <item name="colorControlActivated">@color/primary</item>
+        <item name="colorSwitchThumbNormal">@color/outline_variant</item>
+        <item name="android:colorForeground">@color/outline_variant</item>
     </style>
 
 </resources>

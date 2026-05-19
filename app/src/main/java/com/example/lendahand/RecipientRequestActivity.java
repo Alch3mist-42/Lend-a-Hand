@@ -13,12 +13,13 @@ import java.util.Map;
 
 public class RecipientRequestActivity extends BaseActivity {
 
-    private static final String BASE_URL = "https://wmc.ms.wits.ac.za/students/sgroup2713/";
-    private static final String REQUEST_URL = BASE_URL + "request.php";
+    private static final String REQUEST_URL =
+            "https://wmc.ms.wits.ac.za/students/sgroup2713/request.php";
 
     private TextInputEditText etItem, etQuantity, etNote;
     private MaterialButton btnSubmit;
     private SessionManager sessionManager;
+    private String item = "", quantity = "", note = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +41,17 @@ public class RecipientRequestActivity extends BaseActivity {
     }
 
     private void submitRequest() {
-        String item     = etItem     != null && etItem.getText()     != null ? etItem.getText().toString().trim()     : "";
-        String quantity = etQuantity != null && etQuantity.getText() != null ? etQuantity.getText().toString().trim() : "";
-        String note     = etNote     != null && etNote.getText()     != null ? etNote.getText().toString().trim()     : "";
+        item     = etItem     != null && etItem.getText()     != null ? etItem.getText().toString().trim()     : "";
+        quantity = etQuantity != null && etQuantity.getText() != null ? etQuantity.getText().toString().trim() : "";
+        note     = etNote     != null && etNote.getText()     != null ? etNote.getText().toString().trim()     : "";
 
         if (item.isEmpty()) {
-            if (etItem != null) etItem.setError("Required"); return;
+            if (etItem != null) etItem.setError("Required");
+            return;
         }
         if (quantity.isEmpty()) {
-            if (etQuantity != null) etQuantity.setError("Required"); return;
+            if (etQuantity != null) etQuantity.setError("Required");
+            return;
         }
 
         btnSubmit.setEnabled(false);
@@ -71,7 +74,8 @@ public class RecipientRequestActivity extends BaseActivity {
                                     Toast.LENGTH_LONG).show();
                         }
                     } catch (Exception e) {
-                        Toast.makeText(this, "Unexpected response", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Unexpected response",
+                                Toast.LENGTH_SHORT).show();
                     }
                 },
                 error -> {
@@ -84,12 +88,12 @@ public class RecipientRequestActivity extends BaseActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                // resource_id will need to be looked up from item name
-                // For now pass item name — Member 3 can add a resource lookup
-                params.put("resource_id",        item);
-                params.put("quantity",            quantity);
-                params.put("delivery_location",   note);
-                params.put("delivery_date",       "");
+                params.put("user_id",          sessionManager.getUserId());
+                params.put("token",            sessionManager.getToken());
+                params.put("resource_id",      item);
+                params.put("quantity",         quantity);
+                params.put("delivery_location", note);
+                params.put("delivery_date",    "");
                 return params;
             }
         };

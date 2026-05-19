@@ -14,17 +14,30 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DiscoverActivity extends BaseActivity {
 
-    private static final String BASE_URL = "https://wmc.ms.wits.ac.za/students/sgroup2713/";
-    private static final String LOGOUT_URL  = BASE_URL + "logout.php";
+    private static final String BASE_URL          = "https://wmc.ms.wits.ac.za/students/sgroup2713/";
+    private static final String LOGOUT_URL         = BASE_URL + "logout.php";
+    private static final String NOTIFICATIONS_URL  = BASE_URL + "notifications.php";
+    private static final String MARK_READ_URL      = BASE_URL + "mark_read.php";
+    private static final String LEADERBOARD_URL    = BASE_URL + "leaderboard.php";
 
     private DrawerLayout drawerLayout;
     private ImageView btnBurger;
     private boolean drawerOpen = false;
     private long backPressedTime = 0;
     private SessionManager sessionManager;
+
+    // Guardian circle view IDs
+    private static final int[] GUARDIAN_NAME_IDS     = {R.id.tvGuardianName1,     R.id.tvGuardianName2,     R.id.tvGuardianName3};
+    private static final int[] GUARDIAN_INITIALS_IDS = {R.id.tvGuardianInitials1, R.id.tvGuardianInitials2, R.id.tvGuardianInitials3};
+    private static final int[] GUARDIAN_RANK_IDS     = {R.id.tvGuardianRank1,     R.id.tvGuardianRank2,     R.id.tvGuardianRank3};
+    private static final int[] GUARDIAN_POINTS_IDS   = {R.id.tvGuardianPoints1,   R.id.tvGuardianPoints2,   R.id.tvGuardianPoints3};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +55,6 @@ public class DiscoverActivity extends BaseActivity {
         drawerLayout = findViewById(R.id.drawerLayout);
         btnBurger    = findViewById(R.id.btnBurger);
 
-        // Burger toggle
         drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
             @Override
             public void onDrawerOpened(View drawerView) {
@@ -70,15 +82,15 @@ public class DiscoverActivity extends BaseActivity {
                 else drawerLayout.openDrawer(androidx.core.view.GravityCompat.START);
             });
 
-        // Drawer items
-        wireDrawerItem(R.id.menuDiscover, null);
-        wireDrawerItem(R.id.menuRequests, CommunityRequestsActivity.class);
+        // Drawer items — settings now wired
+        wireDrawerItem(R.id.menuDiscover,    null);
+        wireDrawerItem(R.id.menuRequests,    CommunityRequestsActivity.class);
         wireDrawerItem(R.id.menuLeaderboard, LeaderboardActivity.class);
-        wireDrawerItem(R.id.menuProfile, ProfileActivity.class);
-        wireDrawerItem(R.id.menuImpactLog, ProfileActivity.class);
-        wireDrawerItem(R.id.menuSettings, null);
+        wireDrawerItem(R.id.menuProfile,     ProfileActivity.class);
+        wireDrawerItem(R.id.menuImpactLog,   ProfileActivity.class);
+        wireDrawerItem(R.id.menuSettings,    SettingsActivity.class); // ← fixed
 
-        // Logout — calls logout.php then clears session
+        // Logout
         View menuLogout = findViewById(R.id.menuLogout);
         if (menuLogout != null)
             menuLogout.setOnClickListener(v -> {
@@ -89,7 +101,7 @@ public class DiscoverActivity extends BaseActivity {
         // Bell
         View btnBell = findViewById(R.id.btnBell);
         if (btnBell != null)
-            btnBell.setOnClickListener(v -> showNotificationBottomSheet());
+            btnBell.setOnClickListener(v -> fetchAndShowNotifications());
 
         // CTA buttons
         View btnGiver = findViewById(R.id.btnBecomeGiver);
@@ -107,7 +119,7 @@ public class DiscoverActivity extends BaseActivity {
         addPressAndNavigate(R.id.cardTier2, PriorityExplainedActivity.class);
         addPressAndNavigate(R.id.cardTier3, PriorityExplainedActivity.class);
 
-        // Hero card rebound
+        // Hero card
         addReboundAnimation(findViewById(R.id.cardHero));
 
         // Guardians → Leaderboard
@@ -126,9 +138,71 @@ public class DiscoverActivity extends BaseActivity {
                 startActivity(new Intent(this, ProfileActivity.class)));
 
         bounceArrows();
+        loadGuardiansLeaderboard();
     }
 
-    // ── Double back to exit ──
+    private void loadGuardiansLeaderboard() {
+        StringRequest request = new StringRequest(Request.Method.POST, LEADERBOARD_URL,
+                response -> {
+                    try {
+                        JSONObject json = new JSONObject(response);
+                        if (json.has("error")) return;
+
+                        JSONArray donors = json.getJSONArray("leaderboard");
+                        int count = Math.min(donors.length(), 3);
+
+                        for (int i = 0; i < count; i++) {
+                            JSONObject d  = donors.getJSONObject(i);
+                            String name   = d.optString("name", "Donor");
+                            String points = d.optString("points", "0");
+
+                            // Build initials
+                            String[] parts  = name.trim().split(" ");
+                            String initials = parts[0].substring(0, 1).toUpperCase();
+                            if (parts.length > 1 && parts[parts.length-1].length() > 0)
+                                initials += parts[parts.length-1].substring(0, 1).toUpperCase();
+
+                            // Rank label
+                            int pts = 0;
+                            try { pts = Integer.parseInt(points); } catch (Exception ignored) {}
+                            String rankLabel;
+                            if      (pts >= 250) rankLabel = "LEGENDARY DONOR";
+                            else if (pts >= 120) rankLabel = "GUARDIAN";
+                            else if (pts >= 60)  rankLabel = "UPLIFTER";
+                            else if (pts >= 20)  rankLabel = "HELPER";
+                            else                 rankLabel = "SEEDLING";
+
+                            // Update views
+                            TextView tvName = findViewById(GUARDIAN_NAME_IDS[i]);
+                            if (tvName != null) tvName.setText(name);
+
+                            TextView tvInitials = findViewById(GUARDIAN_INITIALS_IDS[i]);
+                            if (tvInitials != null) tvInitials.setText(initials);
+
+                            TextView tvRank = findViewById(GUARDIAN_RANK_IDS[i]);
+                            if (tvRank != null) tvRank.setText(rankLabel);
+
+                            TextView tvPoints = findViewById(GUARDIAN_POINTS_IDS[i]);
+                            if (tvPoints != null) tvPoints.setText(points + " pts");
+                        }
+
+                    } catch (Exception e) {
+                        // Keep hardcoded fallback data
+                    }
+                },
+                error -> { /* Keep hardcoded fallback */ }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("user_id", sessionManager.getUserId());
+                params.put("token",   sessionManager.getToken());
+                return params;
+            }
+        };
+        VolleySingleton.getInstance(this).getRequestQueue().add(request);
+    }
+
     @Override
     public void onBackPressed() {
         if (drawerOpen) { drawerLayout.closeDrawers(); return; }
@@ -141,6 +215,158 @@ public class DiscoverActivity extends BaseActivity {
         }
     }
 
+    private void fetchAndShowNotifications() {
+        StringRequest request = new StringRequest(Request.Method.POST, NOTIFICATIONS_URL,
+                response -> {
+                    try {
+                        JSONObject json = new JSONObject(response);
+                        if (json.has("error")) {
+                            Toast.makeText(this,
+                                    json.optString("error", "Could not load notifications"),
+                                    Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        JSONArray notifications = json.getJSONArray("notifications");
+                        showNotificationBottomSheet(notifications);
+                        markAllRead();
+                    } catch (Exception e) {
+                        Toast.makeText(this, "Could not load notifications",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> Toast.makeText(this, "Cannot connect to server",
+                        Toast.LENGTH_SHORT).show()
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("user_id", sessionManager.getUserId());
+                params.put("token",   sessionManager.getToken());
+                return params;
+            }
+        };
+        VolleySingleton.getInstance(this).getRequestQueue().add(request);
+    }
+
+    private void markAllRead() {
+        StringRequest request = new StringRequest(Request.Method.POST, MARK_READ_URL,
+                response -> { },
+                error -> { }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("user_id", sessionManager.getUserId());
+                params.put("token",   sessionManager.getToken());
+                return params;
+            }
+        };
+        VolleySingleton.getInstance(this).getRequestQueue().add(request);
+    }
+
+    private void showNotificationBottomSheet(JSONArray notifications) {
+        BottomSheetDialog sheet = new BottomSheetDialog(this,
+                com.google.android.material.R.style.Theme_Material3_Light_BottomSheetDialog);
+
+        LinearLayout container = new LinearLayout(this);
+        container.setOrientation(LinearLayout.VERTICAL);
+        container.setPadding(56, 48, 56, 80);
+        container.setBackgroundResource(android.R.color.white);
+
+        TextView title = new TextView(this);
+        title.setText("Notifications");
+        title.setTextSize(22f);
+        title.setTextColor(0xFF191c1e);
+        title.setTypeface(null, android.graphics.Typeface.BOLD);
+        title.setPadding(0, 0, 0, 32);
+        container.addView(title);
+
+        if (notifications == null || notifications.length() == 0) {
+            TextView empty = new TextView(this);
+            empty.setText("No notifications yet.");
+            empty.setTextSize(14f);
+            empty.setTextColor(0xFF6e7976);
+            container.addView(empty);
+        } else {
+            for (int i = 0; i < notifications.length(); i++) {
+                try {
+                    JSONObject notif   = notifications.getJSONObject(i);
+                    String type        = notif.optString("type", "general");
+                    String message     = notif.optString("message", "");
+                    boolean isRead     = notif.optBoolean("is_read", false);
+
+                    String emoji, hex, heading;
+                    switch (type) {
+                        case "request_confirmed":
+                            emoji = "✅"; hex = "#004f45"; heading = "Request Confirmed"; break;
+                        case "new_request":
+                            emoji = "📢"; hex = "#4c56af"; heading = "New Community Request"; break;
+                        case "allocation":
+                            emoji = "💳"; hex = "#004f45"; heading = "Donation Matched"; break;
+                        case "tier_upgrade":
+                            emoji = "🏆"; hex = "#c9a900"; heading = "Tier Upgrade"; break;
+                        default:
+                            emoji = "🔔"; hex = "#004f45"; heading = "Notification"; break;
+                    }
+
+                    float alpha = isRead ? 0.5f : 1f;
+                    addNotifItem(container, emoji, heading, message, hex, alpha);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        sheet.setContentView(container);
+        sheet.show();
+    }
+
+    private void addNotifItem(LinearLayout parent, String emoji,
+                              String heading, String body, String hex, float alpha) {
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setBackgroundResource(R.drawable.verified_badge_bg);
+        row.setPadding(28, 24, 28, 24);
+        row.setAlpha(alpha);
+
+        TextView icon = new TextView(this);
+        icon.setText(emoji);
+        icon.setTextSize(20f);
+        icon.setPadding(0, 0, 20, 0);
+        row.addView(icon);
+
+        LinearLayout col = new LinearLayout(this);
+        col.setOrientation(LinearLayout.VERTICAL);
+        col.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+
+        TextView h = new TextView(this);
+        h.setText(heading);
+        h.setTextSize(14f);
+        h.setTextColor(android.graphics.Color.parseColor(hex));
+        h.setTypeface(null, android.graphics.Typeface.BOLD);
+        col.addView(h);
+
+        TextView b = new TextView(this);
+        b.setText(body);
+        b.setTextSize(13f);
+        b.setTextColor(0xFF3e4946);
+        b.setLineSpacing(4f, 1f);
+        b.setPadding(0, 4, 0, 0);
+        col.addView(b);
+
+        row.addView(col);
+
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        p.bottomMargin = 14;
+        row.setLayoutParams(p);
+        parent.addView(row);
+    }
+
     private void logout() {
         StringRequest request = new StringRequest(Request.Method.POST, LOGOUT_URL,
                 response -> {
@@ -150,13 +376,20 @@ public class DiscoverActivity extends BaseActivity {
                     startActivity(intent);
                 },
                 error -> {
-                    // Clear session anyway and redirect
                     sessionManager.clearSession();
                     Intent intent = new Intent(this, LandingActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }
-        );
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("user_id", sessionManager.getUserId());
+                params.put("token",   sessionManager.getToken());
+                return params;
+            }
+        };
         VolleySingleton.getInstance(this).getRequestQueue().add(request);
     }
 
@@ -192,88 +425,18 @@ public class DiscoverActivity extends BaseActivity {
         addReboundAnimation(item);
     }
 
-    private void showNotificationBottomSheet() {
-        BottomSheetDialog sheet = new BottomSheetDialog(this,
-                com.google.android.material.R.style.Theme_Material3_Light_BottomSheetDialog);
-        LinearLayout container = new LinearLayout(this);
-        container.setOrientation(LinearLayout.VERTICAL);
-        container.setPadding(56, 48, 56, 80);
-        container.setBackgroundResource(android.R.color.white);
-
-        TextView title = new TextView(this);
-        title.setText("Notifications");
-        title.setTextSize(22f);
-        title.setTextColor(0xFF191c1e);
-        title.setTypeface(null, android.graphics.Typeface.BOLD);
-        title.setPadding(0, 0, 0, 32);
-        container.addView(title);
-
-        addNotifItem(container, "🏆", "Tier Upgrade",
-                "You've reached Helper rank! 18 more credits to Uplifter.", "#c9a900");
-        addNotifItem(container, "✅", "Donation Confirmed",
-                "Your donation has been received.", "#004f45");
-        addNotifItem(container, "📢", "Community Request",
-                "Local Shelter needs 50 blankets urgently.", "#4c56af");
-        addNotifItem(container, "💳", "Credits Awarded",
-                "+12 credits for your City Park donation.", "#004f45");
-
-        sheet.setContentView(container);
-        sheet.show();
-    }
-
-    private void addNotifItem(LinearLayout parent, String emoji,
-                              String heading, String body, String hex) {
-        LinearLayout row = new LinearLayout(this);
-        row.setOrientation(LinearLayout.HORIZONTAL);
-        row.setBackgroundResource(R.drawable.verified_badge_bg);
-        row.setPadding(28, 24, 28, 24);
-
-        TextView icon = new TextView(this);
-        icon.setText(emoji);
-        icon.setTextSize(20f);
-        icon.setPadding(0, 0, 20, 0);
-        row.addView(icon);
-
-        LinearLayout col = new LinearLayout(this);
-        col.setOrientation(LinearLayout.VERTICAL);
-        col.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT));
-
-        TextView h = new TextView(this);
-        h.setText(heading);
-        h.setTextSize(14f);
-        h.setTextColor(android.graphics.Color.parseColor(hex));
-        h.setTypeface(null, android.graphics.Typeface.BOLD);
-        col.addView(h);
-
-        TextView b = new TextView(this);
-        b.setText(body);
-        b.setTextSize(13f);
-        b.setTextColor(0xFF3e4946);
-        b.setLineSpacing(4f, 1f);
-        b.setPadding(0, 4, 0, 0);
-        col.addView(b);
-
-        row.addView(col);
-        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-        p.bottomMargin = 14;
-        row.setLayoutParams(p);
-        parent.addView(row);
-    }
-
     private void addReboundAnimation(View view) {
         if (view == null) return;
         view.setOnTouchListener((v, event) -> {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    v.animate().scaleX(0.94f).scaleY(0.94f).setDuration(80).start(); break;
+                    v.animate().scaleX(0.94f).scaleY(0.94f).setDuration(80).start();
+                    break;
                 case MotionEvent.ACTION_UP:
                 case MotionEvent.ACTION_CANCEL:
                     v.animate().scaleX(1f).scaleY(1f).setDuration(300)
-                            .setInterpolator(new OvershootInterpolator(3f)).start(); break;
+                            .setInterpolator(new OvershootInterpolator(3f)).start();
+                    break;
             }
             return false;
         });
@@ -285,13 +448,16 @@ public class DiscoverActivity extends BaseActivity {
         card.setOnTouchListener((v, event) -> {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    v.animate().scaleX(0.97f).scaleY(0.97f).setDuration(100).start(); break;
+                    v.animate().scaleX(0.97f).scaleY(0.97f).setDuration(100).start();
+                    break;
                 case MotionEvent.ACTION_UP:
                     v.animate().scaleX(1f).scaleY(1f).setDuration(200)
                             .setInterpolator(new OvershootInterpolator(2.5f)).start();
-                    startActivity(new Intent(this, target)); break;
+                    startActivity(new Intent(this, target));
+                    break;
                 case MotionEvent.ACTION_CANCEL:
-                    v.animate().scaleX(1f).scaleY(1f).setDuration(150).start(); break;
+                    v.animate().scaleX(1f).scaleY(1f).setDuration(150).start();
+                    break;
             }
             return true;
         });
@@ -303,13 +469,16 @@ public class DiscoverActivity extends BaseActivity {
         nav.setOnTouchListener((v, event) -> {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    v.animate().scaleX(0.88f).scaleY(0.88f).setDuration(80).start(); break;
+                    v.animate().scaleX(0.88f).scaleY(0.88f).setDuration(80).start();
+                    break;
                 case MotionEvent.ACTION_UP:
                     v.animate().scaleX(1f).scaleY(1f).setDuration(250)
                             .setInterpolator(new OvershootInterpolator(3.5f))
-                            .withEndAction(action).start(); break;
+                            .withEndAction(action).start();
+                    break;
                 case MotionEvent.ACTION_CANCEL:
-                    v.animate().scaleX(1f).scaleY(1f).setDuration(150).start(); break;
+                    v.animate().scaleX(1f).scaleY(1f).setDuration(150).start();
+                    break;
             }
             return true;
         });

@@ -9,133 +9,214 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+import org.json.JSONObject;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AddItemsActivity extends AppCompatActivity {
 
+    private static final String DONATE_URL =
+            "https://wmc.ms.wits.ac.za/students/sgroup2713/donate.php";
+
+    private static final String[] RESOURCE_IDS = {
+            "FN_NONPERISH",
+            "FN_CANNED",
+            "FN_FORMULA",
+            "HYG_SOAP",
+            "HYG_SANITARY",
+            "HH_BLANKETS",
+            "CL_WINTER",
+            "SCH_STATIONERY",
+            "SCH_BACKPACKS",
+            "MED_CHRONIC",
+            "MED_INSULIN"
+    };
+
+    private static final int[] QTY_VIEW_IDS = {
+            R.id.tvQty_nonPerish,
+            R.id.tvQty_canned,
+            R.id.tvQty_babyFormula,
+            R.id.tvQty_soap,
+            R.id.tvQty_sanitary,
+            R.id.tvQty_blankets,
+            R.id.tvQty_winter,
+            R.id.tvQty_stationery,
+            R.id.tvQty_backpacks,
+            R.id.tvQty_medication,
+            R.id.tvQty_insulin
+    };
+
     private TextView activeChip;
     private ScrollView scrollView;
-    private LinearLayout itemsContainer;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_items);
 
+        sessionManager = new SessionManager(this);
         scrollView = findViewById(R.id.scrollContent);
-        itemsContainer = findViewById(R.id.itemsContainer);
 
-        // ── Steppers ──
+        // Wire steppers
         wireSteppers(R.id.btnMinus_nonPerish,   R.id.btnPlus_nonPerish,   R.id.tvQty_nonPerish);
-        wireSteppers(R.id.btnMinus_canned,       R.id.btnPlus_canned,       R.id.tvQty_canned);
-        wireSteppers(R.id.btnMinus_babyFormula,  R.id.btnPlus_babyFormula,  R.id.tvQty_babyFormula);
-        wireSteppers(R.id.btnMinus_soap,         R.id.btnPlus_soap,         R.id.tvQty_soap);
-        wireSteppers(R.id.btnMinus_sanitary,     R.id.btnPlus_sanitary,     R.id.tvQty_sanitary);
-        wireSteppers(R.id.btnMinus_blankets,     R.id.btnPlus_blankets,     R.id.tvQty_blankets);
-        wireSteppers(R.id.btnMinus_winter,       R.id.btnPlus_winter,       R.id.tvQty_winter);
-        wireSteppers(R.id.btnMinus_stationery,   R.id.btnPlus_stationery,   R.id.tvQty_stationery);
-        wireSteppers(R.id.btnMinus_backpacks,    R.id.btnPlus_backpacks,    R.id.tvQty_backpacks);
-        wireSteppers(R.id.btnMinus_medication,   R.id.btnPlus_medication,   R.id.tvQty_medication);
-        wireSteppers(R.id.btnMinus_insulin,      R.id.btnPlus_insulin,      R.id.tvQty_insulin);
+        wireSteppers(R.id.btnMinus_canned,      R.id.btnPlus_canned,      R.id.tvQty_canned);
+        wireSteppers(R.id.btnMinus_babyFormula, R.id.btnPlus_babyFormula, R.id.tvQty_babyFormula);
+        wireSteppers(R.id.btnMinus_soap,        R.id.btnPlus_soap,        R.id.tvQty_soap);
+        wireSteppers(R.id.btnMinus_sanitary,    R.id.btnPlus_sanitary,    R.id.tvQty_sanitary);
+        wireSteppers(R.id.btnMinus_blankets,    R.id.btnPlus_blankets,    R.id.tvQty_blankets);
+        wireSteppers(R.id.btnMinus_winter,      R.id.btnPlus_winter,      R.id.tvQty_winter);
+        wireSteppers(R.id.btnMinus_stationery,  R.id.btnPlus_stationery,  R.id.tvQty_stationery);
+        wireSteppers(R.id.btnMinus_backpacks,   R.id.btnPlus_backpacks,   R.id.tvQty_backpacks);
+        wireSteppers(R.id.btnMinus_medication,  R.id.btnPlus_medication,  R.id.tvQty_medication);
+        wireSteppers(R.id.btnMinus_insulin,     R.id.btnPlus_insulin,     R.id.tvQty_insulin);
 
-        // ── Save button ──
+        // Donate button (was Save)
         View btnSave = findViewById(R.id.btnSave);
-        if (btnSave != null) btnSave.setOnClickListener(v ->
-                startActivity(new Intent(this, AllocationActivity.class)));
+        if (btnSave != null)
+            btnSave.setOnClickListener(v -> submitDonations());
 
-        // ── Chip filtering with scroll to section ──
+        // Chips
         activeChip = findViewById(R.id.chipAll);
         setChipActive(activeChip);
 
-        // Food chip
-        TextView chipFood = findViewById(R.id.chipFood);
-        if (chipFood != null) {
-            chipFood.setOnClickListener(v -> {
-                setChipInactive(activeChip);
-                activeChip = chipFood;
-                setChipActive(chipFood);
-                scrollToSection(R.id.sectionFood);
-            });
-        }
-
-        // Hygiene chip
-        TextView chipHygiene = findViewById(R.id.chipHygiene);
-        if (chipHygiene != null) {
-            chipHygiene.setOnClickListener(v -> {
-                setChipInactive(activeChip);
-                activeChip = chipHygiene;
-                setChipActive(chipHygiene);
-                scrollToSection(R.id.sectionHygiene);
-            });
-        }
-
-        // Clothing chip
-        TextView chipClothing = findViewById(R.id.chipClothing);
-        if (chipClothing != null) {
-            chipClothing.setOnClickListener(v -> {
-                setChipInactive(activeChip);
-                activeChip = chipClothing;
-                setChipActive(chipClothing);
-                scrollToSection(R.id.sectionClothing);
-            });
-        }
-
-        // School chip
-        TextView chipSchool = findViewById(R.id.chipSchool);
-        if (chipSchool != null) {
-            chipSchool.setOnClickListener(v -> {
-                setChipInactive(activeChip);
-                activeChip = chipSchool;
-                setChipActive(chipSchool);
-                scrollToSection(R.id.sectionSchool);
-            });
-        }
-
-        // Medical chip
-        TextView chipMedical = findViewById(R.id.chipMedical);
-        if (chipMedical != null) {
-            chipMedical.setOnClickListener(v -> {
-                setChipInactive(activeChip);
-                activeChip = chipMedical;
-                setChipActive(chipMedical);
-                scrollToSection(R.id.sectionMedical);
-            });
-        }
-
-        // All chip - scroll to top
         TextView chipAll = findViewById(R.id.chipAll);
         if (chipAll != null) {
             chipAll.setOnClickListener(v -> {
                 setChipInactive(activeChip);
                 activeChip = chipAll;
                 setChipActive(chipAll);
-                scrollView.smoothScrollTo(0, 0);
+                if (scrollView != null) scrollView.smoothScrollTo(0, 0);
             });
         }
 
-        // ── Card animations ──
+        wireChip(R.id.chipFood,     R.id.sectionFood);
+        wireChip(R.id.chipHygiene,  R.id.sectionHygiene);
+        wireChip(R.id.chipClothing, R.id.sectionClothing);
+        wireChip(R.id.chipSchool,   R.id.sectionSchool);
+        wireChip(R.id.chipMedical,  R.id.sectionMedical);
+
+        // Card animations
         int[] cards = {
-                R.id.cardNonPerishables, R.id.cardCannedFood, R.id.cardBabyFormula,
-                R.id.cardSoap, R.id.cardSanitary, R.id.cardBlankets,
-                R.id.cardWinterClothes, R.id.cardStationery, R.id.cardBackpacks,
-                R.id.cardMedication, R.id.cardInsulin
+                R.id.cardNonPerishables, R.id.cardCannedFood,
+                R.id.cardBabyFormula,    R.id.cardSoap,
+                R.id.cardSanitary,       R.id.cardBlankets,
+                R.id.cardWinterClothes,  R.id.cardStationery,
+                R.id.cardBackpacks,      R.id.cardMedication,
+                R.id.cardInsulin
         };
         for (int cid : cards) addReboundCard(cid);
 
-        // ── Bottom nav ──
+        // Bottom nav
         setupNav(R.id.navDiscover, DiscoverActivity.class);
         setupNav(R.id.navDonate,   null);
         setupNav(R.id.navActivity, LeaderboardActivity.class);
         setupNav(R.id.navProfile,  ProfileActivity.class);
     }
 
+    private void submitDonations() {
+        final Map<String, Integer> itemsToSubmit = new HashMap<>();
+        for (int i = 0; i < QTY_VIEW_IDS.length; i++) {
+            TextView qtyView = findViewById(QTY_VIEW_IDS[i]);
+            if (qtyView == null) continue;
+            int qty = Integer.parseInt(qtyView.getText().toString());
+            if (qty > 0) itemsToSubmit.put(RESOURCE_IDS[i], qty);
+        }
+
+        if (itemsToSubmit.isEmpty()) {
+            Toast.makeText(this, "Please select at least one item",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        View btnSave = findViewById(R.id.btnSave);
+        if (btnSave != null) btnSave.setEnabled(false);
+
+        final int[] submitted = {0};
+        final int[] failed    = {0};
+        final int   total     = itemsToSubmit.size();
+
+        for (Map.Entry<String, Integer> entry : itemsToSubmit.entrySet()) {
+            final String resId = entry.getKey();
+            final int    qty   = entry.getValue();
+
+            StringRequest request = new StringRequest(Request.Method.POST, DONATE_URL,
+                    response -> {
+                        try {
+                            JSONObject json = new JSONObject(response);
+                            if (json.has("success")) submitted[0]++;
+                            else failed[0]++;
+                        } catch (Exception e) {
+                            failed[0]++;
+                        }
+
+                        if (submitted[0] + failed[0] == total) {
+                            if (btnSave != null) btnSave.setEnabled(true);
+                            if (failed[0] == 0) {
+                                // Updated toast message
+                                Toast.makeText(this,
+                                        "Donation received ✓",
+                                        Toast.LENGTH_LONG).show();
+                                // Navigate to status tracker instead of allocation
+                                startActivity(new Intent(this, DonationConfirmedActivity.class));
+                                finish();
+                            } else {
+                                Toast.makeText(this,
+                                        submitted[0] + " item(s) submitted, "
+                                                + failed[0] + " failed.",
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    },
+                    error -> {
+                        failed[0]++;
+                        if (submitted[0] + failed[0] == total) {
+                            if (btnSave != null) btnSave.setEnabled(true);
+                            Toast.makeText(this, "Cannot connect to server",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("user_id",         sessionManager.getUserId());
+                    params.put("token",           sessionManager.getToken());
+                    params.put("resource_id",     resId);
+                    params.put("quantity",        String.valueOf(qty));
+                    params.put("photo_url",       "");
+                    params.put("location",        "");
+                    params.put("notes",           "");
+                    params.put("collection_date", "");
+                    return params;
+                }
+            };
+
+            VolleySingleton.getInstance(this).getRequestQueue().add(request);
+        }
+    }
+
+    private void wireChip(int chipId, int sectionId) {
+        TextView chip = findViewById(chipId);
+        if (chip == null) return;
+        chip.setOnClickListener(v -> {
+            setChipInactive(activeChip);
+            activeChip = chip;
+            setChipActive(chip);
+            scrollToSection(sectionId);
+        });
+    }
+
     private void scrollToSection(int sectionId) {
         View section = findViewById(sectionId);
         if (section != null && scrollView != null) {
-            // Add a small delay to ensure layout is ready
             section.postDelayed(() -> {
-                int yOffset = section.getTop() - 100; // 100dp padding from top
+                int yOffset = section.getTop() - 100;
                 scrollView.smoothScrollTo(0, yOffset);
             }, 50);
         }
@@ -146,13 +227,20 @@ public class AddItemsActivity extends AppCompatActivity {
         Button plus  = findViewById(plusId);
         TextView qty = findViewById(qtyId);
         if (minus == null || plus == null || qty == null) return;
+
         minus.setOnClickListener(v -> {
             int val = Integer.parseInt(qty.getText().toString());
             if (val > 0) qty.setText(String.valueOf(val - 1));
         });
+
         plus.setOnClickListener(v -> {
             int val = Integer.parseInt(qty.getText().toString());
-            qty.setText(String.valueOf(val + 1));
+            if (val < 7) {
+                qty.setText(String.valueOf(val + 1));
+            } else {
+                Toast.makeText(this, "Maximum 7 items per donation",
+                        Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
@@ -178,10 +266,8 @@ public class AddItemsActivity extends AppCompatActivity {
                     break;
                 case MotionEvent.ACTION_UP:
                 case MotionEvent.ACTION_CANCEL:
-                    v.animate().scaleX(1f).scaleY(1f)
-                            .setDuration(220)
-                            .setInterpolator(new OvershootInterpolator(3f))
-                            .start();
+                    v.animate().scaleX(1f).scaleY(1f).setDuration(220)
+                            .setInterpolator(new OvershootInterpolator(3f)).start();
                     break;
             }
             return false;

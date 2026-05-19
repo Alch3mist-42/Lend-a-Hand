@@ -341,7 +341,7 @@
                             android:textSize="14sp" android:textStyle="bold"/>
                     </LinearLayout>
 
-                    <!-- Row 1: Marcus Thorne -->
+                    <!-- Row 1 -->
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent" android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -350,21 +350,50 @@
                         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                             android:orientation="horizontal" android:gravity="center_vertical" android:padding="14dp">
                             <FrameLayout android:layout_width="52dp" android:layout_height="52dp">
-                                <View android:layout_width="52dp" android:layout_height="52dp" android:background="@drawable/circle_ring_light" android:alpha="0.3"/>
-                                <TextView android:layout_width="44dp" android:layout_height="44dp" android:layout_gravity="center" android:background="@drawable/avatar_bg_gold" android:gravity="center" android:text="MT" android:textColor="@color/white" android:textSize="14sp" android:textStyle="bold"/>
+                                <View android:layout_width="52dp" android:layout_height="52dp"
+                                    android:background="@drawable/circle_ring_light" android:alpha="0.3"/>
+                                <TextView
+                                    android:id="@+id/tvGuardianInitials1"
+                                    android:layout_width="44dp" android:layout_height="44dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/avatar_bg_gold"
+                                    android:gravity="center" android:text="MT"
+                                    android:textColor="@color/white" android:textSize="14sp"
+                                    android:textStyle="bold"/>
                             </FrameLayout>
-                            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="12dp">
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Marcus Thorne" android:textColor="@color/white" android:textSize="15sp" android:textStyle="bold"/>
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="LEGENDARY DONOR" android:textColor="@color/tertiary_fixed" android:textSize="10sp" android:textStyle="bold" android:letterSpacing="0.06"/>
+                            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                                android:layout_weight="1" android:orientation="vertical"
+                                android:layout_marginStart="12dp">
+                                <TextView
+                                    android:id="@+id/tvGuardianName1"
+                                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    android:text="Marcus Thorne"
+                                    android:textColor="@color/white" android:textSize="15sp"
+                                    android:textStyle="bold"/>
+                                <TextView
+                                    android:id="@+id/tvGuardianRank1"
+                                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    android:text="LEGENDARY DONOR"
+                                    android:textColor="@color/tertiary_fixed" android:textSize="10sp"
+                                    android:textStyle="bold" android:letterSpacing="0.06"/>
                             </LinearLayout>
-                            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="end">
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="12.5k" android:textColor="@color/white" android:textSize="18sp" android:textStyle="bold" android:layout_gravity="end"/>
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="POINTS" android:textColor="#80ffffff" android:textSize="9sp" android:textStyle="bold" android:letterSpacing="0.06" android:layout_gravity="end"/>
+                            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:orientation="vertical" android:gravity="end">
+                                <TextView
+                                    android:id="@+id/tvGuardianPoints1"
+                                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    android:text="12.5k"
+                                    android:textColor="@color/white" android:textSize="18sp"
+                                    android:textStyle="bold" android:layout_gravity="end"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    android:text="POINTS" android:textColor="#80ffffff"
+                                    android:textSize="9sp" android:textStyle="bold"
+                                    android:letterSpacing="0.06" android:layout_gravity="end"/>
                             </LinearLayout>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
-                    <!-- Row 2: Elena Vance -->
+                    <!-- Row 2 -->
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent" android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -373,21 +402,50 @@
                         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                             android:orientation="horizontal" android:gravity="center_vertical" android:padding="14dp">
                             <FrameLayout android:layout_width="52dp" android:layout_height="52dp">
-                                <View android:layout_width="52dp" android:layout_height="52dp" android:background="@drawable/circle_ring_light" android:alpha="0.3"/>
-                                <TextView android:layout_width="44dp" android:layout_height="44dp" android:layout_gravity="center" android:background="@drawable/avatar_bg_indigo" android:gravity="center" android:text="EV" android:textColor="@color/white" android:textSize="14sp" android:textStyle="bold"/>
+                                <View android:layout_width="52dp" android:layout_height="52dp"
+                                    android:background="@drawable/circle_ring_light" android:alpha="0.3"/>
+                                <TextView
+                                    android:id="@+id/tvGuardianInitials2"
+                                    android:layout_width="44dp" android:layout_height="44dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/avatar_bg_indigo"
+                                    android:gravity="center" android:text="EV"
+                                    android:textColor="@color/white" android:textSize="14sp"
+                                    android:textStyle="bold"/>
                             </FrameLayout>
-                            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="12dp">
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Elena Vance" android:textColor="@color/white" android:textSize="15sp" android:textStyle="bold"/>
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="PILLAR OF SUPPORT" android:textColor="#ccffffff" android:textSize="10sp" android:textStyle="bold" android:letterSpacing="0.06"/>
+                            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                                android:layout_weight="1" android:orientation="vertical"
+                                android:layout_marginStart="12dp">
+                                <TextView
+                                    android:id="@+id/tvGuardianName2"
+                                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    android:text="Elena Vance"
+                                    android:textColor="@color/white" android:textSize="15sp"
+                                    android:textStyle="bold"/>
+                                <TextView
+                                    android:id="@+id/tvGuardianRank2"
+                                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    android:text="PILLAR OF SUPPORT"
+                                    android:textColor="#ccffffff" android:textSize="10sp"
+                                    android:textStyle="bold" android:letterSpacing="0.06"/>
                             </LinearLayout>
-                            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="end">
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="8.2k" android:textColor="@color/white" android:textSize="18sp" android:textStyle="bold" android:layout_gravity="end"/>
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="POINTS" android:textColor="#80ffffff" android:textSize="9sp" android:textStyle="bold" android:letterSpacing="0.06" android:layout_gravity="end"/>
+                            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:orientation="vertical" android:gravity="end">
+                                <TextView
+                                    android:id="@+id/tvGuardianPoints2"
+                                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    android:text="8.2k"
+                                    android:textColor="@color/white" android:textSize="18sp"
+                                    android:textStyle="bold" android:layout_gravity="end"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    android:text="POINTS" android:textColor="#80ffffff"
+                                    android:textSize="9sp" android:textStyle="bold"
+                                    android:letterSpacing="0.06" android:layout_gravity="end"/>
                             </LinearLayout>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
-                    <!-- Row 3: Dr. Julian Gray -->
+                    <!-- Row 3 -->
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent" android:layout_height="wrap_content"
                         app:cardCornerRadius="16dp" app:cardElevation="0dp"
@@ -395,19 +453,49 @@
                         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                             android:orientation="horizontal" android:gravity="center_vertical" android:padding="14dp">
                             <FrameLayout android:layout_width="52dp" android:layout_height="52dp">
-                                <View android:layout_width="52dp" android:layout_height="52dp" android:background="@drawable/circle_ring_light" android:alpha="0.3"/>
-                                <TextView android:layout_width="44dp" android:layout_height="44dp" android:layout_gravity="center" android:background="@drawable/avatar_bg_green" android:gravity="center" android:text="JG" android:textColor="@color/white" android:textSize="14sp" android:textStyle="bold"/>
+                                <View android:layout_width="52dp" android:layout_height="52dp"
+                                    android:background="@drawable/circle_ring_light" android:alpha="0.3"/>
+                                <TextView
+                                    android:id="@+id/tvGuardianInitials3"
+                                    android:layout_width="44dp" android:layout_height="44dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/avatar_bg_green"
+                                    android:gravity="center" android:text="JG"
+                                    android:textColor="@color/white" android:textSize="14sp"
+                                    android:textStyle="bold"/>
                             </FrameLayout>
-                            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="12dp">
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Dr. Julian Gray" android:textColor="@color/white" android:textSize="15sp" android:textStyle="bold"/>
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="PILLAR OF SUPPORT" android:textColor="#ccffffff" android:textSize="10sp" android:textStyle="bold" android:letterSpacing="0.06"/>
+                            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                                android:layout_weight="1" android:orientation="vertical"
+                                android:layout_marginStart="12dp">
+                                <TextView
+                                    android:id="@+id/tvGuardianName3"
+                                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    android:text="Dr. Julian Gray"
+                                    android:textColor="@color/white" android:textSize="15sp"
+                                    android:textStyle="bold"/>
+                                <TextView
+                                    android:id="@+id/tvGuardianRank3"
+                                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    android:text="PILLAR OF SUPPORT"
+                                    android:textColor="#ccffffff" android:textSize="10sp"
+                                    android:textStyle="bold" android:letterSpacing="0.06"/>
                             </LinearLayout>
-                            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="end">
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="7.9k" android:textColor="@color/white" android:textSize="18sp" android:textStyle="bold" android:layout_gravity="end"/>
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="POINTS" android:textColor="#80ffffff" android:textSize="9sp" android:textStyle="bold" android:letterSpacing="0.06" android:layout_gravity="end"/>
+                            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:orientation="vertical" android:gravity="end">
+                                <TextView
+                                    android:id="@+id/tvGuardianPoints3"
+                                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    android:text="7.9k"
+                                    android:textColor="@color/white" android:textSize="18sp"
+                                    android:textStyle="bold" android:layout_gravity="end"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                    android:text="POINTS" android:textColor="#80ffffff"
+                                    android:textSize="9sp" android:textStyle="bold"
+                                    android:letterSpacing="0.06" android:layout_gravity="end"/>
                             </LinearLayout>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
+
 
                 </LinearLayout>
 

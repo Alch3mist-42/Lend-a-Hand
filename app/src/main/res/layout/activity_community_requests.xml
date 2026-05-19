@@ -163,6 +163,7 @@
                                 android:orientation="vertical"
                                 android:layout_marginStart="12dp">
                                 <TextView
+                                    android:id="@+id/tvRequestName1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="John Doe"
@@ -231,6 +232,7 @@
                                     android:textStyle="bold"
                                     android:letterSpacing="0.06"/>
                                 <TextView
+                                    android:id="@+id/tvRequestQty1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="15 items"
@@ -308,6 +310,7 @@
                                 android:orientation="vertical"
                                 android:layout_marginStart="12dp">
                                 <TextView
+                                    android:id="@+id/tvRequestName2"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Mary Jenkins"
@@ -376,6 +379,7 @@
                                     android:textStyle="bold"
                                     android:letterSpacing="0.06"/>
                                 <TextView
+                                    android:id="@+id/tvRequestQty2"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="20 items"
@@ -453,6 +457,7 @@
                                 android:orientation="vertical"
                                 android:layout_marginStart="12dp">
                                 <TextView
+                                    android:id="@+id/tvRequestName3"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Local Shelter"
@@ -521,6 +526,7 @@
                                     android:textStyle="bold"
                                     android:letterSpacing="0.06"/>
                                 <TextView
+                                    android:id="@+id/tvRequestQty3"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="50 items"

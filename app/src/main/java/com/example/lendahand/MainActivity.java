@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
     private TextInputEditText etUsername, etPassword;
     private MaterialButton btnLogin;
+    private String username = "";
+    private String password = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void attemptLogin() {
-        String username = etUsername != null && etUsername.getText() != null
+        username = etUsername != null && etUsername.getText() != null
                 ? etUsername.getText().toString().trim() : "";
-        String password = etPassword != null && etPassword.getText() != null
+        password = etPassword != null && etPassword.getText() != null
                 ? etPassword.getText().toString().trim() : "";
 
         if (username.isEmpty()) { etUsername.setError("Required"); return; }
@@ -81,10 +83,17 @@ public class MainActivity extends AppCompatActivity {
                             session.saveSession(
                                     json.optString("user_id", username),
                                     username,
-                                    json.optString("role", "user")
+                                    json.optString("role", "user"),
+                                    json.optString("token", "")
                             );
-                            Intent intent = new Intent(this, DiscoverActivity.class);
-                            intent.putExtra("username", username);
+                            String role = json.optString("role", "user");
+                            Intent intent;
+                            if (role.equals("stuff")) {
+                                intent = new Intent(this, StaffDonationsActivity.class);
+                            } else {
+                                intent = new Intent(this, DiscoverActivity.class);
+                                intent.putExtra("username", username);
+                            }
                             startActivity(intent);
                             finish();
                         } else {

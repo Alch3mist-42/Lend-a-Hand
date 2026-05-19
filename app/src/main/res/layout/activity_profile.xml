@@ -19,19 +19,24 @@
         android:elevation="2dp"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/btnBurger"
-            android:layout_width="28dp" android:layout_height="28dp"
-            android:src="@drawable/ic_menu_plus_green"
-            android:clickable="true" android:focusable="true"/>
-
         <TextView
-            android:layout_width="0dp" android:layout_height="wrap_content"
-            android:layout_weight="1" android:layout_marginStart="14dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="ASTERA"
             android:textColor="@color/primary"
-            android:textSize="20sp" android:textStyle="bold"
+            android:textSize="20sp"
+            android:textStyle="bold"
             android:letterSpacing="0.08"/>
+
+        <ImageView
+            android:id="@+id/btnSettings"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_settings"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="2dp"/>
 
     </LinearLayout>
 
@@ -59,7 +64,6 @@
                 android:paddingStart="24dp"
                 android:paddingEnd="24dp">
 
-                <!-- Avatar with aura -->
                 <FrameLayout
                     android:layout_width="100dp"
                     android:layout_height="100dp"
@@ -69,13 +73,18 @@
                     <View android:layout_width="82dp" android:layout_height="82dp"
                         android:layout_gravity="center"
                         android:background="@drawable/circle_ring_light" android:alpha="0.6"/>
-                    <TextView android:layout_width="66dp" android:layout_height="66dp"
+                    <!-- ID added here -->
+                    <TextView
+                        android:id="@+id/tvAvatarInitials"
+                        android:layout_width="66dp"
+                        android:layout_height="66dp"
                         android:layout_gravity="center"
                         android:background="@drawable/avatar_bg_green"
                         android:gravity="center"
                         android:text="OF"
                         android:textColor="@color/white"
-                        android:textSize="22sp" android:textStyle="bold"/>
+                        android:textSize="22sp"
+                        android:textStyle="bold"/>
                 </FrameLayout>
 
                 <TextView
@@ -197,7 +206,6 @@
                 android:orientation="horizontal"
                 android:paddingStart="16dp" android:paddingEnd="16dp"
                 android:paddingBottom="16dp">
-
                 <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content">
                     <View android:layout_width="match_parent" android:layout_height="match_parent"
                         android:layout_marginTop="4dp" android:layout_marginStart="2dp"
@@ -208,24 +216,19 @@
                         app:cardBackgroundColor="@color/surface_lowest">
                         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                             android:orientation="vertical" android:padding="20dp">
-
                             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                android:text="DONOR LINEAGE"
-                                android:textColor="@color/outline" android:textSize="10sp"
-                                android:textStyle="bold" android:letterSpacing="0.08"
+                                android:text="DONOR LINEAGE" android:textColor="@color/outline"
+                                android:textSize="10sp" android:textStyle="bold" android:letterSpacing="0.08"
                                 android:layout_marginBottom="16dp"/>
-
                             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                                 android:orientation="horizontal" android:gravity="center_vertical"
                                 android:layout_marginBottom="10dp">
                                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                                     android:text="🌱" android:textSize="16sp" android:alpha="0.4"/>
                                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                    android:text="  Seedling"
-                                    android:textColor="@color/outline" android:textSize="14sp"
-                                    android:layout_marginStart="8dp"/>
+                                    android:text="  Seedling" android:textColor="@color/outline"
+                                    android:textSize="14sp" android:layout_marginStart="8dp"/>
                             </LinearLayout>
-
                             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                                 android:orientation="horizontal" android:gravity="center_vertical"
                                 android:background="@drawable/verified_badge_bg"
@@ -235,43 +238,36 @@
                                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                                     android:text="🌿" android:textSize="18sp"/>
                                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                    android:text="  Helper"
-                                    android:textColor="@color/primary" android:textSize="16sp"
-                                    android:textStyle="bold" android:layout_marginStart="8dp"/>
+                                    android:text="  Helper" android:textColor="@color/primary"
+                                    android:textSize="16sp" android:textStyle="bold"
+                                    android:layout_marginStart="8dp"/>
                             </LinearLayout>
-
                             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                                 android:orientation="horizontal" android:gravity="center_vertical"
                                 android:layout_marginBottom="10dp">
                                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                                     android:text="⭐" android:textSize="16sp" android:alpha="0.3"/>
                                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                    android:text="  Uplifter"
-                                    android:textColor="@color/outline" android:textSize="14sp"
-                                    android:layout_marginStart="8dp"/>
+                                    android:text="  Uplifter" android:textColor="@color/outline"
+                                    android:textSize="14sp" android:layout_marginStart="8dp"/>
                             </LinearLayout>
-
                             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                                 android:orientation="horizontal" android:gravity="center_vertical"
                                 android:layout_marginBottom="10dp">
                                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                                     android:text="⚡" android:textSize="16sp" android:alpha="0.3"/>
                                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                    android:text="  Guardian"
-                                    android:textColor="@color/outline" android:textSize="14sp"
-                                    android:layout_marginStart="8dp"/>
+                                    android:text="  Guardian" android:textColor="@color/outline"
+                                    android:textSize="14sp" android:layout_marginStart="8dp"/>
                             </LinearLayout>
-
                             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                                 android:orientation="horizontal" android:gravity="center_vertical">
                                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                                     android:text="🛡️" android:textSize="16sp" android:alpha="0.3"/>
                                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                    android:text="  Legend"
-                                    android:textColor="@color/outline" android:textSize="14sp"
-                                    android:layout_marginStart="8dp"/>
+                                    android:text="  Legend" android:textColor="@color/outline"
+                                    android:textSize="14sp" android:layout_marginStart="8dp"/>
                             </LinearLayout>
-
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </FrameLayout>
@@ -283,14 +279,12 @@
                 android:paddingStart="20dp" android:paddingEnd="20dp"
                 android:paddingBottom="12dp">
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Impact Log"
+                    android:layout_weight="1" android:text="Impact Log"
                     android:textColor="@color/on_surface"
                     android:textSize="20sp" android:textStyle="bold"/>
                 <TextView android:id="@+id/btnSeeJourney"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="See Journey ›"
-                    android:textColor="@color/primary"
+                    android:text="See Journey ›" android:textColor="@color/primary"
                     android:textSize="14sp" android:textStyle="bold"/>
             </LinearLayout>
 
@@ -424,21 +418,57 @@
         android:paddingTop="8dp" android:paddingBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <LinearLayout android:id="@+id/navDiscover" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="center" android:padding="6dp">
-            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_nav_discover" android:layout_gravity="center" android:tint="#aab0b8"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DISCOVER" android:textSize="8sp" android:textColor="#aab0b8" android:textStyle="bold" android:letterSpacing="0.06" android:layout_marginTop="3dp" android:layout_gravity="center"/>
+        <LinearLayout android:id="@+id/navDiscover"
+            android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:orientation="vertical"
+            android:gravity="center" android:padding="6dp">
+            <ImageView android:layout_width="24dp" android:layout_height="24dp"
+                android:src="@drawable/ic_nav_discover"
+                android:layout_gravity="center" android:tint="#aab0b8"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="DISCOVER" android:textSize="8sp" android:textColor="#aab0b8"
+                android:textStyle="bold" android:letterSpacing="0.06"
+                android:layout_marginTop="3dp" android:layout_gravity="center"/>
         </LinearLayout>
-        <LinearLayout android:id="@+id/navDonate" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="center" android:padding="6dp">
-            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_nav_donate" android:layout_gravity="center" android:tint="#aab0b8"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DONATE" android:textSize="8sp" android:textColor="#aab0b8" android:textStyle="bold" android:letterSpacing="0.06" android:layout_marginTop="3dp" android:layout_gravity="center"/>
+
+        <LinearLayout android:id="@+id/navDonate"
+            android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:orientation="vertical"
+            android:gravity="center" android:padding="6dp">
+            <ImageView android:layout_width="24dp" android:layout_height="24dp"
+                android:src="@drawable/ic_nav_donate"
+                android:layout_gravity="center" android:tint="#aab0b8"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="DONATE" android:textSize="8sp" android:textColor="#aab0b8"
+                android:textStyle="bold" android:letterSpacing="0.06"
+                android:layout_marginTop="3dp" android:layout_gravity="center"/>
         </LinearLayout>
-        <LinearLayout android:id="@+id/navActivity" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="center" android:padding="6dp">
-            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_nav_activity" android:layout_gravity="center" android:tint="#aab0b8"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ACTIVITY" android:textSize="8sp" android:textColor="#aab0b8" android:textStyle="bold" android:letterSpacing="0.06" android:layout_marginTop="3dp" android:layout_gravity="center"/>
+
+        <LinearLayout android:id="@+id/navActivity"
+            android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:orientation="vertical"
+            android:gravity="center" android:padding="6dp">
+            <ImageView android:layout_width="24dp" android:layout_height="24dp"
+                android:src="@drawable/ic_nav_activity"
+                android:layout_gravity="center" android:tint="#aab0b8"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="ACTIVITY" android:textSize="8sp" android:textColor="#aab0b8"
+                android:textStyle="bold" android:letterSpacing="0.06"
+                android:layout_marginTop="3dp" android:layout_gravity="center"/>
         </LinearLayout>
-        <LinearLayout android:id="@+id/navProfile" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="center" android:padding="6dp" android:background="@drawable/nav_active_bg">
-            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_nav_profile" android:layout_gravity="center"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="PROFILE" android:textSize="8sp" android:textColor="@color/primary" android:textStyle="bold" android:letterSpacing="0.06" android:layout_marginTop="3dp" android:layout_gravity="center"/>
+
+        <LinearLayout android:id="@+id/navProfile"
+            android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:orientation="vertical"
+            android:gravity="center" android:padding="6dp"
+            android:background="@drawable/nav_active_bg">
+            <ImageView android:layout_width="24dp" android:layout_height="24dp"
+                android:src="@drawable/ic_nav_profile"
+                android:layout_gravity="center"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="PROFILE" android:textSize="8sp" android:textColor="@color/primary"
+                android:textStyle="bold" android:letterSpacing="0.06"
+                android:layout_marginTop="3dp" android:layout_gravity="center"/>
         </LinearLayout>
 
     </LinearLayout>

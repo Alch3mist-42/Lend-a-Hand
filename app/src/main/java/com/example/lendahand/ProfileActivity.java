@@ -4,19 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.animation.OvershootInterpolator;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.cardview.widget.CardView;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProfileActivity extends BaseActivity {
 
-    private static final String BASE_URL = "https://wmc.ms.wits.ac.za/students/sgroup2713/";
-    private static final String PROFILE_URL = BASE_URL + "profile.php";
+    private static final String PROFILE_URL =
+            "https://wmc.ms.wits.ac.za/students/sgroup2713/profile.php";
 
     private static final int CREDITS_HELPER   = 20;
     private static final int CREDITS_UPLIFTER = 60;
@@ -32,13 +34,35 @@ public class ProfileActivity extends BaseActivity {
 
         sessionManager = new SessionManager(this);
 
+        // Show session username immediately before server responds
+        String sessionName = sessionManager.getUsername();
+        if (sessionName != null && !sessionName.isEmpty()) {
+            TextView tvName = findViewById(R.id.tvProfileName);
+            if (tvName != null) tvName.setText(sessionName);
+
+            TextView tvAvatarInitials = findViewById(R.id.tvAvatarInitials);
+            if (tvAvatarInitials != null) {
+                String[] parts = sessionName.trim().split(" ");
+                String initials = parts[0].substring(0, 1).toUpperCase();
+                if (parts.length > 1 && parts[parts.length - 1].length() > 0)
+                    initials += parts[parts.length - 1].substring(0, 1).toUpperCase();
+                tvAvatarInitials.setText(initials);
+            }
+        }
+
+        // Gear icon → Settings
+        ImageView btnSettings = findViewById(R.id.btnSettings);
+        if (btnSettings != null)
+            btnSettings.setOnClickListener(v ->
+                    startActivity(new Intent(this, SettingsActivity.class)));
+
         // See Journey
         TextView btnSeeJourney = findViewById(R.id.btnSeeJourney);
         if (btnSeeJourney != null)
             btnSeeJourney.setOnClickListener(v ->
                     startActivity(new Intent(this, JourneyMapActivity.class)));
 
-        // Impact log cards — rebound only
+        // Impact log cards
         addReboundAnimation(findViewById(R.id.cardLog1));
         addReboundAnimation(findViewById(R.id.cardLog2));
         addReboundAnimation(findViewById(R.id.cardLog3));
@@ -59,67 +83,78 @@ public class ProfileActivity extends BaseActivity {
                 startActivity(new Intent(this, LeaderboardActivity.class)));
         setupNavItem(R.id.navProfile, () -> {});
 
-        // Load real profile data
         loadProfile();
     }
 
     private void loadProfile() {
-        StringRequest request = new StringRequest(Request.Method.GET, PROFILE_URL,
+        StringRequest request = new StringRequest(Request.Method.POST, PROFILE_URL,
                 response -> {
                     try {
                         JSONObject json = new JSONObject(response);
+                        if (json.has("error")) return;
+
                         JSONObject user = json.getJSONObject("user");
-
-                        String name   = user.optString("name", "")
+                        String name  = user.optString("name", "")
                                 + " " + user.optString("surname", "");
-                        int    points = user.optInt("points", 0);
-                        int    rank   = user.optInt("rank_position", 0);
+                        int points   = user.optInt("points", 0);
 
-                        // Update name
                         TextView tvName = findViewById(R.id.tvProfileName);
                         if (tvName != null) tvName.setText(name.trim());
 
-                        // Update credits
                         TextView tvCredits = findViewById(R.id.tvCredits);
                         if (tvCredits != null) tvCredits.setText(String.valueOf(points));
 
-                        // Update rank label
+                        TextView tvAvatarInitials = findViewById(R.id.tvAvatarInitials);
+                        if (tvAvatarInitials != null) {
+                            String[] parts = name.trim().split(" ");
+                            String initials = parts[0].substring(0, 1).toUpperCase();
+                            if (parts.length > 1 && parts[parts.length - 1].length() > 0)
+                                initials += parts[parts.length - 1].substring(0, 1).toUpperCase();
+                            tvAvatarInitials.setText(initials);
+                        }
+
                         updateRankDisplay(points);
 
-                        // Update impact log from donations
                         JSONArray donations = json.getJSONArray("donations");
                         updateImpactLog(donations);
 
                     } catch (Exception e) {
-                        // Keep demo data on error
+                        // Keep session data on error
                     }
                 },
-                error -> { /* Keep demo data */ }
-        );
+                error -> { /* Keep session data */ }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("user_id", sessionManager.getUserId());
+                params.put("token",   sessionManager.getToken());
+                return params;
+            }
+        };
         VolleySingleton.getInstance(this).getRequestQueue().add(request);
     }
 
     private void updateRankDisplay(int points) {
         String currentRank, nextExpansion;
         if (points >= CREDITS_LEGEND) {
-            currentRank = "Legend"; nextExpansion = "Max rank reached!";
+            currentRank   = "Legend";
+            nextExpansion = "Max rank reached!";
         } else if (points >= CREDITS_GUARDIAN) {
-            currentRank = "Guardian";
+            currentRank   = "Guardian";
             nextExpansion = (CREDITS_LEGEND - points) + " to Legend";
         } else if (points >= CREDITS_UPLIFTER) {
-            currentRank = "Uplifter";
+            currentRank   = "Uplifter";
             nextExpansion = (CREDITS_GUARDIAN - points) + " to Guardian";
         } else if (points >= CREDITS_HELPER) {
-            currentRank = "Helper";
+            currentRank   = "Helper";
             nextExpansion = (CREDITS_UPLIFTER - points) + " to Uplifter";
         } else {
-            currentRank = "Seedling";
+            currentRank   = "Seedling";
             nextExpansion = (CREDITS_HELPER - points) + " to Helper";
         }
-
         TextView tvRank = findViewById(R.id.tvRankLabel);
         if (tvRank != null) tvRank.setText(currentRank);
-
         TextView tvNext = findViewById(R.id.tvNextRank);
         if (tvNext != null) tvNext.setText(nextExpansion);
     }
@@ -128,21 +163,16 @@ public class ProfileActivity extends BaseActivity {
         int[] logIds = {R.id.cardLog1, R.id.cardLog2, R.id.cardLog3};
         for (int i = 0; i < Math.min(donations.length(), logIds.length); i++) {
             try {
-                JSONObject d = donations.getJSONObject(i);
+                JSONObject d        = donations.getJSONObject(i);
                 String resourceName = d.optString("resource_name", "Donation");
                 String qty          = d.optString("quantity_donated", "0");
-                String status       = d.optString("status", "");
-
                 CardView card = findViewById(logIds[i]);
                 if (card == null) continue;
-
-                // Find title TextView inside card
                 TextView tvTitle = card.findViewWithTag("log_title_" + i);
                 if (tvTitle != null)
                     tvTitle.setText(resourceName + " — " + qty + " items");
-
             } catch (Exception e) {
-                // Keep demo data for this card
+                // Keep demo data
             }
         }
     }

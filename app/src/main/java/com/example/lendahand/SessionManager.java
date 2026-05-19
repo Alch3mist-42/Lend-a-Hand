@@ -5,10 +5,11 @@ import android.content.SharedPreferences;
 
 public class SessionManager {
 
-    private static final String PREF_NAME    = "AsteraSession";
-    private static final String KEY_USER_ID  = "user_id";
-    private static final String KEY_USERNAME = "username";
-    private static final String KEY_ROLE     = "role";
+    private static final String PREF_NAME     = "AsteraSession";
+    private static final String KEY_USER_ID   = "user_id";
+    private static final String KEY_USERNAME  = "username";
+    private static final String KEY_ROLE      = "role";
+    private static final String KEY_TOKEN     = "token";
     private static final String KEY_LOGGED_IN = "logged_in";
 
     private final SharedPreferences prefs;
@@ -19,10 +20,11 @@ public class SessionManager {
         editor = prefs.edit();
     }
 
-    public void saveSession(String userId, String username, String role) {
-        editor.putString(KEY_USER_ID,  userId);
-        editor.putString(KEY_USERNAME, username);
-        editor.putString(KEY_ROLE,     role);
+    public void saveSession(String userId, String username, String role, String token) {
+        editor.putString(KEY_USER_ID,   userId);
+        editor.putString(KEY_USERNAME,  username);
+        editor.putString(KEY_ROLE,      role);
+        editor.putString(KEY_TOKEN,     token);
         editor.putBoolean(KEY_LOGGED_IN, true);
         editor.apply();
     }
@@ -35,5 +37,6 @@ public class SessionManager {
     public String  getUserId()   { return prefs.getString(KEY_USER_ID, ""); }
     public String  getUsername() { return prefs.getString(KEY_USERNAME, ""); }
     public String  getRole()     { return prefs.getString(KEY_ROLE, "user"); }
+    public String  getToken()    { return prefs.getString(KEY_TOKEN, ""); }
     public boolean isStaff()     { return "stuff".equals(getRole()); }
 }
