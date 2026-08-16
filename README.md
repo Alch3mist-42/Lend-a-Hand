@@ -3,7 +3,7 @@
 > A native Android donation platform connecting donors with verified recipients, backed by a PHP REST API and a normalised MySQL database.
 
 **Team:** Group 2713 · University of the Witwatersrand
-**Platform:** Android (Java) · PHP 8 · MySQL 8
+**Platform:** Android (Java) · PHP 8 · PostgreSQL
 
 ---
 
@@ -33,7 +33,7 @@ All data flows through a RESTful API using authenticated HTTP POST requests retu
 |---|---|---|
 | Front-end | Android (Java) | Native mobile UI — Activities, Volley networking |
 | API | PHP 8 | RESTful endpoints — JSON request/response |
-| Database | MySQL 8 | Relational persistence with triggers and views |
+| Database | PostgreSQL | Relational persistence with triggers and views |
 | Networking | Volley (Android) | Async HTTP POST with queued requests |
 | Auth | Session tokens | Token-based API authentication per user |
 
@@ -53,11 +53,11 @@ The schema was built through an iterative design process, resolving a many-to-ma
 | `LEADERBOARD` | Pre-aggregated donor scores (denormalised for read performance) |
 
 Key implementation details:
-- Automated triggers update the leaderboard on donation acceptance and mark requests as fulfilled on allocation
-- A view (`vw_active_requests`) summarises open requests with live donation counts
-- A stored procedure handles user registration with duplicate username/email checks
+- Database triggers update the leaderboard on donation acceptance and mark requests as fulfilled on allocation
+- A view summarises open requests with live donation counts
+- User registration checks for duplicate username/email at the database layer
 
-Full design rationale, ERD diagrams, and normalisation proof are documented in [`LendAHand_Database_Design_Report.pdf`](./LendAHand_Database_Design_Report.pdf).
+> Note: an earlier draft of the design documentation referenced MySQL; the implementation runs on PostgreSQL. This README reflects the corrected stack.
 
 ## Screens
 
@@ -81,6 +81,12 @@ Full design rationale, ERD diagrams, and normalisation proof are documented in [
 ## Contributors
 
 Group 2713 — University of the Witwatersrand
+
+| Contributor | Focus |
+|---|---|
+| Thando Shabangu ([@Alch3mist-42](https://github.com/Alch3mist-42)) | UI/XML — app layouts, custom drawables, navigation, demo video. Also contributed substantially to the Java logic layer (Volley API calls, registration logic, RecyclerView adapters, input validation). |
+| Sibongakonke Ntsele | Database/PHP — PostgreSQL schema, ERD, auth scripts, allocation logic, leaderboard API |
+| Lufuno Pearl Moyo | Java logic layer (with significant support from Thando) |
 
 ---
 
