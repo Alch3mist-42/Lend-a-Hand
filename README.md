@@ -85,8 +85,8 @@ Group 2713 — University of the Witwatersrand
 | Contributor | Focus |
 |---|---|
 | Thando Shabangu ([@Alch3mist-42](https://github.com/Alch3mist-42)) | UI/XML — app layouts, custom drawables, navigation, demo video. Also contributed substantially to the Java logic layer (Volley API calls, registration logic, RecyclerView adapters, input validation). |
-| Sibongakonke Ntsele ([@Sbongakonk3](https://github.com/Sbongakonk3/) | Database/PHP — PostgreSQL schema, ERD, auth scripts, allocation logic, leaderboard API |
-| Lufuno Pearl Moyo ([@Lufuno-pearl](https://github.com/Lufuno-pearl/) | Java logic layer (with significant support from Thando) |
+| Sibongakonke Ntsele ([@Sbongakonk3](https://github.com/Sbongakonk3/)) | Database/PHP — PostgreSQL schema, ERD, auth scripts, allocation logic, leaderboard API |
+| Lufuno Pearl Moyo ([@Lufuno-pearl](https://github.com/Lufuno-pearl/)) | Java logic layer (with significant support from Thando) |
 
 ---
 
